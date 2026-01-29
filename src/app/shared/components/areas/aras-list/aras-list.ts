@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-side-menu',
+  selector: 'app-aras-list',
   imports: [],
-  templateUrl: './side-menu.html',
+  templateUrl: './aras-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideMenu { }
+export class ArasList { }

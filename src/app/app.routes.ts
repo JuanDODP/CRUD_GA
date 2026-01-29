@@ -6,6 +6,18 @@ export const routes: Routes = [
     loadComponent: ()=> import('./home/pages/home-page/home-page')
   },
   {
+    path: 'areas',
+    loadComponent: () => import('./home/pages/areas-page/areas-page')
+  },
+  {
+    path: 'proyectos',
+    loadComponent: () => import('./home/pages/proyectos-page/proyectos-page')
+  },
+  {
+    path: 'asignaciones',
+    loadComponent: () => import('./home/pages/asignasiones-page/asignasiones-page')
+  },
+  {
     path: 'auth',
     children: [
       {

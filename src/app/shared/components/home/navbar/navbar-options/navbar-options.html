@@ -1,0 +1,9 @@
+<ul class="menu menu-horizontal px-1">
+  @for (item of options; track $index) {
+  <li><a [routerLink]="item.route" routerLinkActive="bg-blue-800">{{ item.label }}</a></li>
+  }
+  <!-- <li>
+        <a > item 2 </a>
+      </li>
+      <li><a>Item 3</a></li> -->
+</ul>
