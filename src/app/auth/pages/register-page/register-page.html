@@ -1,0 +1,58 @@
+<div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+  <div class="card w-full max-w-md shadow-2xl bg-base-100">
+    <div class="card-body">
+      <h2 class="text-3xl font-bold text-center mb-2 text-primary">Crea tu cuenta</h2>
+      <p class="text-center text-sm text-gray-500 mb-6">Únete a nosotros y comienza tu experiencia</p>
+
+      <form>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text font-semibold">Nombre completo</span>
+          </label>
+          <input type="text" placeholder="Tu nombre" class="input input-bordered input-primary w-full" required />
+        </div>
+
+        <div class="form-control w-full mt-4">
+          <label class="label">
+            <span class="label-text font-semibold">Correo electrónico</span>
+          </label>
+          <input type="email" placeholder="ejemplo@correo.com" class="input input-bordered input-primary w-full" required />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold">Contraseña</span>
+            </label>
+            <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full" required />
+          </div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold">Confirmar</span>
+            </label>
+            <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full" required />
+          </div>
+        </div>
+
+        <div class="form-control mt-6">
+          <label class="label cursor-pointer justify-start gap-3">
+            <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" required />
+            <span class="label-text">Acepto los términos y condiciones</span>
+          </label>
+        </div>
+
+        <div class="form-control mt-6">
+          <button class="btn btn-primary text-white text-lg">Registrarse</button>
+        </div>
+      </form>
+
+      <div class="divider text-xs text-gray-400">¿Ya tienes cuenta?</div>
+
+      <div class="text-center">
+        <a
+          routerLink="/auth/login"
+        class="link link-primary font-bold">Inicia sesión aquí</a>
+      </div>
+    </div>
+  </div>
+</div>

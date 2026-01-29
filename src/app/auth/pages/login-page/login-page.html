@@ -1,0 +1,40 @@
+<div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+  <div class="card w-full max-w-sm shadow-2xl bg-base-100">
+    <div class="card-body">
+      <h2 class="text-3xl font-bold text-center mb-2 text-primary">¡Bienvenido!</h2>
+      <p class="text-center text-sm text-gray-500 mb-6">Ingresa tus datos para continuar</p>
+
+      <form>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text font-semibold">Correo electrónico</span>
+          </label>
+          <input type="email" placeholder="ejemplo@correo.com" class="input input-bordered input-primary w-full" required />
+        </div>
+
+        <div class="form-control w-full mt-4">
+          <label class="label">
+            <span class="label-text font-semibold">Contraseña</span>
+          </label>
+          <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full" required />
+          <label class="label">
+            <a href="#" class="label-text-alt link link-hover">¿Olvidaste tu contraseña?</a>
+          </label>
+        </div>
+
+        <div class="form-control mt-8">
+          <button class="btn btn-primary text-white text-lg">Entrar</button>
+        </div>
+      </form>
+
+      <div class="divider text-xs text-gray-400">O</div>
+
+      <div class="text-center">
+        <span class="text-sm">¿No tienes cuenta?</span>
+        <a
+        routerLink="/auth/register"
+        class="link link-primary font-bold ml-1">Regístrate</a>
+      </div>
+    </div>
+  </div>
+</div>
