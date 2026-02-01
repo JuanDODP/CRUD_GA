@@ -1,0 +1,32 @@
+<input type="checkbox" id="modal-area-manual" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-primary/20 shadow-2xl bg-base-100">
+
+    <h3 class="text-lg font-bold text-primary mb-4">Nueva Área</h3>
+
+    <form>
+      <div class="form-control w-full mb-2">
+        <label class="label">
+          <span class="label-text">Nombre del Área</span>
+        </label>
+        <input type="text" placeholder="Ej. Sistemas" class="input input-bordered w-full" />
+      </div>
+
+      <div class="form-control w-full mb-4">
+        <label class="label">
+          <span class="label-text">Descripción</span>
+        </label>
+        <textarea class="textarea textarea-bordered h-24" placeholder="Breve detalle..."></textarea>
+      </div>
+
+      <div class="modal-action">
+        <label for="modal-area-manual" class="btn btn-ghost">Cancelar</label>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+
+  </div>
+
+  <label class="modal-backdrop" for="modal-area-manual">Close</label>
+</div>

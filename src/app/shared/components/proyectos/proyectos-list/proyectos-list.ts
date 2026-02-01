@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 interface Proyecto {
   idProyecto: number;
@@ -9,7 +8,7 @@ interface Proyecto {
 }
 @Component({
   selector: 'app-proyectos-list',
-  imports: [DatePipe],
+  imports: [],
   templateUrl: './proyectos-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
