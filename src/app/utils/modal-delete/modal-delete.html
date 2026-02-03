@@ -1,0 +1,33 @@
+<input type="checkbox" id="modal-delete-confirm" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-error/10 shadow-2xl bg-base-100 p-0 overflow-hidden max-w-sm">
+
+    <div class="bg-error/5 p-6 border-b border-error/10 text-center">
+      <div class="mx-auto bg-error text-error-content p-3 rounded-full w-fit mb-3 shadow-lg shadow-error/20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-error">¿Eliminar registro?</h3>
+    </div>
+
+    <div class="p-6 text-center">
+      <p class="text-base-content/70">
+        Esta acción es permanente. Se eliminarán todos los datos asociados a este elemento de forma definitiva.
+      </p>
+
+      <div class="flex flex-col gap-3 mt-8">
+        <button (click)="ejecutarEliminacionReal()" class="btn btn-error w-full shadow-md">
+          Confirmar y Eliminar
+        </button>
+
+        <label for="modal-delete-confirm" class="btn btn-ghost w-full">
+          Cancelar
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <label class="modal-backdrop backdrop-blur-sm bg-black/50" for="modal-delete-confirm">Close</label>
+</div>

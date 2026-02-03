@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Navbar } from "../../../shared/components/home/navbar/navbar";
 import { ProyectosList } from "../../../shared/components/proyectos/proyectos-list/proyectos-list";
+import { ProyectoModalComponent } from "../../../shared/components/proyectos/add-proyecto-modal/add-proyecto-modal";
 interface Proyecto {
   idProyecto: number;
   nombreProyecto: string;
@@ -10,7 +11,7 @@ interface Proyecto {
 }
 @Component({
   selector: 'app-proyectos-page',
-  imports: [Navbar, ProyectosList],
+  imports: [Navbar, ProyectosList, ProyectoModalComponent],
   templateUrl: './proyectos-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

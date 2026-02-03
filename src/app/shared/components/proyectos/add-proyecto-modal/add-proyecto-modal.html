@@ -1,0 +1,56 @@
+<input type="checkbox" id="modal-proyecto-manual" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-primary/20 shadow-2xl bg-base-100 max-w-md">
+
+    <h3 class="text-xl font-bold text-primary mb-6 flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+      Nuevo Proyecto
+    </h3>
+
+    <form>
+      <div class="form-control w-full mb-4">
+        <label class="label">
+          <span class="label-text font-semibold">Nombre del Proyecto</span>
+        </label>
+        <input type="text" placeholder="Ej. Rediseño Web" class="input input-bordered w-full focus:input-primary" />
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text font-semibold">Fecha Inicio</span>
+          </label>
+          <input type="date" class="input input-bordered w-full focus:input-primary" />
+        </div>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text font-semibold">Fecha Fin</span>
+          </label>
+          <input type="date" class="input input-bordered w-full focus:input-primary" />
+        </div>
+      </div>
+
+      <div class="form-control w-full mb-6">
+        <label class="label">
+          <span class="label-text font-semibold">Área Asignada</span>
+        </label>
+        <select class="select select-bordered w-full focus:select-primary">
+          <option disabled selected>Selecciona un área</option>
+          <option>Sistemas</option>
+          <option>Infraestructura</option>
+        </select>
+      </div>
+
+      <div class="modal-action">
+        <label for="modal-proyecto-manual" class="btn btn-ghost">Cancelar</label>
+        <button type="submit" class="btn btn-primary px-8">Guardar Proyecto</button>
+      </div>
+    </form>
+
+  </div>
+
+  <label class="modal-backdrop" for="modal-proyecto-manual">Close</label>
+</div>

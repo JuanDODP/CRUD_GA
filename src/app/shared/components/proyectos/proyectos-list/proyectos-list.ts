@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {  Component } from '@angular/core';
+import { ProyectoModalComponent } from "../add-proyecto-modal/add-proyecto-modal";
 interface Proyecto {
   idProyecto: number;
   nombreProyecto: string;
@@ -8,9 +9,8 @@ interface Proyecto {
 }
 @Component({
   selector: 'app-proyectos-list',
-  imports: [],
+  imports: [ProyectoModalComponent],
   templateUrl: './proyectos-list.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProyectosList {
 
@@ -30,4 +30,9 @@ export class ProyectosList {
       nombreArea: 'Marketing'
     }
   ];
+   public isOpen = false; // Esta es la que el botón pondrá en 'true'
+
+  openModal() {
+    this.isOpen = false;
+  }
 }
