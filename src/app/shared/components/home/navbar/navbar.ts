@@ -16,20 +16,16 @@ interface Options {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Navbar {
-    // authService = Inject(AuthService);
+ public authService = inject(AuthService);
+
+  // Al crear estas referencias locales a los signals del servicio,
+  // facilitas que el motor de OnPush detecte el cambio de estado.
+  public authStatus = this.authService.authStatus;
+  public user = this.authService.user;
     logout(){
       this.authService.logout();
     }
-  // 1. Usa la función inject() correctamente
-   authService = inject(AuthService);
 
-  // 2. Crea la referencia al signal
-  public user = this.authService.user;
-
-  imprimir() {
-    // 3. Para ver el valor de un Signal en consola, DEBES llamarlo: user()
-    console.log("EL USUARIO ES:", this.user());
-  }
   options: Options[] = [
     {
       label: 'Item 1',

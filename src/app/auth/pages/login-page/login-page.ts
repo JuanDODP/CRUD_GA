@@ -35,7 +35,7 @@ router = inject(Router)
     const { email='', password='' } = this.loginForm.value;
     this.authService.login(email!, password!).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
         return
       }
       this.hashError.set(true);

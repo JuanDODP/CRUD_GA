@@ -12,6 +12,16 @@ export class AuthService {
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(null);
+
+  // example
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        this._token.set(token);
+    }
+}
+  // ================================================================================
   private http = inject(HttpClient);
 
 checkstatusResource = rxResource({
@@ -30,7 +40,7 @@ checkstatusResource = rxResource({
   login(email: string, password: string) {
     return this.http.post<AuthResponse>(`${baseUrl}/auth/login`, { email, password }).pipe(
       map((resp) => this.handleLoginSuccess(resp)),
-      // map(() => true),
+       map(() => true),
       catchError((error: any) => this.handleAuthError(error))
     );
   }
@@ -43,12 +53,12 @@ checkstatusResource = rxResource({
       return of(false);
     }
     return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
+      // headers: {
+      //   'Authorization': `Bearer ${token}`
+      // },
     }).pipe(
       map((resp) => this.handleLoginSuccess(resp)),
-      // map(() => true),
+       map(() => true),
       catchError((error: any) => this.handleAuthError(error))
     );
   }
@@ -60,11 +70,11 @@ checkstatusResource = rxResource({
   }
   private handleLoginSuccess(resp: AuthResponse) {
     const { user, token } = resp;
+    localStorage.setItem('token', token);
     this._user.set(user);
     this._token.set(token);
-    localStorage.setItem('token', token);
     this._authStatus.set('authenticated');
-    return true;
+    // return true;
   }
   private handleAuthError(err: any) {
     this.logout();
