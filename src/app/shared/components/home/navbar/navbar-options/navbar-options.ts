@@ -13,6 +13,7 @@ export interface Options {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarOptions {
+
   options: Options[] = [
     {
       label: 'AREAS',

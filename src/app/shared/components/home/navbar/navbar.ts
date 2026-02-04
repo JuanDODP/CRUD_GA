@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { NavbarOptions } from "./navbar-options/navbar-options";
 import { NavbarOptionsMovil } from "./navbar-options-movil/navbar-options-movil";
+import { AuthService } from '../../../../auth/services/auth.service';
 interface Options {
   label: string;
   sublabel: string;
@@ -15,6 +16,20 @@ interface Options {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Navbar {
+    // authService = Inject(AuthService);
+    logout(){
+      this.authService.logout();
+    }
+  // 1. Usa la función inject() correctamente
+   authService = inject(AuthService);
+
+  // 2. Crea la referencia al signal
+  public user = this.authService.user;
+
+  imprimir() {
+    // 3. Para ver el valor de un Signal en consola, DEBES llamarlo: user()
+    console.log("EL USUARIO ES:", this.user());
+  }
   options: Options[] = [
     {
       label: 'Item 1',

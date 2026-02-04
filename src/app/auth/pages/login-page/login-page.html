@@ -4,36 +4,45 @@
       <h2 class="text-3xl font-bold text-center mb-2 text-primary">¡Bienvenido!</h2>
       <p class="text-center text-sm text-gray-500 mb-6">Ingresa tus datos para continuar</p>
 
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-control w-full">
           <label class="label">
             <span class="label-text font-semibold">Correo electrónico</span>
           </label>
-          <input type="email" placeholder="ejemplo@correo.com" class="input input-bordered input-primary w-full" required />
+          <input type="email" placeholder="ejemplo@correo.com" class="input input-bordered input-primary w-full"
+            formControlName="email" />
         </div>
 
         <div class="form-control w-full mt-4">
           <label class="label">
             <span class="label-text font-semibold">Contraseña</span>
           </label>
-          <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full" required />
+          <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full"
+            formControlName="password" />
           <label class="label">
             <a href="#" class="label-text-alt link link-hover">¿Olvidaste tu contraseña?</a>
           </label>
         </div>
 
-        <div class="form-control mt-8">
+        <div class="form-control mt-8 ">
           <button class="btn btn-primary text-white text-lg">Entrar</button>
         </div>
       </form>
-
+      @if (hashError())
+      {
+      <div role="alert" class="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>ingrese sus credenciales</span>
+      </div>
       <div class="divider text-xs text-gray-400">O</div>
+    }
 
       <div class="text-center">
         <span class="text-sm">¿No tienes cuenta?</span>
-        <a
-        routerLink="/auth/register"
-        class="link link-primary font-bold ml-1">Regístrate</a>
+        <a routerLink="/auth/register" class="link link-primary font-bold ml-1">Regístrate</a>
       </div>
     </div>
   </div>

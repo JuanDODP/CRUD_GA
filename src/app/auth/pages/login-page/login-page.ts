@@ -1,26 +1,50 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from "@angular/router";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './login-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginPage {
 
-   email = '';
-  password = '';
 
+fb=inject(FormBuilder)
+hashError=signal(false)
+isPosting=signal(false)
+authService = inject(AuthService)
+router = inject(Router)
+
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+  });
   onSubmit() {
-    if (!this.email || !this.password) {
-      alert('Completa todos los campos');
-      return;
-    }
+    if (this.loginForm.invalid) {
 
-    console.log({
-      email: this.email,
-      password: this.password
+      this.hashError.set(true);
+      setTimeout(() => {
+        this.hashError.set(false);
+      }, 2000);
+      return;
+
+    }
+    const { email='', password='' } = this.loginForm.value;
+    this.authService.login(email!, password!).subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/']);
+        return
+      }
+      this.hashError.set(true);
+      setTimeout(() => {
+        this.hashError.set(false);
+      }, 2000);
     });
+
   }
- }
+
+}
+

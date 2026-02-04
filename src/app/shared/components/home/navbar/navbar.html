@@ -12,6 +12,26 @@
   </div>
   <!-- ============================================================================================================================================ -->
   <div class="navbar-end">
-    <a routerLink="/auth/login" class="btn">Button</a>
+    @if (authService.authStatus()==='authenticated') {
+
+      <button class="btn btn-ghost">
+        {{ authService.user()?.name }}
+      </button>
+      <button class="btn btn-sm btn-error"
+      (click)="authService.logout()"
+      >
+        Salir
+      </button>
+    }
+    @else if(authService.authStatus()==='not-authenticated') {
+      <a class="btn btn-sm btn-primary" routerLink="/auth/login">
+        Iniciar Sesión
+      </a>
+
+    }
+    @else {
+      <span>Cargando...</span>
+    }
+
   </div>
 </div>
