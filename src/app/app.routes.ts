@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home' // Ahora que tenemos guards, podemos apuntar a home por defecto
+    redirectTo: 'areas' // Ahora que tenemos guards, podemos apuntar a areas por defecto
   },
   {
     path: 'auth',
@@ -26,10 +26,10 @@ export const routes: Routes = [
     path: '', // Agrupador de rutas protegidas
     canMatch: [IsAdminGuard], // <-- Aquí aplicas el nuevo Guard
     children: [
-      {
-        path: 'home',
-        loadComponent: () => import('./home/pages/home-page/home-page')
-      },
+      //  {
+      //    path: 'home',
+      //    loadComponent: () => import('./home/pages/home-page/home-page')
+      //  },
       {
         path: 'areas',
         loadComponent: () => import('./home/pages/areas-page/areas-page')
@@ -46,6 +46,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'areas'
   }
 ];

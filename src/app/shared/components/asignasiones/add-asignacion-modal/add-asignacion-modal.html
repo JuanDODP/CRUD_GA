@@ -23,8 +23,10 @@
         <div class="relative">
           <select class="select select-bordered w-full bg-base-200/50 focus:outline-primary">
             <option disabled selected>Selecciona un integrante...</option>
-            <option>Juan Dominguez</option>
-            <option>Desarrollador Senior</option>
+            @for (item of usuarios(); track $index) {
+
+              <option>{{ item.name }}</option>
+            }
           </select>
         </div>
       </div>
@@ -35,8 +37,11 @@
         </label>
         <select class="select select-bordered w-full bg-base-200/50 focus:outline-primary">
           <option disabled selected>¿A qué proyecto se une?</option>
-          <option>Sistema de Nómina</option>
-          <option>Proyecto Integrador EDUIA</option>
+          @for (item of areas(); track $index) {
+
+            <option>{{ item.nombre }}</option>
+          }
+
         </select>
       </div>
 

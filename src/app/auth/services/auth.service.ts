@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { User } from '../interface/user.interface';
+import { AllUsers, User, Usuario } from '../interface/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { AuthResponse } from '../interface/auth-response.interface';
@@ -12,14 +12,18 @@ export class AuthService {
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(null);
+  allUsers = signal<Usuario[]>([]);
 
   // example
 
   constructor() {
+    // this.getUsers();
     if (typeof window !== 'undefined') {
         const token = localStorage.getItem('token');
         this._token.set(token);
     }
+    // obtener todos los usuarios
+    // this.getUsers();
 }
   // ================================================================================
   private http = inject(HttpClient);
@@ -91,5 +95,18 @@ checkstatusResource = rxResource({
   private handleAuthError(err: any) {
     this.logout();
     return of(false);
+  }
+  // obtener usuarios
+  getUsers() {
+    return this.http.get<AllUsers>(`${baseUrl}/auth/users`).subscribe({
+      next: (resp) => {
+        this.allUsers.set(resp.usuarios);
+        console.log('LA RESPUESTA DE USUARIOS ES:', resp);
+      },
+      error: (err) => {
+        console.log('Error fetching usuarios:', err);
+      }
+    })
+
   }
 }

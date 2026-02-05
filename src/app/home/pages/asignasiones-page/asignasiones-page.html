@@ -1,4 +1,4 @@
 <app-navbar/>
 <app-asignasiones-list [asignaciones]="asignacionesService.asignaciones()"/>
-<app-add-asignacion-modal/>
+<app-add-asignacion-modal [areas]="areasService.areas()" [usuarios]="authService.allUsers()"/>
 <app-modal-delete/>

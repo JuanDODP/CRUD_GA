@@ -34,7 +34,7 @@ router = inject(Router)
     const { name='', email='', password='' } = this.registerForm.value;
     this.authService.register(name!, email!, password!).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/areas']);
         return
       }
       this.hashError.set(true);
