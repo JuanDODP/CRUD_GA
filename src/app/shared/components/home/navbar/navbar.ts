@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { NavbarOptions } from "./navbar-options/navbar-options";
 import { NavbarOptionsMovil } from "./navbar-options-movil/navbar-options-movil";
 import { AuthService } from '../../../../auth/services/auth.service';
@@ -16,15 +16,17 @@ interface Options {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Navbar {
- public authService = inject(AuthService);
+  public authService = inject(AuthService);
 
   // Al crear estas referencias locales a los signals del servicio,
   // facilitas que el motor de OnPush detecte el cambio de estado.
   public authStatus = this.authService.authStatus;
   public user = this.authService.user;
-    logout(){
-      this.authService.logout();
-    }
+  router = inject(Router)
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
 
   options: Options[] = [
     {
