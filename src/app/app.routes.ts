@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -20,13 +21,16 @@ export const routes: Routes = [
   {
     path: 'auth',
     children: [
+
       {
         path: 'login',
-        loadComponent: () => import('./auth/pages/login-page/login-page')
+        loadComponent: () => import('./auth/pages/login-page/login-page'),
+        canMatch: [NotAuthenticatedGuard]
       },
       {
         path: 'register',
-        loadComponent: () => import('./auth/pages/register-page/register-page')
+        loadComponent: () => import('./auth/pages/register-page/register-page'),
+        canMatch: [NotAuthenticatedGuard]
       },
       {
         path: '**',

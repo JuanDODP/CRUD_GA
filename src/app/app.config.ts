@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     // nueva funcion para peticiones http
     provideHttpClient(withFetch(),
   withInterceptors([
-    loggingInterceptor,
+    // loggingInterceptor,
      authInterceptor
    ])
 )

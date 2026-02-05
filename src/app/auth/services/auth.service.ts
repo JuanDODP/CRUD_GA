@@ -40,13 +40,17 @@ checkstatusResource = rxResource({
   login(email: string, password: string) {
     return this.http.post<AuthResponse>(`${baseUrl}/auth/login`, { email, password }).pipe(
       map((resp) => this.handleLoginSuccess(resp)),
-       map(() => true),
+      //  map(() => true),
       catchError((error: any) => this.handleAuthError(error))
     );
   }
   // verificar el token
 
   checkStatus(): Observable<boolean> {
+     if (typeof window === 'undefined') {
+        // Si estamos en el servidor, devuelve un observable con false
+        return of(false);
+    }
     const token = localStorage.getItem('token');
     if (!token) {
       this._authStatus.set('not-authenticated');
@@ -58,7 +62,7 @@ checkstatusResource = rxResource({
       // },
     }).pipe(
       map((resp) => this.handleLoginSuccess(resp)),
-       map(() => true),
+      //  map(() => true),
       catchError((error: any) => this.handleAuthError(error))
     );
   }
@@ -74,7 +78,7 @@ checkstatusResource = rxResource({
     this._user.set(user);
     this._token.set(token);
     this._authStatus.set('authenticated');
-    // return true;
+    return true;
   }
   private handleAuthError(err: any) {
     this.logout();
