@@ -4,19 +4,26 @@
       <h2 class="text-3xl font-bold text-center mb-2 text-primary">Crea tu cuenta</h2>
       <p class="text-center text-sm text-gray-500 mb-6">Únete a nosotros y comienza tu experiencia</p>
 
-      <form>
+      <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      >
         <div class="form-control w-full">
           <label class="label">
             <span class="label-text font-semibold">Nombre completo</span>
           </label>
-          <input type="text" placeholder="Tu nombre" class="input input-bordered input-primary w-full" required />
+          <input type="text" placeholder="Tu nombre" class="input input-bordered input-primary w-full" required
+          formControlName="name"
+          />
         </div>
 
         <div class="form-control w-full mt-4">
           <label class="label">
             <span class="label-text font-semibold">Correo electrónico</span>
           </label>
-          <input type="email" placeholder="ejemplo@correo.com" class="input input-bordered input-primary w-full" required />
+          <input type="email" placeholder="ejemplo@correo.com" class="input input-bordered input-primary w-full" required
+          formControlName="email"
+          />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-full">
@@ -24,7 +31,9 @@
             <label class="label">
               <span class="label-text font-semibold">Contraseña</span>
             </label>
-            <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full" required />
+            <input type="password" placeholder="••••••••" class="input input-bordered input-primary w-full" required
+            formControlName="password"
+            />
           </div>
           <!-- <div class="form-control w-full">
             <label class="label">

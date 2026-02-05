@@ -44,6 +44,14 @@ checkstatusResource = rxResource({
       catchError((error: any) => this.handleAuthError(error))
     );
   }
+  // Register
+  register(name: string, email: string, password: string) {
+    return this.http.post<AuthResponse>(`${baseUrl}/auth/register`, { name, email, password }).pipe(
+      map((resp) => this.handleLoginSuccess(resp)),
+      //  map(() => true),
+      catchError((error: any) => this.handleAuthError(error))
+    );
+  }
   // verificar el token
 
   checkStatus(): Observable<boolean> {
