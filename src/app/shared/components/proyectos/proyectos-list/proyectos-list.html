@@ -43,13 +43,15 @@
         </thead>
 
         <tbody>
+          <!-- inicio para mapear proyectos -->
+           @for (item of proyectos(); track $index) {
           <tr>
-            <th class="font-mono text-xs">#501</th>
-            <td class="font-bold">Sistema de Nómina</td>
-            <td>2024-01-15</td>
-            <td>2024-06-30</td>
+            <th class="font-mono text-xs">{{ item.id }}</th>
+            <td class="font-bold">{{ item.nombreProyecto}}</td>
+            <td>{{item.fechaInicio}}</td>
+            <td>{{item.fechaFin}}</td>
             <td class="badge badge-outline badge-info">
-              Área 101
+              {{item.area.nombre}}
             </td>
             <td class="flex justify-center gap-2">
               <!-- Edit -->
@@ -72,6 +74,8 @@
               </label>
             </td>
           </tr>
+            }
+          <!-- fin para mapear proyectos -->
         </tbody>
       </table>
     </div>

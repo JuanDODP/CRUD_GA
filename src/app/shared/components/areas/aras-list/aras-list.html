@@ -31,10 +31,13 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Mapear areas -->
+           @for (item of areas(); track $index) {
+
           <tr>
-            <th class="font-mono text-xs">#101</th>
-            <td class="font-bold">Recursos Humanos</td>
-            <td class="max-w-xs truncate">Gestión de personal y nóminas de la empresa</td>
+            <th class="font-mono text-xs">{{ item.id }}</th>
+            <td class="font-bold">{{ item.nombre }}</td>
+            <td class="max-w-xs truncate">{{ item.description }}</td>
             <td class="flex justify-center gap-2">
               <button class="btn btn-square btn-sm btn-outline btn-info" title="Editar">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -53,6 +56,9 @@
               </label>
             </td>
           </tr>
+           }
+
+          <!-- Fin de el mapeo de áreas dinámico -->
         </tbody>
       </table>
     </div>

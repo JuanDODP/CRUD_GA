@@ -31,8 +31,10 @@
         </thead>
 
         <tbody>
+          <!-- inicio de mapeo de asignaciones -->
+           @for (item of asignaciones(); track $index) {
           <tr>
-            <th class="font-mono text-xs">#9001</th>
+            <th class="font-mono text-xs">{{item.id}}</th>
 
             <td>
               <div class="flex items-center gap-2">
@@ -41,18 +43,17 @@
                     <span>JD</span>
                   </div>
                 </div>
-                <span class="font-medium">Usuario 12</span>
+                <span class="font-medium">{{item.usuario.name}}</span>
               </div>
             </td>
 
             <td>
               <span class="badge badge-outline badge-info">
-                Proyecto 501
+               {{item.proyecto.nombreProyecto}}
               </span>
             </td>
 
-            <td>2024-03-10</td>
-
+            <td>{{item.fechaAsignacion | date}}</td>
             <td class="flex justify-center gap-2">
               <!-- Edit -->
               <button class="btn btn-square btn-sm btn-outline btn-info" title="Editar">
@@ -74,6 +75,8 @@
               </label>
             </td>
           </tr>
+            }
+          <!-- fin de mapeo de asignaciones -->
         </tbody>
       </table>
     </div>

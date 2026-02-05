@@ -1,32 +1,53 @@
 <input type="checkbox" id="modal-area-manual" class="modal-toggle" />
 
 <div class="modal" role="dialog">
-  <div class="modal-box border border-primary/20 shadow-2xl bg-base-100">
+  <div class="modal-box border border-primary/10 shadow-2xl bg-base-100 max-w-md p-0 overflow-hidden">
 
-    <h3 class="text-lg font-bold text-primary mb-4">Nueva Área</h3>
+    <div class="bg-primary/5 p-6 border-b border-primary/10">
+      <h3 class="text-xl font-bold text-primary flex items-center gap-3">
+        <div class="bg-primary text-primary-content p-2 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </div>
+        Nueva Área
+      </h3>
+    </div>
 
-    <form>
-      <div class="form-control w-full mb-2">
-        <label class="label">
-          <span class="label-text">Nombre del Área</span>
+    <form class="p-6 space-y-5">
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Nombre del Área</span>
         </label>
-        <input type="text" placeholder="Ej. Sistemas" class="input input-bordered w-full" />
+        <input
+          type="text"
+          placeholder="Ej. Sistemas o Recursos Humanos"
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary"
+        />
       </div>
 
-      <div class="form-control w-full mb-4">
-        <label class="label">
-          <span class="label-text">Descripción</span>
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Descripción</span>
         </label>
-        <textarea class="textarea textarea-bordered h-24" placeholder="Breve detalle..."></textarea>
+        <textarea
+          class="textarea textarea-bordered h-28 w-full bg-base-200/50 focus:outline-primary"
+          placeholder="Describe brevemente las funciones de esta área..."
+        ></textarea>
       </div>
 
-      <div class="modal-action">
-        <label for="modal-area-manual" class="btn btn-ghost">Cancelar</label>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+      <div class="modal-action mt-8 pt-4 border-t border-base-300">
+        <label for="modal-area-manual" class="btn btn-ghost hover:bg-error/10 hover:text-error transition-colors">
+          Cancelar
+        </label>
+        <button type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
+          Guardar Área
+        </button>
       </div>
     </form>
 
   </div>
 
-  <label class="modal-backdrop" for="modal-area-manual">Close</label>
+  <label class="modal-backdrop backdrop-blur-sm bg-black/40" for="modal-area-manual">Close</label>
 </div>

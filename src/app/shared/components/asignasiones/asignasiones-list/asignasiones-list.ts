@@ -1,9 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Asignacione } from '../../../../home/interface/asignaciones.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-asignasiones-list',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './asignasiones-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AsignasionesList { }
+export class AsignasionesList {
+  asignaciones = input.required<Asignacione[]>();
+}
