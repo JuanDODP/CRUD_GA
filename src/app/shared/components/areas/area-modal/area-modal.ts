@@ -37,13 +37,11 @@ constructor() {
   }
   onSubmit() {
     if(this.updateorCreate()===0){
-        console.log('EJECUTO EL AGREGAR')
 
       if (this.addAreaForm.invalid) {
         this.hasError.set(true);
         setTimeout(() => {
           this.hasError.set(false);
-          console.log('FUNCION FUNCIONANDO')
         }, 2000);
         return;
       }
@@ -51,12 +49,10 @@ constructor() {
        this.areasService.createArea(nombre!, description!);
     }
     else {
-      console.log('SE EJECUTO EL EDITAR')
       if (this.addAreaForm.invalid) {
         this.hasError.set(true);
         setTimeout(() => {
           this.hasError.set(false);
-          console.log('FUNCION FUNCIONANDO')
         }, 2000);
         return;
       }

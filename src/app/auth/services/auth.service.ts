@@ -101,10 +101,8 @@ checkstatusResource = rxResource({
     return this.http.get<AllUsers>(`${baseUrl}/auth/users`).subscribe({
       next: (resp) => {
         this.allUsers.set(resp.usuarios);
-        console.log('LA RESPUESTA DE USUARIOS ES:', resp);
       },
       error: (err) => {
-        console.log('Error fetching usuarios:', err);
       }
     })
 

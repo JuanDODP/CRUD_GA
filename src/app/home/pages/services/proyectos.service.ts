@@ -16,10 +16,8 @@ export class ProyectosService {
     this.http.get<ProyectosResponse>(`${environment.baseUrl}/proyectos`).subscribe({
       next: (resp) => {
         this.proyectos.set(resp.proyectos);
-        console.log('LA RESPUESTA DE PROYECTOS ES:', resp);
       },
       error: (err) => {
-        console.log('Error fetching proyectos:', err);
       }
     });
   }
@@ -32,10 +30,8 @@ export class ProyectosService {
     return this.http.post<Proyecto>(`${environment.baseUrl}/proyectos`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
         this.proyectos.update((proyectos) => [...proyectos, resp]);
-        console.log('Proyecto created:', resp);
       },
       error: (err) => {
-        console.log('Error creating proyecto:', err);
       }
     });
   }

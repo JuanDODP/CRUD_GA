@@ -26,17 +26,14 @@ addProyectoForm = this.fb.group({
   idArea: ['', [Validators.required]],
 });
 onSubmit() {
-  console.log('EJECUTADO')
    if (this.addProyectoForm.invalid) {
      this.hasError.set(true);
-     console.log('EL ERROR FUNCIONA', this.addProyectoForm.invalid)
      setTimeout(() => {
        this.hasError.set(false);
      }, 2000);
      return;
    }
   const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0 } = this.addProyectoForm.value;
-  console.log('Esto es lo que llega del formulario:', {nombreProyecto}, {fechaInicio}, {fechaFin}, {idArea});
    this.proyectosService.createProyecto(nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!));
 }
 }

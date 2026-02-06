@@ -18,7 +18,6 @@ export class ArasList {
 
   }
   ejecutarEliminacion(id: number) {
-    console.log('Eliminando el área con ID:', id);
     // Aquí llamas a tu servicio:
     // this.areasService.remove(id).subscribe(...)
   }
@@ -32,9 +31,7 @@ export class ArasList {
   // mandar a llamar las areas para mapeas
   areas = input.required<Area[]>();
   getAreas(area:any) {
-    console.log('"========================================="')
-    console.log("LAS AREAS", area)
-    console.log('"========================================="')
+
     this.authService.setAreaForEdit(area)
 
   }

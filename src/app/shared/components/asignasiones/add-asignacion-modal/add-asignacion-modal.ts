@@ -26,11 +26,9 @@ export class AddAsignacionModal {
 
   onSubmit() {
     if (this.addAsignacion.invalid) {
-      console.log('Formulario inválido');
       return;
     }
     const { fechaAsignacion = '', idUser = '', idArea = '' } = this.addAsignacion.value;
-    console.log('Esto es lo que llega del formulario:', { fechaAsignacion }, { idUser }, { idArea });
     this.asignacionesService.crearAsignacion(fechaAsignacion!, Number(idUser!), Number(idArea!));
   }
 }

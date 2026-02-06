@@ -22,7 +22,6 @@ export default class AsignasionesPage {
   authService = inject(AuthService);
 
   ngOnInit():void{
-    console.log('Se ejecuta cadaa que se monta ')
     this.authService.getUsers()
   }
 }

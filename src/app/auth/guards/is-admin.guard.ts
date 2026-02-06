@@ -13,7 +13,6 @@ export const IsAdminGuard: CanMatchFn = async (
   // Verificamos el estado actual (usando tu método existente)
   const isAuthenticated = await firstValueFrom(authService.checkStatus());
 
-  console.log('ACCESO PRIVADO:', { isAuthenticated });
 
   if (!isAuthenticated) {
     // Si NO está autenticado, lo mandamos al login

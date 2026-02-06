@@ -28,10 +28,8 @@ idProyecto:number|string
     this.http.post<Asignacione>(`${environment.baseUrl}/asignaciones`, { fechaAsignacion, idUser, idProyecto }).subscribe({
       next: (resp) => {
         this.asignaciones.update((asignaciones) => [...asignaciones, resp]);
-        console.log('Asignación creada:', resp);
       },
       error: (err) => {
-        console.log('Error creando asignación:', err);
       }
     });
   }

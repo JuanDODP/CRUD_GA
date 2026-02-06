@@ -17,7 +17,6 @@ export class AreasService {
 
   // 2. Método para asignar el área
   setAreaForEdit(area: Area) {
-    console.log('YA LLEGO EL AREA DESDE SERVICE', area )
     this.selectedArea.set(area);
     this.update_or_create.set(1);
   }
@@ -37,10 +36,8 @@ export class AreasService {
     this.http.get<AreasReponse>(`${environment.baseUrl}/areas`).subscribe({
       next: (resp) => {
         this.areas.set(resp.areas);
-        console.log('LA RESPUESTA DE AREAS ES:', resp);
       },
       error: (err) => {
-        console.log('Error fetching areas:', err);
       }
     });
 
@@ -49,10 +46,8 @@ export class AreasService {
     return this.http.post<Area>(`${environment.baseUrl}/areas`, { nombre, description }).subscribe({
       next: (resp) => {
         this.areas.update((areas) => [...areas, resp]);
-        console.log('Area created:', resp);
       },
       error: (err) => {
-        console.log('Error creating area:', err);
       }
     });
   }
@@ -60,10 +55,8 @@ export class AreasService {
     return this.http.patch<Area>(`${environment.baseUrl}/areas/${id}`, { nombre, description }).subscribe({
       next: (resp) => {
         this.areas.update((areas) => areas.map(area => area.id === id ? resp : area));
-        console.log('Area updated:', resp);
       },
       error: (err) => {
-        console.log('Error updating area:', err);
       }
     });
   }
