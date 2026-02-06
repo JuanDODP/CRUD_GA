@@ -11,7 +11,7 @@
               d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
-        Nueva Área
+       {{ updateorCreate() === 0 ? 'Nueva Área' : `editar ${selectedArea()?.nombre}`   }}
       </h3>
     </div>
 
@@ -47,8 +47,10 @@
         <label for="modal-area-manual" class="btn btn-ghost hover:bg-error/10 hover:text-error transition-colors">
           Cancelar
         </label>
-        <button type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
-          Guardar Área
+        <button
+        for="modal-area-manual"
+        type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
+         {{ updateorCreate() === 0 ? 'Guardar Área' : 'Actualizar Área' }}
         </button>
       </div>
     </form>

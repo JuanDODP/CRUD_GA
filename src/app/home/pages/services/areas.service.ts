@@ -8,6 +8,28 @@ export class AreasService {
   // constructor() { }
   areas = signal<Area[]>([])
   private http = inject(HttpClient);
+
+  // editar modal
+  update_or_create= signal<number>(0) // 0 para crear, 1 para editar;
+  // 1. Creamos el signal para el área a editar
+   selectedArea = signal<Area | null>(null);
+
+
+  // 2. Método para asignar el área
+  setAreaForEdit(area: Area) {
+    console.log('YA LLEGO EL AREA DESDE SERVICE', area )
+    this.selectedArea.set(area);
+    this.update_or_create.set(1);
+  }
+
+  // 3. Método para limpiar (importante para cuando sea una "Nueva Área")
+  clearSelectedArea() {
+
+    this.selectedArea.set(null);
+    this.update_or_create.set(0);
+
+  }
+  // ===============================================================================
   constructor() {
     this.getAreas()
   }
@@ -31,6 +53,17 @@ export class AreasService {
       },
       error: (err) => {
         console.log('Error creating area:', err);
+      }
+    });
+  }
+  updateArea(id: number, nombre: string, description: string) {
+    return this.http.patch<Area>(`${environment.baseUrl}/areas/${id}`, { nombre, description }).subscribe({
+      next: (resp) => {
+        this.areas.update((areas) => areas.map(area => area.id === id ? resp : area));
+        console.log('Area updated:', resp);
+      },
+      error: (err) => {
+        console.log('Error updating area:', err);
       }
     });
   }

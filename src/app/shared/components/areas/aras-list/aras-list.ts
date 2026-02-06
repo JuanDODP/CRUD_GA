@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { Area, AreasReponse } from '../../../../home/interface/area.interface';
+import { AreasService } from '../../../../home/pages/services/areas.service';
 
 @Component({
   selector: 'app-aras-list',
@@ -13,11 +14,29 @@ export class ArasList {
   closeModal() {
     this.isOpen = false;
   }
+  openModal(si_no:number) {
+
+  }
   ejecutarEliminacion(id: number) {
     console.log('Eliminando el área con ID:', id);
     // Aquí llamas a tu servicio:
     // this.areasService.remove(id).subscribe(...)
   }
+  // LLAMAR AL SERVICIO
+  authService=inject(AreasService)
+  areasService=inject(AreasService)
+
+    clear(){
+    this.areasService.clearSelectedArea();
+  }
   // mandar a llamar las areas para mapeas
   areas = input.required<Area[]>();
+  getAreas(area:any) {
+    console.log('"========================================="')
+    console.log("LAS AREAS", area)
+    console.log('"========================================="')
+    this.authService.setAreaForEdit(area)
+
+  }
+
 }
