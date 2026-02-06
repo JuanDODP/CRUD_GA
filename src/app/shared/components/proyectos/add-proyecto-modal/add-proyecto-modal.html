@@ -11,12 +11,17 @@
       Nuevo Proyecto
     </h3>
 
-    <form>
+    <form
+      [formGroup]="addProyectoForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="form-control w-full mb-4">
         <label class="label">
           <span class="label-text font-semibold">Nombre del Proyecto</span>
         </label>
-        <input type="text" placeholder="Ej. Rediseño Web" class="input input-bordered w-full focus:input-primary" />
+        <input type="text" placeholder="Ej. Rediseño Web" class="input input-bordered w-full focus:input-primary"
+        formControlName="nombreProyecto"
+        />
       </div>
 
       <div class="grid grid-cols-2 gap-4 mb-4">
@@ -24,13 +29,17 @@
           <label class="label">
             <span class="label-text font-semibold">Fecha Inicio</span>
           </label>
-          <input type="date" class="input input-bordered w-full focus:input-primary" />
+          <input type="date" class="input input-bordered w-full focus:input-primary"
+          formControlName="fechaInicio"
+          />
         </div>
         <div class="form-control w-full">
           <label class="label">
             <span class="label-text font-semibold">Fecha Fin</span>
           </label>
-          <input type="date" class="input input-bordered w-full focus:input-primary" />
+          <input type="date" class="input input-bordered w-full focus:input-primary"
+          formControlName="fechaFin"
+          />
         </div>
       </div>
 
@@ -51,7 +60,9 @@
           <span class="label-text font-semibold">Área Asignada</span>
         </label>
 
-        <select #areaSelect class="select select-bordered w-full focus:select-primary">
+        <select #areaSelect class="select select-bordered w-full focus:select-primary"
+        formControlName="idArea"
+        >
 
           <option disabled selected value="">Selecciona un área</option>
 

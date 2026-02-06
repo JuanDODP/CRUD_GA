@@ -19,8 +19,21 @@ export class AsignacionesService {
       });
   }
 
-  crearAsignacion(asignacion: any) {
+  crearAsignacion(
+fechaAsignacion: string,
+idUser:number|string,
+idProyecto:number|string
+  ) {
     // Lógica para crear una nueva asignación
+    this.http.post<Asignacione>(`${environment.baseUrl}/asignaciones`, { fechaAsignacion, idUser, idProyecto }).subscribe({
+      next: (resp) => {
+        this.asignaciones.update((asignaciones) => [...asignaciones, resp]);
+        console.log('Asignación creada:', resp);
+      },
+      error: (err) => {
+        console.log('Error creando asignación:', err);
+      }
+    });
   }
 
   actualizarAsignacion(id: number, cambios: any) {

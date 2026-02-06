@@ -4,7 +4,7 @@ import { Proyecto } from '../../../../home/interface/proyectos.interface';
 
 @Component({
   selector: 'app-proyectos-list',
-  imports: [ProyectoModalComponent],
+  imports: [],
   templateUrl: './proyectos-list.html',
 })
 export class ProyectosList {

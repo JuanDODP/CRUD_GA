@@ -6,6 +6,7 @@ import { ModalDelete } from "../../../utils/modal-delete/modal-delete";
 import { AsignacionesService } from '../services/asignaciones.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AreasService } from '../services/areas.service';
+import { ProyectosService } from '../services/proyectos.service';
 
 @Component({
   selector: 'app-asignasiones-page',
@@ -17,6 +18,7 @@ export default class AsignasionesPage {
 
   asignacionesService = inject(AsignacionesService);
   areasService = inject(AreasService);
+  proyectosService = inject(ProyectosService);
   authService = inject(AuthService);
 
   ngOnInit():void{

@@ -27,7 +27,7 @@ export class ProyectosService {
     nombreProyecto: string,
     fechaInicio: string,
     fechaFin: string,
-    idArea: number,
+    idArea: number | string,
   ) {
     return this.http.post<Proyecto>(`${environment.baseUrl}/proyectos`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
