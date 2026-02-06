@@ -8,7 +8,7 @@
       </p>
     </div>
 
-    <label for="modal-asignacion-manual" class="btn btn-primary shadow-lg gap-2 cursor-pointer">
+    <label for="modal-asignacion-manual" class="btn btn-primary shadow-lg gap-2 cursor-pointer" (click)="clear()">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
       </svg>
@@ -32,7 +32,7 @@
 
         <tbody>
           <!-- inicio de mapeo de asignaciones -->
-           @for (item of asignaciones(); track $index) {
+          @for (item of asignaciones(); track $index) {
           <tr>
             <th class="font-mono text-xs">{{item.id}}</th>
 
@@ -49,23 +49,37 @@
 
             <td>
               <span class="badge badge-outline badge-info">
-               {{item.proyecto.nombreProyecto}}
+                {{item.proyecto.nombreProyecto}}
               </span>
             </td>
 
             <td>{{item.fechaAsignacion | date}}</td>
             <td class="flex justify-center gap-2">
               <!-- Edit -->
-              <button class="btn btn-square btn-sm btn-outline btn-info" title="Editar">
+              <!-- <button class="btn btn-square btn-sm btn-outline btn-info" title="Editar">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                 </svg>
-              </button>
+              </button> -->
+              <!-- ================================================================================= -->
 
+              <label  for="modal-asignacion-manual" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
+                title="Eliminar"
+
+                (click)="
+                clear();
+                getAsignacion(item)"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </label>
               <!-- Delete -->
-               <label for="modal-delete-confirm" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
+              <label for="modal-delete-confirm" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
                 title="Eliminar">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -75,7 +89,7 @@
               </label>
             </td>
           </tr>
-            }
+          }
           <!-- fin de mapeo de asignaciones -->
         </tbody>
       </table>

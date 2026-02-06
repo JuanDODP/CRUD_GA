@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { Area } from '../../../../home/interface/asignaciones.interface';
 import { Usuario } from '../../../../auth/interface/user.interface';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,12 +23,41 @@ export class AddAsignacionModal {
     idUser: ['', [Validators.required]],
     idArea: ['', [Validators.required]],
   });
+  selectAsignacion = this.asignacionesService.selectedAsignacion;
+  updateorcreate = this.asignacionesService.update_or_create;
+
+  constructor() {
+    // efecto para detectar cambios en el signal automáticamente
+    effect(() => {
+
+      const asignacion = this.asignacionesService.selectedAsignacion();
+      if (asignacion) {
+        this.addAsignacion.patchValue({
+          fechaAsignacion: asignacion.fechaAsignacion,
+          idUser: asignacion.usuario.id.toString(),
+          idArea: asignacion.proyecto.area.id.toString(),
+        });
+      } else {
+        this.addAsignacion.reset();
+      }
+    });
+  }
 
   onSubmit() {
-    if (this.addAsignacion.invalid) {
-      return;
-    }
-    const { fechaAsignacion = '', idUser = '', idArea = '' } = this.addAsignacion.value;
-    this.asignacionesService.crearAsignacion(fechaAsignacion!, Number(idUser!), Number(idArea!));
+     if(this.updateorcreate()===0){
+   if (this.addAsignacion.invalid) {
+         return;
+       }
+       const { fechaAsignacion = '', idUser = '', idArea = '' } = this.addAsignacion.value;
+       this.asignacionesService.crearAsignacion(fechaAsignacion!, Number(idUser!), Number(idArea!));
+     } else {
+   if (this.addAsignacion.invalid) {
+         return;
+       }
+       const { fechaAsignacion = '', idUser = '', idArea = '' } = this.addAsignacion.value;
+       const id = this.selectAsignacion()?.id || 0;
+       this.asignacionesService.actualizarAsignacion(id, fechaAsignacion!, Number(idUser!), Number(idArea!));
+     }
+
   }
 }

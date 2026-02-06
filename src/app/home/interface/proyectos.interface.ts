@@ -6,8 +6,8 @@ export interface ProyectosResponse {
 export interface Proyecto {
   id:             number;
   nombreProyecto: string;
-  fechaInicio:    Date;
-  fechaFin:       Date;
+  fechaInicio:    Date | string;
+  fechaFin:       Date | string;
   area:           Area;
 }
 
