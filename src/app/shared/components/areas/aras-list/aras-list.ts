@@ -14,7 +14,7 @@ export class ArasList {
   closeModal() {
     this.isOpen = false;
   }
-  openModal(si_no:number) {
+  openModal(si_no: number) {
 
   }
   ejecutarEliminacion(id: number) {
@@ -22,15 +22,15 @@ export class ArasList {
     // this.areasService.remove(id).subscribe(...)
   }
   // LLAMAR AL SERVICIO
-  authService=inject(AreasService)
-  areasService=inject(AreasService)
+  authService = inject(AreasService)
+  areasService = inject(AreasService)
 
-    clear(){
+  clear() {
     this.areasService.clearSelectedArea();
   }
   // mandar a llamar las areas para mapeas
   areas = input.required<Area[]>();
-  getAreas(area:any) {
+  getAreas(area: any) {
 
     this.authService.setAreaForEdit(area)
 

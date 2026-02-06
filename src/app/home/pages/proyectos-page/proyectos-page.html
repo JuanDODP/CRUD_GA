@@ -1,4 +1,4 @@
 <app-navbar/>
 <app-proyectos-list [proyectos]="proyectoService.proyectos()" />
 <app-proyecto-modal [areas]="areasService.areas()" />
-<app-modal-delete/>
+<app-modal-delete text="'¿Estas seguro de que quieres eliminar este proyecto?'" (onDelete)="onDeleteCheck()"/>

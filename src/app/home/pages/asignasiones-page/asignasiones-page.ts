@@ -24,4 +24,14 @@ export default class AsignasionesPage {
   ngOnInit():void{
     this.authService.getUsers()
   }
+  onDeleteCheck() {
+    const asignacion = this.asignacionesService.selectedAsignacion();
+     if (asignacion) {
+       this.asignacionesService.deleteAsignacion(asignacion.id);
+       this.asignacionesService.clearSelectedAsignacion();
+     }
+
+
+
+  }
 }

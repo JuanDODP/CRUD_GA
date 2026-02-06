@@ -17,7 +17,6 @@ export class ProyectosService {
   // 2. Método para asignar el proyecto
   setProyectoForEdit(proyecto: Proyecto) {
     // que llega
-    console.log('QUE LLEGA AL SETPROYECTOFOREDIT', proyecto)
     this.selectedProyecto.set(proyecto);
     this.update_or_create.set(1);
   }
@@ -65,6 +64,15 @@ export class ProyectosService {
     return this.http.patch<Proyecto>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
         this.proyectos.update((proyectos) => proyectos.map(proyecto => proyecto.id === id ? resp : proyecto));
+      },
+      error: (err) => {
+      }
+    });
+  }
+  deleteProyecto(id: number) {
+    return this.http.delete(`${environment.baseUrl}/proyectos/${id}`).subscribe({
+      next: () => {
+        this.proyectos.update((proyectos) => proyectos.filter(proyecto => proyecto.id !== id));
       },
       error: (err) => {
       }

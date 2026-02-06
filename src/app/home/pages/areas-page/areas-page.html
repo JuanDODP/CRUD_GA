@@ -2,4 +2,6 @@
 
 <app-aras-list [areas]="areasService.areas()"/>
 <app-area-modal/>
-<app-modal-delete/>
+<app-modal-delete text="'¿Estas seguro de que quieres elimiar esta area?'"
+(onDelete)="onDeleteCheck()"
+/>

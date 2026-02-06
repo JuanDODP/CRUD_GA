@@ -16,4 +16,11 @@ export default class ProyectosPage {
 proyectoService=inject(ProyectosService)
 // inyectar el area para poderl autilizar
 areasService=inject(AreasService)
+onDeleteCheck() {
+  const proyecto = this.proyectoService.selectedProyecto();
+  if (proyecto) {
+    this.proyectoService.deleteProyecto(proyecto.id);
+    this.proyectoService.clearSelectedProyecto(); // Limpiar el proyecto seleccionado después de eliminar
+  }
+}
 }

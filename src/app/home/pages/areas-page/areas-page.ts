@@ -12,4 +12,10 @@ import { AreasService } from '../services/areas.service';
 })
 export default class AreasPage {
 areasService=inject(AreasService)
+onDeleteCheck(){
+
+  this
+.areasService.deleteArea(this.areasService.selectedArea()!.id);
+  // this.areasService.deleteArea(this.areasService.selectedArea()!.id)111;
+}
 }

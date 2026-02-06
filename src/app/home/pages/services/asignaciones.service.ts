@@ -17,7 +17,6 @@ export class AsignacionesService {
   // Método para asignar la asignación
   setAsignacionForEdit(asignacion: Asignacione) {
     // que llega al formulario para editar
-    console.log('Asignación seleccionada para editar:', asignacion);
     this.selectedAsignacion.set(asignacion);
     this.update_or_create.set(1);
   }
@@ -65,7 +64,14 @@ export class AsignacionesService {
     });
   }
 
-  eliminarAsignacion(id: number) {
+  deleteAsignacion(id: number) {
     // Lógica para eliminar una asignación
+    return this.http.delete(`${environment.baseUrl}/asignaciones/${id}`).subscribe({
+      next: () => {
+        this.asignaciones.update((asignaciones) => asignaciones.filter(asignacion => asignacion.id !== id));
+      },
+      error: (err) => {
+      }
+    });
   }
 }

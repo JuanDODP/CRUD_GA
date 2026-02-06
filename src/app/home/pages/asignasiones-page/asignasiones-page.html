@@ -1,4 +1,6 @@
 <app-navbar/>
 <app-asignasiones-list [asignaciones]="asignacionesService.asignaciones()"/>
 <app-add-asignacion-modal [areas]="areasService.areas()" [usuarios]="authService.allUsers()" [proyectos]="proyectosService.proyectos()"/>
-<app-modal-delete/>
+<app-modal-delete text="'¿Estas seguro de que quieres eliminar esta asignación?'"
+(onDelete)="onDeleteCheck()"
+/>

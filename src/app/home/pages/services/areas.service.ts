@@ -60,4 +60,13 @@ export class AreasService {
       }
     });
   }
+  deleteArea(id: number) {
+    return this.http.delete(`${environment.baseUrl}/areas/${id}`).subscribe({
+      next: () => {
+        this.areas.update((areas) => areas.filter(area => area.id !== id));
+      },
+      error: (err) => {
+      }
+    });
+  }
 }
