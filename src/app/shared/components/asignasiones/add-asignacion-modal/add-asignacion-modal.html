@@ -1,4 +1,4 @@
-<input type="checkbox" id="modal-asignacion-manual" class="modal-toggle" />
+<input #modalCheckbox type="checkbox" id="modal-asignacion-manual" class="modal-toggle" />
 
 <div class="modal" role="dialog">
   <div class="modal-box border border-primary/10 shadow-2xl bg-base-100 max-w-md p-0 overflow-hidden">
@@ -53,6 +53,10 @@
         <input type="date" class="input input-bordered w-full bg-base-200/50 focus:outline-primary appearance-none"
           formControlName="fechaAsignacion" />
       </div>
+
+       @if (hasError()) {
+        <app-alert-error />
+      }
 
       <div class="modal-action mt-8 pt-4 border-t border-base-300">
         <label for="modal-asignacion-manual" class="btn btn-ghost hover:bg-error/10 hover:text-error transition-colors">

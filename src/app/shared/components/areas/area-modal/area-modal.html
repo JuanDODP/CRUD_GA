@@ -1,4 +1,7 @@
-<input type="checkbox" id="modal-area-manual" class="modal-toggle" />
+<input
+  #modalCheckbox
+
+type="checkbox" id="modal-area-manual" class="modal-toggle" />
 
 <div class="modal" role="dialog">
   <div class="modal-box border border-primary/10 shadow-2xl bg-base-100 max-w-md p-0 overflow-hidden">
@@ -11,24 +14,18 @@
               d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
-       {{ updateorCreate() === 0 ? 'Nueva Área' : `editar ${selectedArea()?.nombre}`   }}
+        {{ updateorCreate() === 0 ? 'Nueva Área' : `editar ${selectedArea()?.nombre}` }}
       </h3>
     </div>
 
-    <form class="p-6 space-y-4"
-    [formGroup]="addAreaForm"
-    (ngSubmit)="onSubmit()"
-    >
+    <form class="p-6 space-y-4" [formGroup]="addAreaForm" (ngSubmit)="onSubmit()">
 
       <div class="form-control w-full">
         <label class="label pt-0">
           <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Nombre del Área</span>
         </label>
         <input type="text" placeholder="Ej. Sistemas o Recursos Humanos"
-          class="input input-bordered w-full bg-base-200/50 focus:outline-primary"
-          formControlName="nombre"
-
-          />
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="nombre" />
       </div>
 
 
@@ -38,21 +35,21 @@
           <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Descripción</span>
         </label>
         <input type="text" placeholder="Ej. Area encargada de marketing"
-          class="input input-bordered w-full bg-base-200/50 focus:outline-primary"
-          formControlName="description"
-          />
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="description" />
       </div>
 
       <div class="modal-action mt-6 pt-4 border-t border-base-300">
         <label for="modal-area-manual" class="btn btn-ghost hover:bg-error/10 hover:text-error transition-colors">
           Cancelar
         </label>
-        <button
-        for="modal-area-manual"
-        type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
-         {{ updateorCreate() === 0 ? 'Guardar Área' : 'Actualizar Área' }}
+        <button for="modal-area-manual" type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
+          {{ updateorCreate() === 0 ? 'Guardar Área' : 'Actualizar Área' }}
         </button>
       </div>
+      @if (hasError()) {
+        <app-alert-error />
+      }
+
     </form>
 
   </div>

@@ -1,17 +1,20 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, ElementRef, inject, input, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProyectosService } from '../../../../home/pages/services/proyectos.service';
 import { AreasService } from '../../../../home/pages/services/areas.service';
 import { Area } from '../../../../home/interface/area.interface';
+import { AlertError } from "../../../../utils/alert-error/alert-error";
 
 @Component({
   selector: 'app-proyecto-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AlertError],
   templateUrl: './add-proyecto-modal.html',
 })
 export class ProyectoModalComponent {
+  @ViewChild('modalCheckbox') modalCheckbox!: ElementRef<HTMLInputElement>;
+
   public isOpen = false;
   fb = inject(FormBuilder);
   hasError = signal(false);
@@ -44,6 +47,9 @@ export class ProyectoModalComponent {
       }
     });
   }
+  closeModal() {
+    this.modalCheckbox.nativeElement.checked = false;
+  }
   onSubmit() {
     if (this.updateorCreate() === 0) {
 
@@ -56,6 +62,11 @@ export class ProyectoModalComponent {
       }
       const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0 } = this.addProyectoForm.value;
       this.proyectosService.createProyecto(nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!));
+      this.closeModal();
+      this.addProyectoForm.reset();
+      setTimeout(() => {
+        this.proyectosService.resetIsSuccess();
+      }, 2000);
     }
     else {
       if (this.addProyectoForm.invalid) {
@@ -68,6 +79,10 @@ export class ProyectoModalComponent {
       const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0 } = this.addProyectoForm.value;
       const id = this.selectProyecto()?.id || 0; // Asegúrate de que el ID esté disponible
       this.proyectosService.updateProyecto(id, nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!));
+      this.closeModal();
+      setTimeout(() => {
+        this.proyectosService.resetIsSuccess();
+      }, 2000);
     }
   }
 }

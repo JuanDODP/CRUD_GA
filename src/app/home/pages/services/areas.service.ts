@@ -10,10 +10,16 @@ export class AreasService {
   private http = inject(HttpClient);
 
   // editar modal
-  update_or_create= signal<number>(0) // 0 para crear, 1 para editar;
+  update_or_create = signal<number>(0) // 0 para crear, 1 para editar;
   // 1. Creamos el signal para el área a editar
-   selectedArea = signal<Area | null>(null);
+  selectedArea = signal<Area | null>(null);
 
+  //  estado para manejar las operaciones
+  isSuccess = signal<boolean>(false) // checking, exist, no-exist;
+  // resetear el isSuccess
+  resetIsSuccess() {
+    this.isSuccess.set(false);
+  }
 
   // 2. Método para asignar el área
   setAreaForEdit(area: Area) {
@@ -43,20 +49,28 @@ export class AreasService {
 
   }
   createArea(nombre: string, description: string) {
+    this.resetIsSuccess();
     return this.http.post<Area>(`${environment.baseUrl}/areas`, { nombre, description }).subscribe({
       next: (resp) => {
         this.areas.update((areas) => [...areas, resp]);
+        this.isSuccess.set(true);
       },
       error: (err) => {
+        this.isSuccess.set(false);
+
       }
     });
   }
   updateArea(id: number, nombre: string, description: string) {
+
     return this.http.patch<Area>(`${environment.baseUrl}/areas/${id}`, { nombre, description }).subscribe({
       next: (resp) => {
         this.areas.update((areas) => areas.map(area => area.id === id ? resp : area));
+        this.isSuccess.set(true);
+
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }

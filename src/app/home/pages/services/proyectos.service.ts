@@ -27,6 +27,11 @@ export class ProyectosService {
     this.update_or_create.set(0);
   }
   // ================================================================================
+   isSuccess = signal<boolean>(false) // checking, exist, no-exist;
+  // resetear el isSuccess
+  resetIsSuccess() {
+    this.isSuccess.set(false);
+  }
   constructor() {
     this.getProyectos()
   }
@@ -49,8 +54,12 @@ export class ProyectosService {
     return this.http.post<Proyecto>(`${environment.baseUrl}/proyectos`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
         this.proyectos.update((proyectos) => [...proyectos, resp]);
+        this.isSuccess.set(true);
+
       },
       error: (err) => {
+        this.isSuccess.set(false);
+
       }
     });
   }
@@ -64,8 +73,11 @@ export class ProyectosService {
     return this.http.patch<Proyecto>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
         this.proyectos.update((proyectos) => proyectos.map(proyecto => proyecto.id === id ? resp : proyecto));
+        this.isSuccess.set(true);
+
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }

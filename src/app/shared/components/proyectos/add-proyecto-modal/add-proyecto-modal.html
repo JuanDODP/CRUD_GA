@@ -1,4 +1,4 @@
-<input type="checkbox" id="modal-proyecto-manual" class="modal-toggle" />
+<input #modalCheckbox type="checkbox" id="modal-proyecto-manual" class="modal-toggle" />
 
 <div class="modal" role="dialog">
   <div class="modal-box border border-primary/20 shadow-2xl bg-base-100 max-w-md">
@@ -71,11 +71,15 @@
           }
         </select>
       </div>
+       @if (hasError()) {
+        <app-alert-error />
+      }
 
       <div class="modal-action">
         <label for="modal-proyecto-manual" class="btn btn-ghost">Cancelar</label>
         <button type="submit" class="btn btn-primary px-8">{{updateorCreate()=== 0 ? 'Guardar Proyecto' : 'Actualizar Proyecto'}}</button>
       </div>
+
     </form>
 
   </div>

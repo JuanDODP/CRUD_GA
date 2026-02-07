@@ -6,7 +6,7 @@ import { AsignasionesList } from "../../../shared/components/asignasiones/asigna
 
 @Component({
   selector: 'app-home-page',
-  imports: [Navbar, ArasList, ProyectosList, AsignasionesList],
+  imports: [Navbar],
   templateUrl: './home-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

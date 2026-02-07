@@ -24,6 +24,11 @@ export class AsignacionesService {
     this.selectedAsignacion.set(null);
     this.update_or_create.set(0);
   }
+   isSuccess = signal<boolean>(false) // checking, exist, no-exist;
+  // resetear el isSuccess
+  resetIsSuccess() {
+    this.isSuccess.set(false);
+  }
 
   //  ================================================================
   constructor() {
@@ -47,8 +52,10 @@ export class AsignacionesService {
     this.http.post<Asignacione>(`${environment.baseUrl}/asignaciones`, { fechaAsignacion, idUser, idProyecto }).subscribe({
       next: (resp) => {
         this.asignaciones.update((asignaciones) => [...asignaciones, resp]);
+        this.isSuccess.set(true);
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }
@@ -58,8 +65,10 @@ export class AsignacionesService {
     return this.http.patch<Asignacione>(`${environment.baseUrl}/asignaciones/${id}`, { fechaAsignacion, idUser, idProyecto }).subscribe({
       next: (resp) => {
         this.asignaciones.update((asignaciones) => asignaciones.map(asignacion => asignacion.id === id ? resp : asignacion));
+        this.isSuccess.set(true);
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }
