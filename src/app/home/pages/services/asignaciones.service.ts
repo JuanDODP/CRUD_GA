@@ -78,8 +78,10 @@ export class AsignacionesService {
     return this.http.delete(`${environment.baseUrl}/asignaciones/${id}`).subscribe({
       next: () => {
         this.asignaciones.update((asignaciones) => asignaciones.filter(asignacion => asignacion.id !== id));
+        this.isSuccess.set(true);
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }

@@ -20,6 +20,12 @@ export class AreasService {
   resetIsSuccess() {
     this.isSuccess.set(false);
   }
+  // estado para manejar errores
+  isError = signal<boolean>(false);
+  // resetear el isError
+  resetIsError() {
+    this.isError.set(false);
+  }
 
   // 2. Método para asignar el área
   setAreaForEdit(area: Area) {
@@ -78,8 +84,11 @@ export class AreasService {
     return this.http.delete(`${environment.baseUrl}/areas/${id}`).subscribe({
       next: () => {
         this.areas.update((areas) => areas.filter(area => area.id !== id));
+        this.isSuccess.set(true);
+
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }

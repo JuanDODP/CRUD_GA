@@ -85,8 +85,11 @@ export class ProyectosService {
     return this.http.delete(`${environment.baseUrl}/proyectos/${id}`).subscribe({
       next: () => {
         this.proyectos.update((proyectos) => proyectos.filter(proyecto => proyecto.id !== id));
+        this.isSuccess.set(true);
+
       },
       error: (err) => {
+        this.isSuccess.set(false);
       }
     });
   }

@@ -11,11 +11,14 @@ import { AreasService } from '../services/areas.service';
   templateUrl: './areas-page.html',
 })
 export default class AreasPage {
-areasService=inject(AreasService)
-onDeleteCheck(){
+  areasService = inject(AreasService)
+  onDeleteCheck() {
 
-  this
-.areasService.deleteArea(this.areasService.selectedArea()!.id);
-  // this.areasService.deleteArea(this.areasService.selectedArea()!.id)111;
-}
+    this
+      .areasService.deleteArea(this.areasService.selectedArea()!.id);
+    // this.areasService.deleteArea(this.areasService.selectedArea()!.id)111;
+    setTimeout(() => {
+      this.areasService.resetIsSuccess();
+    }, 2000);
+  }
 }

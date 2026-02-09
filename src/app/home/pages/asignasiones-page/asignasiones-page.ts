@@ -29,6 +29,9 @@ export default class AsignasionesPage {
      if (asignacion) {
        this.asignacionesService.deleteAsignacion(asignacion.id);
        this.asignacionesService.clearSelectedAsignacion();
+        setTimeout(() => {
+         this.asignacionesService.resetIsSuccess();
+       }, 2000);
      }
 
 

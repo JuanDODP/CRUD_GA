@@ -21,6 +21,9 @@ onDeleteCheck() {
   if (proyecto) {
     this.proyectoService.deleteProyecto(proyecto.id);
     this.proyectoService.clearSelectedProyecto(); // Limpiar el proyecto seleccionado después de eliminar
+    setTimeout(() => {
+      this.proyectoService.resetIsSuccess();
+    }, 2000);
   }
 }
 }
