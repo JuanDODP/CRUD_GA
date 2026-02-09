@@ -56,11 +56,20 @@ export class AreasService {
   }
   createArea(nombre: string, description: string) {
     this.resetIsSuccess();
-    return this.http.post<Area>(`${environment.baseUrl}/areas`, { nombre, description }).subscribe({
+    return this.http.post<any>(`${environment.baseUrl}/areas`, { nombre, description }).subscribe({
+      // next: (resp) => {
+      //   this.areas.update((areas) => [...areas, resp]);
+      //   this.isSuccess.set(true);
+      // },
       next: (resp) => {
-        this.areas.update((areas) => [...areas, resp]);
-        this.isSuccess.set(true);
-      },
+      // 1. Verificamos que resp sea el objeto Area. Si tu API devuelve {area: Area}, usa resp.area
+      const nuevaArea = resp?.area ? resp.area : resp; // Ajusta esto según la estructura de tu respuesta
+      this.areas.update((currentAreas) => [...currentAreas, nuevaArea]);
+
+      // 2. Marcamos éxito para que el modal sepa que puede cerrarse
+      this.isSuccess.set(true);
+      console.log('Área agregada exitosamente:', resp);
+    },
       error: (err) => {
         this.isSuccess.set(false);
 
@@ -69,9 +78,9 @@ export class AreasService {
   }
   updateArea(id: number, nombre: string, description: string) {
 
-    return this.http.patch<Area>(`${environment.baseUrl}/areas/${id}`, { nombre, description }).subscribe({
+    return this.http.patch<any>(`${environment.baseUrl}/areas/${id}`, { nombre, description }).subscribe({
       next: (resp) => {
-        this.areas.update((areas) => areas.map(area => area.id === id ? resp : area));
+        this.areas.update((areas) => areas.map(area => area.id === id ? resp?.area : area));
         this.isSuccess.set(true);
 
       },

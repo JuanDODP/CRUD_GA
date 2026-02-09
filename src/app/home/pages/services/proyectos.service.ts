@@ -51,11 +51,11 @@ export class ProyectosService {
     fechaFin: string,
     idArea: number | string,
   ) {
-    return this.http.post<Proyecto>(`${environment.baseUrl}/proyectos`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
+    return this.http.post<any>(`${environment.baseUrl}/proyectos`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
-        this.proyectos.update((proyectos) => [...proyectos, resp]);
+        this.proyectos.update((proyectos) => [...proyectos, resp.proyect]);
         this.isSuccess.set(true);
-
+        console.log('Proyecto creado:', resp);
       },
       error: (err) => {
         this.isSuccess.set(false);
@@ -70,9 +70,9 @@ export class ProyectosService {
     fechaFin: string,
     idArea: number | string,
   ) {
-    return this.http.patch<Proyecto>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
+    return this.http.patch<any>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
       next: (resp) => {
-        this.proyectos.update((proyectos) => proyectos.map(proyecto => proyecto.id === id ? resp : proyecto));
+        this.proyectos.update((proyectos) => proyectos.map(proyecto => proyecto.id === id ? resp?.proyect : proyecto));
         this.isSuccess.set(true);
 
       },

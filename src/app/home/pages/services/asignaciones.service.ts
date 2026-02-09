@@ -49,9 +49,9 @@ export class AsignacionesService {
     idProyecto: number | string
   ) {
     // Lógica para crear una nueva asignación
-    this.http.post<Asignacione>(`${environment.baseUrl}/asignaciones`, { fechaAsignacion, idUser, idProyecto }).subscribe({
+    this.http.post<any>(`${environment.baseUrl}/asignaciones`, { fechaAsignacion, idUser, idProyecto }).subscribe({
       next: (resp) => {
-        this.asignaciones.update((asignaciones) => [...asignaciones, resp]);
+        this.asignaciones.update((asignaciones) => [...asignaciones, resp.asignacion]);
         this.isSuccess.set(true);
       },
       error: (err) => {
@@ -62,9 +62,9 @@ export class AsignacionesService {
 
   actualizarAsignacion(id: number, fechaAsignacion: string, idUser: number | string, idProyecto: number | string) {
     // Lógica para actualizar una asignación existente
-    return this.http.patch<Asignacione>(`${environment.baseUrl}/asignaciones/${id}`, { fechaAsignacion, idUser, idProyecto }).subscribe({
+    return this.http.patch<any>(`${environment.baseUrl}/asignaciones/${id}`, { fechaAsignacion, idUser, idProyecto }).subscribe({
       next: (resp) => {
-        this.asignaciones.update((asignaciones) => asignaciones.map(asignacion => asignacion.id === id ? resp : asignacion));
+        this.asignaciones.update((asignaciones) => asignaciones.map(asignacion => asignacion.id === id ? resp?.asignacion : asignacion));
         this.isSuccess.set(true);
       },
       error: (err) => {
