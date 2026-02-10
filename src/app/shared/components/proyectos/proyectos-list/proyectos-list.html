@@ -2,7 +2,9 @@
 @if (isSuccess()) {
   <app-alert-sucess/>
 }
-
+@if (isError()) {
+ <action-alert-error message="Acción denegada: El proyectos cuenta con dependencias activas en el módulo de Asignacxiones." />
+}
 
 <div class="p-4 md:p-8 bg-base-200 min-h-screen">
   <!-- Header -->

@@ -62,16 +62,20 @@ export class AreasService {
       //   this.isSuccess.set(true);
       // },
       next: (resp) => {
-      // 1. Verificamos que resp sea el objeto Area. Si tu API devuelve {area: Area}, usa resp.area
-      const nuevaArea = resp?.area ? resp.area : resp; // Ajusta esto según la estructura de tu respuesta
-      this.areas.update((currentAreas) => [...currentAreas, nuevaArea]);
+        // 1. Verificamos que resp sea el objeto Area. Si tu API devuelve {area: Area}, usa resp.area
+        const nuevaArea = resp?.area ? resp.area : resp; // Ajusta esto según la estructura de tu respuesta
+        this.areas.update((currentAreas) => [...currentAreas, nuevaArea]);
 
-      // 2. Marcamos éxito para que el modal sepa que puede cerrarse
-      this.isSuccess.set(true);
-      console.log('Área agregada exitosamente:', resp);
-    },
+        // 2. Marcamos éxito para que el modal sepa que puede cerrarse
+        this.isSuccess.set(true);
+        console.log('Área agregada exitosamente:', resp);
+      },
       error: (err) => {
         this.isSuccess.set(false);
+        this.isError.set(true);
+        setTimeout(() => {
+          this.resetIsError();
+        }, 4000);
 
       }
     });
@@ -86,6 +90,10 @@ export class AreasService {
       },
       error: (err) => {
         this.isSuccess.set(false);
+        this.isError.set(true);
+        setTimeout(() => {
+          this.resetIsError();
+        }, 4000);
       }
     });
   }
@@ -98,6 +106,11 @@ export class AreasService {
       },
       error: (err) => {
         this.isSuccess.set(false);
+        this.isError.set(true);
+        this.isError.set(true);
+        setTimeout(() => {
+          this.resetIsError();
+        }, 4000);
       }
     });
   }

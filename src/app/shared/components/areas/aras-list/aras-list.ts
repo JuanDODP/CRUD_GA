@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { Area, AreasReponse } from '../../../../home/interface/area.interface';
 import { AreasService } from '../../../../home/pages/services/areas.service';
 import { AlertSucess } from "../../../../utils/alert-sucess/alert-sucess";
+import { AlertError } from "../../../../utils/alert-error/alert-error";
+import { ActionAlertError } from "../../../../utils/action-alert-error/action-alert-error";
 
 @Component({
   selector: 'app-aras-list',
-  imports: [AlertSucess],
+  imports: [AlertSucess, AlertError, ActionAlertError],
   templateUrl: './aras-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -37,5 +39,6 @@ export class ArasList {
 
   }
   isSuccess = this.areasService.isSuccess;
+  isError = this.areasService.isError;
 
 }

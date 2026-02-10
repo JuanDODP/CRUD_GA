@@ -3,10 +3,11 @@ import { ProyectoModalComponent } from "../add-proyecto-modal/add-proyecto-modal
 import { Proyecto } from '../../../../home/interface/proyectos.interface';
 import { ProyectosService } from '../../../../home/pages/services/proyectos.service';
 import { AlertSucess } from "../../../../utils/alert-sucess/alert-sucess";
+import { ActionAlertError } from "../../../../utils/action-alert-error/action-alert-error";
 
 @Component({
   selector: 'app-proyectos-list',
-  imports: [AlertSucess],
+  imports: [AlertSucess, ActionAlertError],
   templateUrl: './proyectos-list.html',
 })
 export class ProyectosList {
@@ -20,5 +21,6 @@ export class ProyectosList {
   }
 
     isSuccess = this.proyectosService.isSuccess;
+    isError = this.proyectosService.isError;
 
 }

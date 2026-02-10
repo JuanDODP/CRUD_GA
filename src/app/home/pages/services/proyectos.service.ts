@@ -10,9 +10,9 @@ export class ProyectosService {
   proyectos = signal<Proyecto[]>([]);
 
   // Editar modal
-    update_or_create= signal<number>(0) // 0 para crear, 1 para editar;
-    // 1. Creamos el signal para el proyecto a editar
-    selectedProyecto = signal<Proyecto | null>(null);
+  update_or_create = signal<number>(0) // 0 para crear, 1 para editar;
+  // 1. Creamos el signal para el proyecto a editar
+  selectedProyecto = signal<Proyecto | null>(null);
 
   // 2. Método para asignar el proyecto
   setProyectoForEdit(proyecto: Proyecto) {
@@ -27,10 +27,16 @@ export class ProyectosService {
     this.update_or_create.set(0);
   }
   // ================================================================================
-   isSuccess = signal<boolean>(false) // checking, exist, no-exist;
+  isSuccess = signal<boolean>(false) // checking, exist, no-exist;
   // resetear el isSuccess
   resetIsSuccess() {
     this.isSuccess.set(false);
+  }
+  // estado para manejar errores
+  isError = signal<boolean>(false);
+  // resetear el isError
+  resetIsError() {
+    this.isError.set(false);
   }
   constructor() {
     this.getProyectos()
@@ -59,6 +65,10 @@ export class ProyectosService {
       },
       error: (err) => {
         this.isSuccess.set(false);
+        this.isError.set(true);
+        setTimeout(() => {
+          this.resetIsError();
+        }, 4000);
 
       }
     });
@@ -78,6 +88,10 @@ export class ProyectosService {
       },
       error: (err) => {
         this.isSuccess.set(false);
+        this.isError.set(true);
+        setTimeout(() => {
+          this.resetIsError();
+        }, 4000);
       }
     });
   }
@@ -87,9 +101,14 @@ export class ProyectosService {
         this.proyectos.update((proyectos) => proyectos.filter(proyecto => proyecto.id !== id));
         this.isSuccess.set(true);
 
+
       },
       error: (err) => {
         this.isSuccess.set(false);
+        this.isError.set(true);
+        setTimeout(() => {
+          this.resetIsError();
+        }, 4000);
       }
     });
   }

@@ -1,6 +1,9 @@
 @if (isSuccess()) {
   <app-alert-sucess/>
 }
+@if (isError()) {
+ <action-alert-error message="Acción denegada: El área cuenta con dependencias activas en el módulo de Proyectos." />
+}
 
 <div class="p-4 md:p-8 bg-base-200 min-h-screen">
   <div class="flex justify-between items-center mb-6">
