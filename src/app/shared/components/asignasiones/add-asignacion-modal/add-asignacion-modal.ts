@@ -33,19 +33,19 @@ export class AddAsignacionModal {
 
   constructor() {
     // efecto para detectar cambios en el signal automáticamente
-    effect(() => {
-
-      const asignacion = this.asignacionesService.selectedAsignacion();
-      if (asignacion) {
-        this.addAsignacion.patchValue({
-          fechaAsignacion: asignacion.fechaAsignacion,
-          idUser: asignacion.usuario.id.toString(),
-          idArea: asignacion.proyecto.area.id.toString(),
-        });
-      } else {
-        this.addAsignacion.reset();
-      }
+   effect(() => {
+  const asignacion = this.asignacionesService.selectedAsignacion();
+  if (asignacion) {
+    this.addAsignacion.patchValue({
+      fechaAsignacion: asignacion.fechaAsignacion,
+      idUser: asignacion.usuario.id.toString(),
+      // CAMBIO AQUÍ: Usa el ID del proyecto, no el del área
+      idArea: asignacion.proyecto.id.toString(),
     });
+  } else {
+    this.addAsignacion.reset();
+  }
+});
   }
 closeModal() {
   this.modalCheckbox.nativeElement.checked = false;

@@ -60,19 +60,25 @@ export class AsignacionesService {
     });
   }
 
-  actualizarAsignacion(id: number, fechaAsignacion: string, idUser: number | string, idProyecto: number | string) {
-    // Lógica para actualizar una asignación existente
-    return this.http.patch<any>(`${environment.baseUrl}/asignaciones/${id}`, { fechaAsignacion, idUser, idProyecto }).subscribe({
-      next: (resp) => {
-        this.asignaciones.update((asignaciones) => asignaciones.map(asignacion => asignacion.id === id ? resp?.asignacion : asignacion));
-        this.isSuccess.set(true);
-      },
-      error: (err) => {
-        this.isSuccess.set(false);
-      }
-    });
-  }
+actualizarAsignacion(id: number, fechaAsignacion: string, idUser: number | string, idProyecto: number | string) {
+  return this.http.patch<any>(`${environment.baseUrl}/asignaciones/${id}`, { fechaAsignacion, idUser, idProyecto }).subscribe({
+    next: (resp) => {
+      // Extraemos la asignación actualizada (que ya trae usuario y proyecto cargados)
+      const asignacionActualizada = resp?.asignacion || resp;
 
+      this.asignaciones.update((list) =>
+        list.map(asig => asig.id === id ? asignacionActualizada : asig)
+      );
+
+      // CRUCIAL: Actualiza el signal de selección para que la próxima edición sea correcta
+      this.selectedAsignacion.set(asignacionActualizada);
+      this.isSuccess.set(true);
+    },
+    error: (err) => {
+      this.isSuccess.set(false);
+    }
+  });
+}
   deleteAsignacion(id: number) {
     // Lógica para eliminar una asignación
     return this.http.delete(`${environment.baseUrl}/asignaciones/${id}`).subscribe({

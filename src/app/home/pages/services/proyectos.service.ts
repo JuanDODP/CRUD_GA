@@ -73,28 +73,29 @@ export class ProyectosService {
       }
     });
   }
-  updateProyecto(
-    id: number,
-    nombreProyecto: string,
-    fechaInicio: string,
-    fechaFin: string,
-    idArea: number | string,
-  ) {
-    return this.http.patch<any>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
-      next: (resp) => {
-        this.proyectos.update((proyectos) => proyectos.map(proyecto => proyecto.id === id ? resp?.proyect : proyecto));
-        this.isSuccess.set(true);
+ updateProyecto(id: number, nombreProyecto: string, fechaInicio: string, fechaFin: string, idArea: number | string) {
+  this.resetIsSuccess();
+  return this.http.patch<any>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
+    next: (resp) => {
+      // 1. Extraemos el proyecto. Verifica en consola si es resp.proyect o resp.proyecto
+      const proyectoActualizado = resp?.proyect || resp?.proyecto || resp;
 
-      },
-      error: (err) => {
-        this.isSuccess.set(false);
-        this.isError.set(true);
-        setTimeout(() => {
-          this.resetIsError();
-        }, 4000);
-      }
-    });
-  }
+      // 2. Actualizamos el Signal mapeando el arreglo
+      this.proyectos.update((current) =>
+        current.map(p => p.id === id ? proyectoActualizado : p)
+      );
+
+      this.isSuccess.set(true);
+      // 3. Importante: Actualizamos el proyecto seleccionado para que la siguiente edición no sea vacía
+      this.selectedProyecto.set(proyectoActualizado);
+    },
+    error: (err) => {
+      this.isSuccess.set(false);
+      this.isError.set(true);
+      setTimeout(() => this.resetIsError(), 4000);
+    }
+  });
+}
   deleteProyecto(id: number) {
     return this.http.delete(`${environment.baseUrl}/proyectos/${id}`).subscribe({
       next: () => {
