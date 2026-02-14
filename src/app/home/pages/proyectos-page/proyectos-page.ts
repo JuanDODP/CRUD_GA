@@ -5,10 +5,11 @@ import { ProyectoModalComponent } from "../../../shared/components/proyectos/add
 import { ModalDelete } from "../../../utils/modal-delete/modal-delete";
 import { ProyectosService } from '../services/proyectos.service';
 import { AreasService } from '../services/areas.service';
+import { ModalDownload } from "../../../utils/modal-download/modal-download";
 
 @Component({
   selector: 'app-proyectos-page',
-  imports: [Navbar, ProyectosList, ProyectoModalComponent, ModalDelete],
+  imports: [Navbar, ProyectosList, ProyectoModalComponent, ModalDelete, ModalDownload],
   templateUrl: './proyectos-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -25,5 +26,8 @@ onDeleteCheck() {
       this.proyectoService.resetIsSuccess();
     }, 2000);
   }
+}
+onDownload(){
+  this.proyectoService.exportToExcel();
 }
 }

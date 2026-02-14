@@ -1,0 +1,37 @@
+<input #modalPdfCheckbox type="checkbox" id="modal-pdf-confirm" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-error/10 shadow-2xl bg-base-100 p-0 overflow-hidden max-w-sm text-center">
+
+    <div class="bg-error/5 p-6 border-b border-error/10">
+      <div class="mx-auto bg-error text-error-content p-3 rounded-full w-fit mb-3 shadow-lg shadow-error/20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-error uppercase tracking-tight">¿Generar PDF?</h3>
+    </div>
+
+    <div class="p-6">
+      <p class="text-base-content/70 leading-relaxed">
+        {{ text() || 'Se creará un documento en formato PDF con la información seleccionada. ¿Deseas descargarlo?' }}
+      </p>
+
+      <div class="flex flex-col gap-3 mt-8">
+        <button type="button" class="btn btn-error w-full shadow-md text-white" (click)="confirmPdfDownload()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Sí, descargar PDF
+        </button>
+
+        <label for="modal-pdf-confirm" class="btn btn-ghost w-full">
+          No, cancelar
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <label class="modal-backdrop backdrop-blur-sm bg-black/50" for="modal-pdf-confirm">Cerrar</label>
+</div>

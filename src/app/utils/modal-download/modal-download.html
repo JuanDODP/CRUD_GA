@@ -1,0 +1,36 @@
+<input #modalDownloadCheckbox type="checkbox" id="modal-download-confirm" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-success/10 shadow-2xl bg-base-100 p-0 overflow-hidden max-w-sm text-center">
+
+    <div class="bg-success/5 p-6 border-b border-success/10">
+      <div class="mx-auto bg-success text-success-content p-3 rounded-full w-fit mb-3 shadow-lg shadow-success/20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-success uppercase tracking-tight">¿Descargar archivo?</h3>
+    </div>
+
+    <div class="p-6">
+      <p class="text-base-content/70 leading-relaxed">{{text()}}
+      </p>
+
+      <div class="flex flex-col gap-3 mt-8">
+        <button type="button" class="btn btn-success w-full shadow-md text-white" (click)="confirmDownload()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Sí, descargar ahora
+        </button>
+
+        <label for="modal-download-confirm" class="btn btn-ghost w-full">
+          No, en otro momento
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <label class="modal-backdrop backdrop-blur-sm bg-black/50" for="modal-download-confirm">Close</label>
+</div>

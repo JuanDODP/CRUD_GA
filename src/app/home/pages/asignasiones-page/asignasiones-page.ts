@@ -7,10 +7,11 @@ import { AsignacionesService } from '../services/asignaciones.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { AreasService } from '../services/areas.service';
 import { ProyectosService } from '../services/proyectos.service';
+import { ModalDownloadPdf } from "../../../utils/modal-download-pdf/modal-download-pdf";
 
 @Component({
   selector: 'app-asignasiones-page',
-  imports: [Navbar, AsignasionesList, AddAsignacionModal, ModalDelete],
+  imports: [Navbar, AsignasionesList, AddAsignacionModal, ModalDelete, ModalDownloadPdf],
   templateUrl: './asignasiones-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -20,7 +21,15 @@ export default class AsignasionesPage {
   areasService = inject(AreasService);
   proyectosService = inject(ProyectosService);
   authService = inject(AuthService);
-
+   downloadPdf(){
+     const asignacion = this.asignacionesService.selectedAsignacion();
+     console.log("SEPARAR ")
+     console.log('SE ESTA EJECUTANDO LA FUNCION DE DESCARGAR PDF', asignacion);
+     console.log("SEPARAR ")
+    if (asignacion) {
+      this.asignacionesService.exportToPDF(asignacion.id);
+    }
+  }
   ngOnInit():void{
     this.authService.getUsers()
   }
@@ -35,6 +44,6 @@ export default class AsignasionesPage {
      }
 
 
+    }
 
-  }
 }

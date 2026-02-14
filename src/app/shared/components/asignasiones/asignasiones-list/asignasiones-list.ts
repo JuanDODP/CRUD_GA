@@ -23,6 +23,7 @@ export class AsignasionesList {
 
   // descargart pdf
   dowloadPDF(item:any) {
-    this.asignacionesService.exportToPDF(item.id);
+    console.log('LLEGAN LOS DATOS AL COMPONENTE HIJO', item);
+    this.asignacionesService.setAsignacionForDownload(item);
   }
 }

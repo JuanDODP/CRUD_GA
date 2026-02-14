@@ -30,6 +30,11 @@ export class AsignacionesService {
     this.isSuccess.set(false);
   }
 
+  setAsignacionForDownload(asignacion: Asignacione) {
+    this.selectedAsignacion.set(asignacion);
+    this.clearSelectedAsignacion();
+  }
+
   //  ================================================================
   constructor() {
     this.getAsignaciones()
