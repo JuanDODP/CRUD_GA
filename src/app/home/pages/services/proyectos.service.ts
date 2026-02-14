@@ -113,4 +113,20 @@ export class ProyectosService {
       }
     });
   }
+  // descargar excel
+  exportToExcel() {
+    this.http.get(`${environment.baseUrl}/proyectos/export/excel`, { responseType: 'blob' }).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'proyectos.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Error al descargar el Excel:', err);
+      }
+    });
+  }
 }

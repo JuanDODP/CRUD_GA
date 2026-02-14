@@ -91,4 +91,15 @@ actualizarAsignacion(id: number, fechaAsignacion: string, idUser: number | strin
       }
     });
   }
+  // descargar pdf
+  exportToPDF(id:number) {
+    this.http.get(`${environment.baseUrl}/asignaciones/pdf/${id}`, { responseType: 'blob' }).subscribe((response) => {
+      const url = window.URL.createObjectURL(response);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'asignaciones.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
 }

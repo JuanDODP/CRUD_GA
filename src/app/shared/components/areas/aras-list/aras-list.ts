@@ -7,7 +7,7 @@ import { ActionAlertError } from "../../../../utils/action-alert-error/action-al
 
 @Component({
   selector: 'app-aras-list',
-  imports: [AlertSucess, AlertError, ActionAlertError],
+  imports: [AlertSucess, ActionAlertError,],
   templateUrl: './aras-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -40,5 +40,9 @@ export class ArasList {
   }
   isSuccess = this.areasService.isSuccess;
   isError = this.areasService.isError;
+  // funcion para descargar excel
+  exportToExcel() {
+    this.areasService.exportToExcel();
+  }
 
 }

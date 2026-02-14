@@ -105,6 +105,7 @@ export const routes: Routes = [
       { path: 'areas', loadComponent: () => import('./home/pages/areas-page/areas-page') },
       { path: 'proyectos', loadComponent: () => import('./home/pages/proyectos-page/proyectos-page') },
       { path: 'asignaciones', loadComponent: () => import('./home/pages/asignasiones-page/asignasiones-page') },
+      { path: 'usuarios', loadComponent: () => import('./home/pages/usuarios-page/usuarios-page') },
       { path: '', redirectTo: 'areas', pathMatch: 'full' } // Solo redirige si entras a localhost:4200/ exactamente
     ]
   },

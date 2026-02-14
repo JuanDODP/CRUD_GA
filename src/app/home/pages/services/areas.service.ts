@@ -114,4 +114,27 @@ export class AreasService {
       }
     });
   }
+  // descargar datos por exel
+
+  exportToExcel() {
+      this.http.get(`${environment.baseUrl}/areas/export/excel`, { responseType: 'blob' }).subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'areas.xlsx';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+        }
+        ,
+        error: (err) => {
+          this.isError.set(true);
+          setTimeout(() => {
+            this.resetIsError();
+          }, 4000);
+        }
+      });
+  }
 }

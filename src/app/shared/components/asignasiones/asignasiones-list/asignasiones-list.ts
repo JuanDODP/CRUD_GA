@@ -20,4 +20,9 @@ export class AsignasionesList {
     this.asignacionesService.setAsignacionForEdit(asignacion)
   }
   isSuccess = this.asignacionesService.isSuccess;
+
+  // descargart pdf
+  dowloadPDF(item:any) {
+    this.asignacionesService.exportToPDF(item.id);
+  }
 }
