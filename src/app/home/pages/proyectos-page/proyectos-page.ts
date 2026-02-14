@@ -6,10 +6,11 @@ import { ModalDelete } from "../../../utils/modal-delete/modal-delete";
 import { ProyectosService } from '../services/proyectos.service';
 import { AreasService } from '../services/areas.service';
 import { ModalDownload } from "../../../utils/modal-download/modal-download";
+import { ModalImagePreview } from "../../../utils/modal-image-preview/modal-image-preview";
 
 @Component({
   selector: 'app-proyectos-page',
-  imports: [Navbar, ProyectosList, ProyectoModalComponent, ModalDelete, ModalDownload],
+  imports: [Navbar, ProyectosList, ProyectoModalComponent, ModalDelete, ModalDownload, ModalImagePreview],
   templateUrl: './proyectos-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

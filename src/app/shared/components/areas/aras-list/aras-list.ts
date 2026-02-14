@@ -34,7 +34,7 @@ export class ArasList {
   // mandar a llamar las areas para mapeas
   areas = input.required<Area[]>();
   getAreas(area: any) {
-
+      console.log('test area', area);
     this.authService.setAreaForEdit(area)
 
   }

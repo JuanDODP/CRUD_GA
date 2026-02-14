@@ -3,3 +3,4 @@
 <app-proyecto-modal [areas]="areasService.areas()" />
 <app-modal-delete text="'¿Estas seguro de que quieres eliminar este proyecto?'" (onDelete)="onDeleteCheck()"/>
 <modal-download text="Estás por bajar toda la información de los proyectos en un archivo de Excel. ¿Deseas continuar?" (onDownload)="onDownload()"/>
+<modal-image-preview [imagen]="proyectoService.selectedProyecto()?.imagen!"/>

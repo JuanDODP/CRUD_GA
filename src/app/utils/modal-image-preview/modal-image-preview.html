@@ -1,0 +1,37 @@
+<input #modalImagePreview type="checkbox" id="modal-image-preview" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-primary/10 shadow-2xl bg-base-100 p-0 overflow-hidden max-w-lg">
+
+    <div class="bg-primary/5 p-4 border-b border-primary/10 flex justify-between items-center">
+      <h3 class="text-lg font-bold text-primary flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Vista Previa
+      </h3>
+      <label for="modal-image-preview" class="btn btn-sm btn-circle btn-ghost">✕</label>
+    </div>
+
+    <div class="p-2 bg-base-200/50">
+      <div class="rounded-xl overflow-hidden shadow-inner bg-white flex justify-center items-center min-h-[300px]">
+        @if (imagen()) {
+          <img [src]="imagen()" class="max-w-full h-auto object-contain animate-fade-in" alt="Preview" />
+        } @else {
+          <div class="text-center p-10 opacity-30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p>Sin imagen disponible</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="p-4 bg-base-100 flex justify-end">
+      <label for="modal-image-preview" class="btn btn-primary px-8">Cerrar</label>
+    </div>
+  </div>
+
+  <label class="modal-backdrop backdrop-blur-sm bg-black/60" for="modal-image-preview">Close</label>
+</div>

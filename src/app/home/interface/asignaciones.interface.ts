@@ -15,6 +15,7 @@ export interface Proyecto {
   nombreProyecto: string;
   fechaInicio:    Date;
   fechaFin:       Date;
+  imagen?:       string;
   area:           Area;
 }
 
@@ -22,6 +23,7 @@ export interface Area {
   id:          number;
   nombre:      string;
   description: string;
+    imagen?:      string;
 }
 
 export interface Usuario {

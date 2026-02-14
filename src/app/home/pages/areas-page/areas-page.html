@@ -8,3 +8,4 @@
 <modal-download text="Estás por bajar toda la información de las áreas en un archivo de Excel. ¿Deseas continuar?"
   (onDownload)="onDownload()"
 />
+<modal-image-preview [imagen]="areasService.selectedArea()?.imagen!"/>

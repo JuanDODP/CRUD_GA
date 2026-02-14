@@ -21,9 +21,5 @@ export class AsignasionesList {
   }
   isSuccess = this.asignacionesService.isSuccess;
 
-  // descargart pdf
-  dowloadPDF(item:any) {
-    console.log('LLEGAN LOS DATOS AL COMPONENTE HIJO', item);
-    this.asignacionesService.setAsignacionForDownload(item);
-  }
+
 }

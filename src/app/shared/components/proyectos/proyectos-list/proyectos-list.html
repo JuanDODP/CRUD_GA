@@ -38,7 +38,7 @@
         <thead>
           <tr class="bg-primary text-white">
             <th class="bg-primary">ID</th>
-            <th class="bg-primary">Proyecto</th>
+            <th class="bg-primary">Imagen</th> <th class="bg-primary">Proyecto</th>
             <th class="bg-primary">Inicio</th>
             <th class="bg-primary">Fin</th>
             <th class="bg-primary text-center">Área</th>
@@ -50,6 +50,17 @@
           @for (item of proyectos(); track item.id) {
           <tr class="hover">
             <th class="font-mono text-xs">{{ item.id }}</th>
+
+            <td>
+              <label for="modal-image-preview" class="cursor-zoom-in" (click)="clear(); getProyecto(item)">
+                <div class="avatar">
+                  <div class="mask mask-squircle w-10 h-10 hover:scale-110 transition-transform duration-200">
+                    <img [src]="item.imagen || 'assets/no-image.png'" [alt]="item.nombreProyecto" />
+                  </div>
+                </div>
+              </label>
+            </td>
+
             <td class="font-bold">{{ item.nombreProyecto }}</td>
             <td class="text-sm opacity-70">{{ item.fechaInicio | date:'shortDate' }}</td>
             <td class="text-sm opacity-70">{{ item.fechaFin | date:'shortDate' }}</td>

@@ -5,10 +5,11 @@ import { AreaModal } from "../../../shared/components/areas/area-modal/area-moda
 import { ModalDelete } from "../../../utils/modal-delete/modal-delete";
 import { AreasService } from '../services/areas.service';
 import { ModalDownload } from "../../../utils/modal-download/modal-download";
+import { ModalImagePreview } from "../../../utils/modal-image-preview/modal-image-preview";
 
 @Component({
   selector: 'app-areas-page',
-  imports: [Navbar, ArasList, AreaModal, ModalDelete, ModalDownload],
+  imports: [Navbar, ArasList, AreaModal, ModalDelete, ModalDownload, ModalImagePreview],
   templateUrl: './areas-page.html',
 })
 export default class AreasPage {

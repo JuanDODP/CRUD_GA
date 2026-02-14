@@ -1,2 +1,4 @@
 <app-navbar/>
 <app-usuarios-list [usuarios]="usuariosService.usuarios()" />
+
+<modal-image-preview [imagen]="usuariosService.selectedUser()?.imagen!"/>
