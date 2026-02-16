@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { UsuariosService } from '../../../../home/pages/services/usuarios.service';
 import { Usuario } from '../../../../home/interface/usuarios.interface';
+import { AlertSucess } from "../../../../utils/alert-sucess/alert-sucess";
+import { ActionAlertError } from "../../../../utils/action-alert-error/action-alert-error";
 
 @Component({
   selector: 'app-usuarios-list',
-  imports: [],
+  imports: [AlertSucess, ActionAlertError],
   templateUrl: './usuarios-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -19,5 +21,6 @@ export class UsuariosList {
     console.log('test usuario', usuario);
     this.usuariosService.setUserForEdit(usuario)
  }
-
+isSuccess = this.usuariosService.isSuccess;
+isError = this.usuariosService.isError;
 }

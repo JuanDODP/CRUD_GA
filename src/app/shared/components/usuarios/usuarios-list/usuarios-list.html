@@ -1,3 +1,10 @@
+@if (isSuccess()) {
+<app-alert-sucess />
+}
+@if (isError()) {
+<action-alert-error message="Acción denegada: El área cuenta con dependencias activas en el módulo de Proyectos." />
+}
+
 <div class="p-4 md:p-8 bg-base-200 min-h-screen">
   <div class="flex justify-between items-center mb-6">
     <div>
@@ -5,7 +12,7 @@
       <p class="text-sm text-gray-500">Administra los accesos y perfiles de la organización</p>
     </div>
 
-    <label for="modal-user-manual" class="btn btn-primary shadow-lg cursor-pointer" (click)="clear()">
+    <label for="modal-usuario-manual" class="btn btn-primary shadow-lg cursor-pointer" (click)="clear()">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -21,7 +28,7 @@
           <tr class="bg-primary text-white">
             <th>ID</th>
             <th>Perfil</th>
-            <th>Correo Electrónico</th>
+            <th>Nombre</th> <th>Correo Electrónico</th>
             <th>Rol</th>
             <th class="text-center">Acciones</th>
           </tr>
@@ -43,7 +50,7 @@
               </label>
             </td>
 
-            <td>{{ user.email }}</td>
+            <td>{{ user.name }}</td> <td>{{ user.email }}</td>
 
             <td>
               <span class="badge badge-ghost badge-sm uppercase font-semibold">
@@ -52,8 +59,10 @@
             </td>
 
             <td class="flex justify-center gap-2">
-              <label for="modal-user-manual" class="btn btn-square btn-sm btn-outline btn-info cursor-pointer"
-                title="Editar">
+              <label for="modal-usuario-manual" class="btn btn-square btn-sm btn-outline btn-info cursor-pointer"
+                title="Editar"
+                (click)="clear(); getUsuarios(user)"
+                >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,8 +70,12 @@
                 </svg>
               </label>
 
-              <label for="modal-delete-confirm" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
-                title="Eliminar">
+              <label
+
+              for="modal-delete-confirm" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
+                title="Eliminar"
+                (click)="clear(); getUsuarios(user)"
+                >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -84,4 +84,21 @@ export class AreaModal {
 
     }
   }
+  // funcion para la imagen
+  imagePreview: string | null = null;
+selectedFile: File | null = null;
+
+onFileSelected(event: any) {
+  console.log('EL EVENTO', event)
+  const file: File = event.target.files[0];
+  if (file) {
+    this.selectedFile = file;
+    // Crear vista previa visual
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+}
 }

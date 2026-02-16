@@ -1,4 +1,6 @@
 <app-navbar/>
 <app-usuarios-list [usuarios]="usuariosService.usuarios()" />
+<usuarios-modal/>
 
 <modal-image-preview [imagen]="usuariosService.selectedUser()?.imagen!"/>
+<app-modal-delete text="'¿Estas seguro de que quieres eliminar este usuario?'" (onDelete)="onDeleteCheck()" />

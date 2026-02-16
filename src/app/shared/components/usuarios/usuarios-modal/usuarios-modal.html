@@ -1,0 +1,81 @@
+<input #modalUserCheckbox type="checkbox" id="modal-usuario-manual" class="modal-toggle" />
+
+<div class="modal" role="dialog">
+  <div class="modal-box border border-primary/10 shadow-2xl bg-base-100 max-w-md p-0 overflow-hidden">
+
+    <div class="bg-primary/5 p-6 border-b border-primary/10">
+      <h3 class="text-xl font-bold text-primary flex items-center gap-3">
+        <div class="bg-primary text-primary-content p-2 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+        {{ updateorCreate() === 0 ? 'Nuevo Usuario' : `Editar ${selectedUser()?.name}` }}
+      </h3>
+    </div>
+
+    <form class="p-6 space-y-4" [formGroup]="addUsuarioForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Nombre Completo</span>
+        </label>
+        <input type="text" placeholder="Ej. Juan Dominguez"
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="name" />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Correo Electrónico</span>
+        </label>
+        <input type="email" placeholder="ejemplo@correo.com"
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="email" />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Contraseña</span>
+        </label>
+        <input type="password" placeholder="********"
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="password" />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Foto de Perfil</span>
+        </label>
+        <div class="flex flex-col gap-3">
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="file-input file-input-bordered file-input-primary w-full bg-base-200/50" />
+
+          @if (imagePreview()) {
+            <div class="avatar justify-center mt-2">
+              <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img [src]="imagePreview()" alt="Previsualización" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="modal-action mt-6 pt-4 border-t border-base-300">
+        <label for="modal-usuario-manual" class="btn btn-ghost hover:bg-error/10 hover:text-error transition-colors">
+          Cancelar
+        </label>
+        <button type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
+          {{ updateorCreate() === 0 ? 'Crear Usuario' : 'Actualizar Usuario' }}
+        </button>
+      </div>
+
+      @if (hasError()) {
+        <app-alert-error />
+      }
+
+    </form>
+  </div>
+  <label class="modal-backdrop backdrop-blur-sm bg-black/40" for="modal-usuario-manual">Close</label>
+</div>
