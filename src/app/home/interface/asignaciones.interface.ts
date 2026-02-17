@@ -34,4 +34,5 @@ export interface Usuario {
   isActive:      boolean;
   rol:           string[];
   fechaRegistro: Date;
+  imagen?:       string;
 }

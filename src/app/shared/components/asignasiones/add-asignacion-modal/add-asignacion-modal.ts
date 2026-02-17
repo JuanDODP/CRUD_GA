@@ -37,7 +37,7 @@ export class AddAsignacionModal {
   const asignacion = this.asignacionesService.selectedAsignacion();
   if (asignacion) {
     this.addAsignacion.patchValue({
-      fechaAsignacion: asignacion.fechaAsignacion,
+      fechaAsignacion: asignacion.fechaAsignacion? new Date(asignacion.fechaAsignacion).toISOString().split('T')[0] : null,
       idUser: asignacion.usuario.id.toString(),
       // CAMBIO AQUÍ: Usa el ID del proyecto, no el del área
       idArea: asignacion.proyecto.id.toString(),
