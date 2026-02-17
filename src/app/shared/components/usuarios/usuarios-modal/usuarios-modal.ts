@@ -23,6 +23,11 @@ export class UsuariosModal {
   // ================================================================================================================
   fb = inject(FormBuilder);
   hasError = signal(false);
+  // vizualizar la contraseña
+  showPassword = signal(false);
+  togglePassword() {
+    this.showPassword.update(v => !v);
+  }
 
   addUsuarioForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -106,8 +111,6 @@ export class UsuariosModal {
       const { name = '', email = '', password = '', imagen = null } = this.addUsuarioForm.value;
       const id = this.selectedUsuario()?.id || 0; // Asegúrate de que el ID esté disponible
       this.usuariosService.updateUsuario(id, name!, email!, password!, imagen!);
-      this.addUsuarioForm.reset();
-      this.imagePreview.set(null);
       this.close();
       setTimeout(() => {
         this.usuariosService.resetIsSuccess();

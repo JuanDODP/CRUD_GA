@@ -12,10 +12,14 @@ export default class RegisterPage {
 
   fb=inject(FormBuilder)
 hashError=signal(false)
+// vizualizar la contraseña
+showPassword = signal(false);
 isPosting=signal(false)
 authService = inject(AuthService)
 router = inject(Router)
-
+togglePassword() {
+    this.showPassword.update(v => !v);
+  }
   registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],

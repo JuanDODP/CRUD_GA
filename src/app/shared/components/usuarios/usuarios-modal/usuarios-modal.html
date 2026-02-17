@@ -37,8 +37,30 @@
         <label class="label pt-0">
           <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Contraseña</span>
         </label>
-        <input type="password" placeholder="********"
-          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="password" />
+        <div class="relative w-full">
+          <input
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="********"
+            class="input input-bordered w-full bg-base-200/50 focus:outline-primary pr-10"
+            formControlName="password" />
+
+          <button
+            type="button"
+            (click)="togglePassword()"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary transition-colors focus:outline-none">
+
+            @if (showPassword()) {
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 012.112-3.875m9.6 9.6a9.958 9.958 0 01-4.512-2.853m-5.641-5.641a9.946 9.946 0 012.36-3.067L4.343 4.343m1.414 1.414L19.07 19.07m-1.414-1.414L15.858 15.858M21.542 12a10.05 10.05 0 00-4.838-4.838m-3.133-3.133A10.05 10.05 0 0012 5c-4.477 0-8.268 2.943-9.542 7" />
+              </svg>
+            }
+          </button>
+        </div>
       </div>
 
       <div class="form-control w-full">

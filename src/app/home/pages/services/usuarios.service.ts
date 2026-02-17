@@ -98,7 +98,9 @@ export class UsuariosService {
 
     this.http.patch<any>(`${environment.baseUrl}/auth/users/${id}`, formData).subscribe({
       next: (resp) => {
+        console.log("================================");
         console.log('LA RESPUESTA DE USUARIOS ES', resp);
+        console.log("================================");
         const usuarioActualizado = resp?.usuario;
         this.usuarios.update((usuarios) =>
           usuarios.map((usuario) =>

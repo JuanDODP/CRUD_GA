@@ -14,10 +14,14 @@ export default class LoginPage {
 
 fb=inject(FormBuilder)
 hashError=signal(false)
+// vizualizar la contraseña
+showPassword = signal(false);
 isPosting=signal(false)
 authService = inject(AuthService)
 router = inject(Router)
-
+togglePassword() {
+    this.showPassword.update(v => !v);
+  }
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
