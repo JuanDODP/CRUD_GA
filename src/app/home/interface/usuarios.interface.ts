@@ -9,6 +9,7 @@ export interface Usuario {
   email:  string;
   rol:    Rol;
   imagen: string;
+  salary?: number | string;
 }
 
 export enum Rol {

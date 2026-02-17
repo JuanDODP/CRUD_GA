@@ -49,15 +49,16 @@ export class UsuariosService {
       }
     });
   }
-  createUsuario(name: string, email: string, password: string, imagen: File | null) {
+  createUsuario(name: string, email: string, password: string, imagen: File | null, salary: number | string) {
     // que llega
     console.log("================================");
-    console.log('QUE LLEGA AL SERVICE', { name, email, password, imagen });
+    console.log('QUE LLEGA AL SERVICE', { name, email, password, imagen, salary });
     console.log("================================");
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
     formData.append('password', password);
+    formData.append('salary', salary.toString());
     if (imagen) {
       formData.append('imagen', imagen);
     }
@@ -80,15 +81,16 @@ export class UsuariosService {
       }
     });
   }
-  updateUsuario(id: number, name: string, email: string, password?: string, imagen?: File | null) {
+  updateUsuario(id: number, name: string, email: string, password?: string, imagen?: File | null, salary?: number | string) {
     // que llega
     console.log("================================");
-    console.log('QUE LLEGA AL SERVICE PARA ACTUALIZAR', { id, name, email, password, imagen });
+    console.log('QUE LLEGA AL SERVICE PARA ACTUALIZAR', { id, name, email, password, imagen, salary });
     console.log("================================");
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
     formData.append('password', password!);
+    formData.append('salary', salary!.toString());
     if (imagen) {
       formData.append('imagen', imagen);
     }

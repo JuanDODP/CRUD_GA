@@ -33,7 +33,8 @@ export class UsuariosModal {
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: [''],
-    imagen: [null as File | null] // Solución al error de asignación
+    imagen: [null as File | null], // Solución al error de asignación
+    salary: [0, [Validators.required, Validators.min(0)]]
   });
 
   imagePreview = signal<string | null>(null);
@@ -49,7 +50,8 @@ export class UsuariosModal {
           name: usuario.name,
           email: usuario.email,
           password: '', // Por seguridad, no se muestra la contraseña
-          imagen: null // No se asigna la imagen al formulario
+          imagen: null, // No se asigna la imagen al formulario
+          salary: Number(usuario.salary) || 0
         });
         this.imagePreview.set(usuario.imagen || null); // Asumiendo que el backend devuelve una URL de la imagen
       } else {
@@ -89,8 +91,8 @@ export class UsuariosModal {
         }, 2000);
         return;
       }
-      const { name = '', email = '', password = '', imagen = null } = this.addUsuarioForm.value;
-      this.usuariosService.createUsuario(name!, email!, password!, imagen!);
+      const { name = '', email = '', password = '', imagen = null, salary = 0 } = this.addUsuarioForm.value;
+      this.usuariosService.createUsuario(name!, email!, password!, imagen!, salary!);
       this.addUsuarioForm.reset();
       this.imagePreview.set(null);
       this.close();
@@ -108,9 +110,9 @@ export class UsuariosModal {
         }, 2000);
         return;
       }
-      const { name = '', email = '', password = '', imagen = null } = this.addUsuarioForm.value;
+      const { name = '', email = '', password = '', imagen = null, salary = 0 } = this.addUsuarioForm.value;
       const id = this.selectedUsuario()?.id || 0; // Asegúrate de que el ID esté disponible
-      this.usuariosService.updateUsuario(id, name!, email!, password!, imagen!);
+      this.usuariosService.updateUsuario(id, name!, email!, password!, imagen!, salary!);
       this.close();
       setTimeout(() => {
         this.usuariosService.resetIsSuccess();

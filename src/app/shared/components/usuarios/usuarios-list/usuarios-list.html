@@ -26,22 +26,21 @@
       <table class="table table-zebra w-full">
         <thead>
           <tr class="bg-primary text-white">
-            <th>ID</th>
-            <th>Perfil</th>
-            <th>Nombre</th> <th>Correo Electrónico</th>
-            <th>Rol</th>
-            <th class="text-center">Acciones</th>
+            <th class="bg-primary">ID</th>
+            <th class="bg-primary">Perfil</th>
+            <th class="bg-primary">Nombre</th>
+            <th class="bg-primary">Correo Electrónico</th>
+            <th class="bg-primary">Rol</th>
+            <th class="bg-primary text-right">Salario</th> <th class="bg-primary text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
           @for (user of usuarios(); track user.id) {
-          <tr>
+          <tr class="hover">
             <th class="font-mono text-xs">{{ user.id }}</th>
 
             <td>
-              <label for="modal-image-preview" class="cursor-zoom-in" (click)="
-                clear();
-                getUsuarios(user)">
+              <label for="modal-image-preview" class="cursor-zoom-in" (click)="clear(); getUsuarios(user)">
                 <div class="avatar">
                   <div class="mask mask-squircle w-10 h-10 hover:scale-110 transition-transform duration-200">
                     <img [src]="user.imagen || 'assets/no-image.png'" [alt]="user.name" />
@@ -50,7 +49,8 @@
               </label>
             </td>
 
-            <td>{{ user.name }}</td> <td>{{ user.email }}</td>
+            <td class="font-bold">{{ user.name }}</td>
+            <td>{{ user.email }}</td>
 
             <td>
               <span class="badge badge-ghost badge-sm uppercase font-semibold">
@@ -58,30 +58,30 @@
               </span>
             </td>
 
+            <td class="text-right">
+              <span class="font-mono text-success font-semibold">
+                {{ (user.salary || 0) | currency:'USD':'symbol':'1.2-2' }}
+              </span>
+            </td>
+
             <td class="flex justify-center gap-2">
-              <label for="modal-usuario-manual" class="btn btn-square btn-sm btn-outline btn-info cursor-pointer"
-                title="Editar"
-                (click)="clear(); getUsuarios(user)"
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-              </label>
+              <div class="tooltip tooltip-info" data-tip="Editar">
+                <label for="modal-usuario-manual" class="btn btn-square btn-sm btn-outline btn-info cursor-pointer"
+                  (click)="clear(); getUsuarios(user)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </label>
+              </div>
 
-              <label
-
-              for="modal-delete-confirm" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
-                title="Eliminar"
-                (click)="clear(); getUsuarios(user)"
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </label>
+              <div class="tooltip tooltip-error" data-tip="Eliminar">
+                <label for="modal-delete-confirm" class="btn btn-square btn-sm btn-outline btn-error cursor-pointer"
+                  (click)="clear(); getUsuarios(user)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </label>
+              </div>
             </td>
           </tr>
           }

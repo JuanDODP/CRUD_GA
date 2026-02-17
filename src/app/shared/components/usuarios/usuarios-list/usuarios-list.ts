@@ -3,10 +3,11 @@ import { UsuariosService } from '../../../../home/pages/services/usuarios.servic
 import { Usuario } from '../../../../home/interface/usuarios.interface';
 import { AlertSucess } from "../../../../utils/alert-sucess/alert-sucess";
 import { ActionAlertError } from "../../../../utils/action-alert-error/action-alert-error";
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-usuarios-list',
-  imports: [AlertSucess, ActionAlertError],
+  imports: [AlertSucess, ActionAlertError, CurrencyPipe],
   templateUrl: './usuarios-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
