@@ -15,10 +15,13 @@ export class AreaModal {
   fb = inject(FormBuilder);
   hasError = signal(false);
   areasService = inject(AreasService);
-
+ imagePreview = signal<string | null>(null);
+selectedFile: File | null = null;
   addAreaForm = this.fb.group({
     nombre: ['', [Validators.required]],
     description: ['', [Validators.required]],
+    imagen: [null as File | null] // Solución al error de asignación
+
   });
   // OBTENER EL AREA SELECCIONADA DESDE EL SERVICE
   selectedArea = this.areasService.selectedArea;
@@ -32,14 +35,38 @@ export class AreaModal {
         this.addAreaForm.patchValue({
           nombre: area.nombre,
           description: area.description,
+          imagen: null // No se asigna la imagen al formulario
+
         });
+        this.imagePreview.set(area.imagen || null); // Asumiendo que el backend devuelve una URL de la imagen
+
       } else {
         this.addAreaForm.reset();
+        this.imagePreview.set(null);
       }
     });
   }
   closeModal() {
     this.modalCheckbox.nativeElement.checked = false;
+  }
+    // funcion para la imagen
+
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+
+    if (file) {
+      // Ahora permitirá guardar el archivo sin errores de tipo
+      this.addAreaForm.patchValue({
+        imagen: file
+      });
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview.set(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   }
   onSubmit() {
     if (this.updateorCreate() === 0) {
@@ -55,10 +82,12 @@ export class AreaModal {
         }, 2000);
         return;
       }
-      const { nombre = '', description = '' } = this.addAreaForm.value;
-      this.areasService.createArea(nombre!, description!);
+      const { nombre = '', description = '', imagen = null } = this.addAreaForm.value;
+      this.areasService.createArea(nombre!, description!, imagen!);
       this.closeModal();
       this.addAreaForm.reset();
+      this.imagePreview.set(null);
+
       setTimeout(() => {
         this.areasService.resetIsSuccess();
       }, 2000);
@@ -71,9 +100,9 @@ export class AreaModal {
         }, 2000);
         return;
       }
-      const { nombre = '', description = '' } = this.addAreaForm.value;
+      const { nombre = '', description = '', imagen = null } = this.addAreaForm.value;
       const id = this.selectedArea()?.id || 0; // Asegúrate de que el ID esté disponible
-      this.areasService.updateArea(id, nombre!, description!);
+      this.areasService.updateArea(id, nombre!, description!, imagen!);
       this.closeModal();
       setTimeout(() => {
         this.areasService.resetIsSuccess();
@@ -84,21 +113,5 @@ export class AreaModal {
 
     }
   }
-  // funcion para la imagen
-  imagePreview: string | null = null;
-selectedFile: File | null = null;
 
-onFileSelected(event: any) {
-  console.log('EL EVENTO', event)
-  const file: File = event.target.files[0];
-  if (file) {
-    this.selectedFile = file;
-    // Crear vista previa visual
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string;
-    };
-    reader.readAsDataURL(file);
-  }
-}
 }

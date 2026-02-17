@@ -1,88 +1,94 @@
 <input #modalCheckbox type="checkbox" id="modal-proyecto-manual" class="modal-toggle" />
 
 <div class="modal" role="dialog">
-  <div class="modal-box border border-primary/20 shadow-2xl bg-base-100 max-w-md">
+  <div class="modal-box border border-primary/10 shadow-2xl bg-base-100 max-w-md p-0 overflow-hidden">
 
-    <h3 class="text-xl font-bold text-primary mb-6 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      </svg>
-    {{updateorCreate()=== 0 ? 'Nuevo Proyecto' : `Editar ${selectProyecto()?.nombreProyecto}`}}
-    </h3>
+    <div class="bg-primary/5 p-6 border-b border-primary/10">
+      <h3 class="text-xl font-bold text-primary flex items-center gap-3">
+        <div class="bg-primary text-primary-content p-2 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        {{ updateorCreate() === 0 ? 'Nuevo Proyecto' : `Editar ${selectProyecto()?.nombreProyecto}` }}
+      </h3>
+    </div>
 
-    <form
-      [formGroup]="addProyectoForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <div class="form-control w-full mb-4">
-        <label class="label">
-          <span class="label-text font-semibold">Nombre del Proyecto</span>
+    <form class="p-6 space-y-4" [formGroup]="addProyectoForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Nombre del Proyecto</span>
         </label>
-        <input type="text" placeholder="Ej. Rediseño Web" class="input input-bordered w-full focus:input-primary"
-        formControlName="nombreProyecto"
-        />
+        <input type="text" placeholder="Ej. Rediseño Web"
+          class="input input-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="nombreProyecto" />
       </div>
 
-      <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="grid grid-cols-2 gap-4">
         <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text font-semibold">Fecha Inicio</span>
+          <label class="label pt-0">
+            <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Fecha Inicio</span>
           </label>
-          <input type="date" class="input input-bordered w-full focus:input-primary"
-          formControlName="fechaInicio"
-          />
+          <input type="date" class="input input-bordered w-full bg-base-200/50 focus:outline-primary"
+            formControlName="fechaInicio" />
         </div>
         <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text font-semibold">Fecha Fin</span>
+          <label class="label pt-0">
+            <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Fecha Fin</span>
           </label>
-          <input type="date" class="input input-bordered w-full focus:input-primary"
-          formControlName="fechaFin"
-          />
+          <input type="date" class="input input-bordered w-full bg-base-200/50 focus:outline-primary"
+            formControlName="fechaFin" />
         </div>
       </div>
 
-      <!-- <div class="form-control w-full mb-6">
-        <label class="label">
-          <span class="label-text font-semibold">Área Asignada</span>
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Área Asignada</span>
         </label>
-        <select class="select select-bordered w-full focus:select-primary">
-          <option disabled selected>Selecciona un área</option>
-          @for (item of areas(); track $index) {
-          <option>{{ item.nombre }}</option>
-          }
-
-        </select>
-      </div> -->
-      <div class="form-control w-full mb-6">
-        <label class="label">
-          <span class="label-text font-semibold">Área Asignada</span>
-        </label>
-
-        <select #areaSelect class="select select-bordered w-full focus:select-primary"
-        formControlName="idArea"
-        >
-
+        <select class="select select-bordered w-full bg-base-200/50 focus:outline-primary" formControlName="idArea">
           <option disabled selected value="">Selecciona un área</option>
-
           @for (item of areas(); track item.id) {
-          <option [value]="item.id">{{ item.nombre }}</option>
+            <option [value]="item.id">{{ item.nombre }}</option>
           }
         </select>
       </div>
-       @if (hasError()) {
+
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="label-text font-bold opacity-70 uppercase text-xs tracking-widest">Imagen del Proyecto</span>
+        </label>
+        <div class="flex flex-col gap-3">
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="file-input file-input-bordered file-input-primary w-full bg-base-200/50" />
+
+          @if (imagePreview()) {
+            <div class="avatar justify-center mt-2">
+              <div class="w-32 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img [src]="imagePreview()" alt="Previsualización" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="modal-action mt-6 pt-4 border-t border-base-300">
+        <label for="modal-proyecto-manual" class="btn btn-ghost hover:bg-error/10 hover:text-error transition-colors">
+          Cancelar
+        </label>
+        <button type="submit" class="btn btn-primary px-8 shadow-lg shadow-primary/20">
+          {{ updateorCreate() === 0 ? 'Guardar Proyecto' : 'Actualizar Proyecto' }}
+        </button>
+      </div>
+
+      @if (hasError()) {
         <app-alert-error />
       }
 
-      <div class="modal-action">
-        <label for="modal-proyecto-manual" class="btn btn-ghost">Cancelar</label>
-        <button type="submit" class="btn btn-primary px-8">{{updateorCreate()=== 0 ? 'Guardar Proyecto' : 'Actualizar Proyecto'}}</button>
-      </div>
-
     </form>
-
   </div>
-
-  <label class="modal-backdrop" for="modal-proyecto-manual">Close</label>
+  <label class="modal-backdrop backdrop-blur-sm bg-black/40" for="modal-proyecto-manual">Close</label>
 </div>

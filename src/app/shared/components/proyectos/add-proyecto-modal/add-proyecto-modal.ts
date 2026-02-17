@@ -21,12 +21,15 @@ export class ProyectoModalComponent {
   proyectosService = inject(ProyectosService);
   // requerir las areas para mapearlas en el input de seleccion
   areas = input.required<Area[]>();
+  imagePreview = signal<string | null>(null);
 
   addProyectoForm = this.fb.group({
     nombreProyecto: ['', [Validators.required]],
     fechaInicio: ['', [Validators.required]],
     fechaFin: ['', [Validators.required]],
     idArea: ['', [Validators.required]],
+    imagen: [null as File | null] // Solución al error de asignación
+
   });
   selectProyecto = this.proyectosService.selectedProyecto;
   updateorCreate = this.proyectosService.update_or_create;
@@ -40,15 +43,34 @@ export class ProyectoModalComponent {
           nombreProyecto: proyecto.nombreProyecto,
           fechaInicio: proyecto.fechaInicio ? new Date(proyecto.fechaInicio).toISOString().split('T')[0] : null,
           fechaFin: proyecto.fechaFin ? new Date(proyecto.fechaFin).toISOString().split('T')[0] : null,
-          idArea: proyecto.area?.id.toString() // Ajusta según el nombre real en tu interfaz
+          idArea: proyecto.area?.id.toString(), // Ajusta según el nombre real en tu interfaz
+          imagen: null // No se asigna la imagen al formulario
         });
+        this.imagePreview.set(proyecto.imagen || null); // Asumiendo que el backend devuelve una URL de la imagen
       } else {
         this.addProyectoForm.reset();
+        this.imagePreview.set(null);
       }
     });
   }
   closeModal() {
     this.modalCheckbox.nativeElement.checked = false;
+  }
+   onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+
+    if (file) {
+      // Ahora permitirá guardar el archivo sin errores de tipo
+      this.addProyectoForm.patchValue({
+        imagen: file
+      });
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview.set(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   }
   onSubmit() {
     if (this.updateorCreate() === 0) {
@@ -60,8 +82,8 @@ export class ProyectoModalComponent {
         }, 2000);
         return;
       }
-      const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0 } = this.addProyectoForm.value;
-      this.proyectosService.createProyecto(nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!));
+      const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0, imagen = null } = this.addProyectoForm.value;
+      this.proyectosService.createProyecto(nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!), imagen!);
       this.closeModal();
       this.addProyectoForm.reset();
       setTimeout(() => {
@@ -76,9 +98,9 @@ export class ProyectoModalComponent {
         }, 2000);
         return;
       }
-      const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0 } = this.addProyectoForm.value;
+      const { nombreProyecto = '', fechaInicio = '', fechaFin = '', idArea = 0, imagen = null } = this.addProyectoForm.value;
       const id = this.selectProyecto()?.id || 0; // Asegúrate de que el ID esté disponible
-      this.proyectosService.updateProyecto(id, nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!));
+      this.proyectosService.updateProyecto(id, nombreProyecto!, fechaInicio!, fechaFin!, Number(idArea!), imagen!);
       this.closeModal();
       setTimeout(() => {
         this.proyectosService.resetIsSuccess();

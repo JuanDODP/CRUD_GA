@@ -56,8 +56,17 @@ export class ProyectosService {
     fechaInicio: string,
     fechaFin: string,
     idArea: number | string,
+    imagen: File | null
   ) {
-    return this.http.post<any>(`${environment.baseUrl}/proyectos`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
+    const formData = new FormData();
+    formData.append('nombreProyecto', nombreProyecto);
+    formData.append('fechaInicio', fechaInicio);
+    formData.append('fechaFin', fechaFin);
+    formData.append('idArea', idArea.toString());
+    if (imagen) {
+      formData.append('imagen', imagen);
+    }
+    return this.http.post<any>(`${environment.baseUrl}/proyectos`, formData).subscribe({
       next: (resp) => {
         this.proyectos.update((proyectos) => [...proyectos, resp.proyect]);
         this.isSuccess.set(true);
@@ -73,9 +82,17 @@ export class ProyectosService {
       }
     });
   }
- updateProyecto(id: number, nombreProyecto: string, fechaInicio: string, fechaFin: string, idArea: number | string) {
+ updateProyecto(id: number, nombreProyecto: string, fechaInicio: string, fechaFin: string, idArea: number | string, imagen: File | null) {
   this.resetIsSuccess();
-  return this.http.patch<any>(`${environment.baseUrl}/proyectos/${id}`, { nombreProyecto, fechaInicio, fechaFin, idArea }).subscribe({
+  const formData = new FormData();
+  formData.append('nombreProyecto', nombreProyecto);
+  formData.append('fechaInicio', fechaInicio);
+  formData.append('fechaFin', fechaFin);
+  formData.append('idArea', idArea.toString());
+  if (imagen) {
+    formData.append('imagen', imagen);
+  }
+  return this.http.patch<any>(`${environment.baseUrl}/proyectos/${id}`, formData).subscribe({
     next: (resp) => {
       // 1. Extraemos el proyecto. Verifica en consola si es resp.proyect o resp.proyecto
       const proyectoActualizado = resp?.proyect || resp?.proyecto || resp;

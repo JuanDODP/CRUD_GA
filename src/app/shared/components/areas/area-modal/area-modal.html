@@ -44,10 +44,10 @@
             (change)="onFileSelected($event)"
             class="file-input file-input-bordered file-input-primary w-full bg-base-200/50" />
 
-          @if (imagePreview) {
+          @if (imagePreview()) {
             <div class="avatar justify-center mt-2">
               <div class="w-24 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img [src]="imagePreview" alt="Previsualización" />
+                <img [src]="imagePreview()" alt="Previsualización" />
               </div>
             </div>
           }

@@ -54,9 +54,15 @@ export class AreasService {
     });
 
   }
-  createArea(nombre: string, description: string) {
+  createArea(nombre: string, description: string, imagen: File | null) {
     this.resetIsSuccess();
-    return this.http.post<any>(`${environment.baseUrl}/areas`, { nombre, description }).subscribe({
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('description', description);
+    if (imagen) {
+      formData.append('imagen', imagen);
+    }
+    return this.http.post<any>(`${environment.baseUrl}/areas`, formData).subscribe({
       // next: (resp) => {
       //   this.areas.update((areas) => [...areas, resp]);
       //   this.isSuccess.set(true);
@@ -80,9 +86,16 @@ export class AreasService {
       }
     });
   }
-  updateArea(id: number, nombre: string, description: string) {
+  updateArea(id: number, nombre: string, description: string, imagen?: File | null) {
 
-    return this.http.patch<any>(`${environment.baseUrl}/areas/${id}`, { nombre, description }).subscribe({
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('description', description);
+    if (imagen) {
+      formData.append('imagen', imagen);
+    }
+
+    return this.http.patch<any>(`${environment.baseUrl}/areas/${id}`, formData).subscribe({
       next: (resp) => {
         this.areas.update((areas) => areas.map(area => area.id === id ? resp?.area : area));
         this.isSuccess.set(true);
