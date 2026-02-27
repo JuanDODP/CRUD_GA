@@ -2,9 +2,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsersResponse, Usuario } from '../../interface/usuarios.interface';
 import { environment } from '../../../../environments/environment';
+import { AsignacionesService } from './asignaciones.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsuariosService {
+    asignacionesService = inject(AsignacionesService);
+
   private http = inject(HttpClient);
   // editar modal
   update_or_create = signal<number>(0) // 0 para crear, 1 para editar;
@@ -110,6 +113,7 @@ export class UsuariosService {
           )
         );
         this.isSuccess.set(true);
+        this.asignacionesService.getAsignaciones(); // Actualiza las asignaciones para reflejar el cambio de usuario en la lista
       },
       error: (err) => {
         console.log("================================");
@@ -127,6 +131,7 @@ export class UsuariosService {
       next: () => {
         this.usuarios.update((usuarios) => usuarios.filter(usuario => usuario.id !== id));
         this.isSuccess.set(true);
+        this.asignacionesService.getAsignaciones(); // Actualiza las asignaciones para reflejar el cambio de usuario en la lista
       },
       error: (err) => {
         console.log("================================");

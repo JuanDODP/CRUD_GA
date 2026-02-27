@@ -28,6 +28,12 @@ export class NavbarOptionsMovil {
       route: '/asignaciones',
       icon: 'icon3',
     },
+    {
+      label: 'USUARIOS',
+      sublabel: 'Sublabel 3',
+      route: '/usuarios',
+      icon: 'icon3',
+    },
   ];
 
 }

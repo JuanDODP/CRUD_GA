@@ -2,9 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Proyecto, ProyectosResponse } from '../../interface/proyectos.interface';
 import { environment } from '../../../../environments/environment';
+import { AsignacionesService } from './asignaciones.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProyectosService {
+    asignacionesService = inject(AsignacionesService);
+
   // constructor() { }
   private http = inject(HttpClient);
   proyectos = signal<Proyecto[]>([]);
@@ -105,6 +108,7 @@ export class ProyectosService {
       this.isSuccess.set(true);
       // 3. Importante: Actualizamos el proyecto seleccionado para que la siguiente edición no sea vacía
       this.selectedProyecto.set(proyectoActualizado);
+      this.asignacionesService.getAsignaciones(); // Actualiza las asignaciones para reflejar el cambio de proyecto en la lista
     },
     error: (err) => {
       this.isSuccess.set(false);

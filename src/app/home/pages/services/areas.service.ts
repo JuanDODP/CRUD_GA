@@ -2,12 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Area, AreasReponse } from '../../interface/area.interface';
 import { environment } from '../../../../environments/environment';
+import { ProyectosService } from './proyectos.service';
 
 @Injectable({ providedIn: 'root' })
 export class AreasService {
   // constructor() { }
   areas = signal<Area[]>([])
   private http = inject(HttpClient);
+    proyectosService = inject(ProyectosService);
+
 
   // editar modal
   update_or_create = signal<number>(0) // 0 para crear, 1 para editar;
@@ -99,6 +102,7 @@ export class AreasService {
       next: (resp) => {
         this.areas.update((areas) => areas.map(area => area.id === id ? resp?.area : area));
         this.isSuccess.set(true);
+        this.proyectosService.getProyectos(); // Actualiza los proyectos para reflejar el cambio de área en la lista
 
       },
       error: (err) => {
