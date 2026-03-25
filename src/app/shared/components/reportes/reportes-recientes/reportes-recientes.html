@@ -1,0 +1,93 @@
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="font-bold text-lg">Asignaciones Recientes</h2>
+      <span class="badge badge-neutral badge-sm">Últimas {{ asignaciones().length }}</span>
+    </div>
+
+    @if (asignaciones().length === 0) {
+      <div class="flex items-center justify-center py-10 text-base-content/30 text-sm">
+        Sin asignaciones registradas
+      </div>
+    }
+
+    <div class="overflow-x-auto rounded-xl border border-base-200">
+      @if (asignaciones().length > 0) {
+        <table class="table table-zebra w-full">
+          <thead>
+            <tr class="bg-primary text-white text-xs uppercase tracking-wider">
+              <th class="font-semibold">#</th>
+              <th class="font-semibold">Usuario</th>
+              <th class="font-semibold">Proyecto</th>
+              <th class="font-semibold hidden md:table-cell">Área</th>
+              <th class="font-semibold hidden lg:table-cell">Estado</th>
+              <th class="font-semibold">Asignado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of asignaciones(); track item.id) {
+              <tr class="hover transition-colors">
+                <td>
+                  <span class="font-mono text-xs text-base-content/40 font-bold">{{ item.id }}</span>
+                </td>
+
+                <!-- Usuario -->
+                <td>
+                  <div class="flex items-center gap-2">
+                    @if (item.usuario.imagen) {
+                      <div class="avatar shrink-0">
+                        <div class="w-7 h-7 rounded-full overflow-hidden">
+                          <img [src]="item.usuario.imagen"
+                            class="object-cover w-full h-full hover:scale-110 transition-transform duration-200" />
+                        </div>
+                      </div>
+                    } @else {
+                      <div class="avatar placeholder shrink-0">
+                        <div class="bg-primary/10 text-primary w-7 h-7 rounded-full
+                                    flex items-center justify-center text-xs font-bold">
+                          <span>{{ getInitials(item.usuario.name) }}</span>
+                        </div>
+                      </div>
+                    }
+                    <span class="text-sm font-medium">{{ item.usuario.name }}</span>
+                  </div>
+                </td>
+
+                <!-- Proyecto -->
+                <td>
+                  <div class="flex items-center gap-2">
+                    @if (item.proyecto.imagen) {
+                      <div class="avatar shrink-0">
+                        <div class="w-7 h-7 rounded-md overflow-hidden">
+                          <img [src]="item.proyecto.imagen" class="object-cover w-full h-full" />
+                        </div>
+                      </div>
+                    }
+                    <span class="text-sm font-semibold">{{ item.proyecto.nombreProyecto }}</span>
+                  </div>
+                </td>
+
+                <!-- Área -->
+                <td class="hidden md:table-cell">
+                  <span class="text-sm text-base-content/60">{{ item.proyecto.area.nombre }}</span>
+                </td>
+
+                <!-- Estado -->
+                <td class="hidden lg:table-cell">
+                  <span class="badge badge-sm" [class]="estadoProyecto(item.proyecto).badgeClass">
+                    {{ estadoProyecto(item.proyecto).label }}
+                  </span>
+                </td>
+
+                <!-- Fecha -->
+                <td class="font-mono text-xs text-base-content/60 whitespace-nowrap">
+                  {{ formatDate(item.fechaAsignacion) }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </div>
+</div>

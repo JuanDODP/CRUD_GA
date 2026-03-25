@@ -1,0 +1,58 @@
+<!-- Banner gradient -->
+<div class="card bg-base-100 shadow-xl overflow-hidden">
+  <div class="h-28 md:h-36 bg-gradient-to-br from-primary via-primary/80 to-primary/40 relative">
+    <div class="absolute top-4 right-8 w-20 h-20 rounded-full bg-white/5 border border-white/10"></div>
+    <div class="absolute top-10 right-20 w-10 h-10 rounded-full bg-white/5 border border-white/10"></div>
+    <div class="absolute -bottom-1 left-0 right-0 h-6 bg-gradient-to-b from-transparent to-base-100/20"></div>
+  </div>
+
+  <div class="px-6 md:px-8 pb-6">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 -mt-14">
+
+      <!-- Avatar -->
+      <div class="flex items-end gap-4">
+        @if (avatarSrc) {
+          <div class="avatar">
+            <div class="w-24 h-24 rounded-2xl ring-4 ring-base-100 shadow-lg overflow-hidden">
+              <img [src]="avatarSrc" alt="Avatar" class="object-cover w-full h-full" />
+            </div>
+          </div>
+        } @else {
+          <div class="avatar placeholder">
+            <div class="bg-primary text-primary-content w-24 h-24 rounded-2xl ring-4 ring-base-100 shadow-lg flex items-center justify-center">
+              <span class="text-2xl font-bold select-none">{{ initials() }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Stats rápidos -->
+      <div class="flex gap-6 pb-1">
+        <div class="text-center">
+          <p class="text-3xl font-bold text-primary font-mono leading-none">
+            {{ asignacionesCount() }}
+          </p>
+          <p class="text-xs text-base-content/50 uppercase tracking-widest mt-1">Proyectos</p>
+        </div>
+        <div class="w-px bg-base-300 self-stretch"></div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-success font-mono leading-none">
+            {{ formatSalary(salary()) }}
+          </p>
+          <p class="text-xs text-base-content/50 uppercase tracking-widest mt-1">Salario</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nombre y badge de rol -->
+    <div class="mt-4">
+      <h1 class="text-2xl font-bold">{{ nombre() }}</h1>
+      <div class="flex flex-wrap items-center gap-2 mt-2">
+        <span class="badge badge-sm font-medium" [class]="getRolBadgeClass(rol())">
+          {{ getRolLabel(rol()) }}
+        </span>
+        <span class="text-sm text-base-content/50 font-mono">{{ email() }}</span>
+      </div>
+    </div>
+  </div>
+</div>

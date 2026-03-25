@@ -33,6 +33,7 @@
     "@angular/router": "^21.1.0",
     "@angular/ssr": "^21.1.0",
     "@tailwindcss/postcss": "^4.1.18",
+    "chart.js": "^4.5.1",
     "daisyui": "^5.5.14",
     "express": "^5.1.0",
     "postcss": "^8.5.6",

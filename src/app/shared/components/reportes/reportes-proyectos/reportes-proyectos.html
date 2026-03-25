@@ -1,0 +1,139 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+  <!-- Proyectos por Área (ocupa 2/3) -->
+  <div class="lg:col-span-2 card bg-base-100 shadow-xl">
+    <div class="card-body p-6">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-bold text-lg">Proyectos por Área</h2>
+        @if (areaMasActiva()) {
+          <span class="badge badge-primary badge-sm">
+            {{ areaMasActiva()!.area.nombre }} lidera con {{ areaMasActiva()!.count }}
+          </span>
+        }
+      </div>
+
+      @if (proyectosPorArea().length === 0) {
+        <div class="flex items-center justify-center py-10 text-base-content/30 text-sm">
+          Sin datos disponibles
+        </div>
+      }
+
+      <div class="space-y-4">
+        @for (item of proyectosPorArea(); track item.area.id) {
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2 min-w-0">
+                @if (item.area.imagen) {
+                  <div class="avatar shrink-0">
+                    <div class="w-6 h-6 rounded-md overflow-hidden">
+                      <img [src]="item.area.imagen" class="object-cover w-full h-full" />
+                    </div>
+                  </div>
+                }
+                <span class="font-medium truncate">{{ item.area.nombre }}</span>
+              </div>
+              <span class="font-mono text-xs font-bold text-base-content/60 shrink-0 ml-2">
+                {{ item.count }} proy.
+              </span>
+            </div>
+            <div class="h-2.5 bg-base-200 rounded-full overflow-hidden">
+              <div
+                class="h-full rounded-full bg-primary transition-all duration-700"
+                [style.width]="barWidth(item.count, maxPorArea())">
+              </div>
+            </div>
+            <p class="text-xs text-base-content/40">
+              {{ item.area.description }}
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado del Sistema (ocupa 1/3) -->
+  <div class="space-y-4">
+
+    <!-- Estado proyectos -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body p-5 space-y-3">
+        <h2 class="font-bold text-lg">Estado de Proyectos</h2>
+
+        <div class="flex items-center justify-between p-3 rounded-xl bg-success/10">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-success"></div>
+            <span class="text-sm font-medium">Activos</span>
+          </div>
+          <span class="font-mono font-bold text-success">{{ activosCount() }}</span>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-xl bg-info/10">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-info"></div>
+            <span class="text-sm font-medium">Por iniciar</span>
+          </div>
+          <span class="font-mono font-bold text-info">{{ porIniciarCount() }}</span>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-xl bg-warning/10">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-warning"></div>
+            <span class="text-sm font-medium">Próx. a vencer</span>
+          </div>
+          <span class="font-mono font-bold text-warning">{{ proxAVencerCount() }}</span>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-xl bg-error/10">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-error"></div>
+            <span class="text-sm font-medium">Vencidos</span>
+          </div>
+          <span class="font-mono font-bold text-error">{{ vencidosCount() }}</span>
+        </div>
+
+        <!-- Mini barra de progreso visual -->
+        @if (totalProyectos() > 0) {
+          <div class="mt-2">
+            <div class="flex h-3 rounded-full overflow-hidden">
+              <div class="bg-success transition-all"
+                [style.width]="barWidth(activosCount(), totalProyectos())"></div>
+              <div class="bg-info transition-all"
+                [style.width]="barWidth(porIniciarCount(), totalProyectos())"></div>
+              <div class="bg-warning transition-all"
+                [style.width]="barWidth(proxAVencerCount(), totalProyectos())"></div>
+              <div class="bg-error transition-all"
+                [style.width]="barWidth(vencidosCount(), totalProyectos())"></div>
+            </div>
+            <p class="text-xs text-base-content/40 mt-1 text-right font-mono">
+              {{ pctActivos() }}% activos
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Distribución de Roles -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body p-5 space-y-3">
+        <h2 class="font-bold text-lg">Distribución de Roles</h2>
+        @for (rol of distribucionRoles(); track rol.label) {
+          <div class="space-y-1">
+            <div class="flex justify-between text-sm">
+              <span class="font-medium">{{ rol.label }}</span>
+              <span class="font-mono text-xs font-bold" [class]="rol.text">
+                {{ rol.count }} ({{ rol.pct }}%)
+              </span>
+            </div>
+            <div class="h-2 bg-base-200 rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-700"
+                [class]="rol.color"
+                [style.width]="barWidth(rol.count, totalUsuarios())">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</div>

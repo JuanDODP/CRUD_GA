@@ -1,0 +1,114 @@
+<app-navbar />
+
+<main class="min-h-screen bg-base-200 px-4 py-6 md:px-8">
+
+  <!-- ── Page Header ── -->
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-base-content flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary-content" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </span>
+        Calendario de Proyectos
+      </h1>
+      <p class="text-sm text-base-content/50 mt-1 ml-12">Línea de tiempo · 3 meses anteriores y 9 meses próximos</p>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex items-center gap-5 flex-wrap">
+      <div class="flex items-center gap-2 text-xs text-base-content/60">
+        <span class="w-3 h-3 rounded-full bg-success shadow-sm"></span>Activo
+      </div>
+      <div class="flex items-center gap-2 text-xs text-base-content/60">
+        <span class="w-3 h-3 rounded-full bg-info shadow-sm"></span>Por iniciar
+      </div>
+      <div class="flex items-center gap-2 text-xs text-base-content/60">
+        <span class="w-3 h-3 rounded-full bg-error shadow-sm"></span>Vencido
+      </div>
+      <div class="flex items-center gap-2 text-xs text-base-content/60">
+        <span class="w-5 h-0.5 bg-primary/60 rounded-full inline-block"></span>Hoy
+      </div>
+    </div>
+  </div>
+
+  <!-- ── KPI Stats ── -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+
+    <div class="card bg-base-100 shadow-sm">
+      <div class="card-body p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-base-content/40 uppercase tracking-wide">Total</span>
+          <span class="w-7 h-7 rounded-lg bg-base-200 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-base-content/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+          </span>
+        </div>
+        <p class="text-3xl font-bold text-base-content">{{ stats().total }}</p>
+        <p class="text-xs text-base-content/30 mt-1">proyectos registrados</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm" style="border-left: 3px solid oklch(var(--su));">
+      <div class="card-body p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-success/80 uppercase tracking-wide">Activos</span>
+          <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+        </div>
+        <p class="text-3xl font-bold text-success">{{ stats().activos }}</p>
+        <p class="text-xs text-base-content/30 mt-1">en ejecución ahora</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm" style="border-left: 3px solid oklch(var(--in));">
+      <div class="card-body p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-info/80 uppercase tracking-wide">Por iniciar</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-info/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <p class="text-3xl font-bold text-info">{{ stats().porIniciar }}</p>
+        <p class="text-xs text-base-content/30 mt-1">próximos a iniciar</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm" style="border-left: 3px solid oklch(var(--er));">
+      <div class="card-body p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-error/80 uppercase tracking-wide">Vencidos</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-error/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <p class="text-3xl font-bold text-error">{{ stats().vencidos }}</p>
+        <p class="text-xs text-base-content/30 mt-1">plazo superado</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Gantt + Detail ── -->
+  <div class="flex gap-4 items-start">
+    <app-calendario-gantt
+      class="flex-1 min-w-0"
+      [rows]="rows()"
+      [months]="months()"
+      [todayLeft]="todayLeft()"
+      [selectedId]="selectedProyecto()?.id ?? null"
+      (selectProyecto)="selectProyecto($event)"
+    />
+    @if (selectedProyecto(); as proyecto) {
+      <app-calendario-detalle
+        class="w-72 flex-shrink-0"
+        [proyecto]="proyecto"
+        [asignaciones]="selectedAsignaciones()"
+        [status]="selectedStatus()!"
+        (cerrar)="closeDetail()"
+      />
+    }
+  </div>
+
+</main>

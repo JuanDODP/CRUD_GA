@@ -39,5 +39,35 @@ export class NavbarOptions {
       route: '/usuarios',
       icon: 'icon3',
     },
+    {
+      label: 'REPORTES',
+      sublabel: 'Panel analítico',
+      route: '/reportes',
+      icon: 'chart',
+    },
+    {
+      label: 'CALENDARIO',
+      sublabel: 'Línea de tiempo',
+      route: '/calendario',
+      icon: 'calendar',
+    },
+    {
+      label: 'TABLERO',
+      sublabel: 'Vista Kanban',
+      route: '/tablero',
+      icon: 'kanban',
+    },
+    {
+      label: 'ANALÍTICAS',
+      sublabel: 'Gráficas del sistema',
+      route: '/graficas',
+      icon: 'chart-bar',
+    },
+    {
+      label: 'MI PERFIL',
+      sublabel: 'Gestiona tu cuenta',
+      route: '/mi-perfil',
+      icon: 'profile',
+    },
   ];
 }

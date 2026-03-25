@@ -34,11 +34,20 @@
     }
 
   </div> -->
-<div class="navbar-end">
+<div class="navbar-end gap-2">
   @if (authStatus() === 'authenticated') {
-    <button class="btn btn-ghost">
-      {{ user()?.name }}
-    </button>
+    <!-- Avatar clicable → /mi-perfil -->
+    <a routerLink="/mi-perfil"
+      class="flex items-center gap-2 btn btn-ghost btn-sm rounded-full pr-3 hover:bg-base-200 transition-colors">
+      @if (user()?.name) {
+        <div class="avatar placeholder">
+          <div class="bg-primary text-primary-content rounded-full w-8 h-8 text-xs font-bold">
+            <span>{{ getInitials(user()!.name) }}</span>
+          </div>
+        </div>
+      }
+      <span class="hidden sm:inline text-sm font-medium max-w-28 truncate">{{ user()?.name }}</span>
+    </a>
     <button class="btn btn-sm btn-error" (click)="logout()">
       Salir
     </button>
@@ -49,7 +58,7 @@
     </a>
   }
   @else {
-    <span>Cargando...</span>
+    <span class="loading loading-spinner loading-xs opacity-50"></span>
   }
 </div>
 </div>

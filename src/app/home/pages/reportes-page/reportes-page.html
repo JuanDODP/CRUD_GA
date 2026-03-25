@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-base-200">
+  <app-navbar />
+
+  <main class="max-w-7xl mx-auto px-4 py-8 space-y-6">
+
+    <!-- ══════════════════════════════════════════════════════════
+         HEADER
+    ══════════════════════════════════════════════════════════ -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight">Panel de Reportes</h1>
+        <p class="text-base-content/50 text-sm mt-1">
+          Métricas derivadas en tiempo real · Actualizado {{ formatDate(hoy) }}
+        </p>
+      </div>
+      <button
+        class="btn btn-primary btn-sm gap-2 self-start sm:self-auto shadow-md hover:shadow-primary/30 transition-shadow"
+        (click)="refresh()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+          [class.animate-spin]="isRefreshing()"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Actualizar datos
+      </button>
+    </div>
+
+    <app-reportes-kpis
+      [totalAreas]="totalAreas()"
+      [totalProyectos]="totalProyectos()"
+      [totalAsignaciones]="totalAsignaciones()"
+      [totalUsuarios]="totalUsuarios()"
+      [activosCount]="proyectosActivos().length"
+      [vencidosCount]="proyectosVencidos().length"
+      [promedioAsig]="promedioAsignaciones()"
+      [tasaCobertura]="tasaCobertura()"
+    />
+
+    <app-reportes-proyectos
+      [proyectosPorArea]="proyectosPorArea()"
+      [maxPorArea]="maxProyectosPorArea()"
+      [areaMasActiva]="areaMasActiva()"
+      [activosCount]="proyectosActivos().length"
+      [porIniciarCount]="proyectosPorIniciar().length"
+      [proxAVencerCount]="proyectosProxAVencer().length"
+      [vencidosCount]="proyectosVencidos().length"
+      [totalProyectos]="totalProyectos()"
+      [totalUsuarios]="totalUsuarios()"
+      [pctActivos]="pctActivos()"
+      [distribucionRoles]="distribucionRoles()"
+    />
+
+    <app-reportes-carga
+      [cargaPorUsuario]="cargaPorUsuario()"
+      [maxCarga]="maxCargaUsuario()"
+      [tasaCobertura]="tasaCobertura()"
+      [usuariosConAsig]="usuariosConAsignacion()"
+      [totalUsuarios]="totalUsuarios()"
+      [proxAVencer]="proyectosProxAVencer()"
+      [vencidosCount]="proyectosVencidos().length"
+    />
+
+    <app-reportes-recientes [asignaciones]="asignacionesRecientes()" />
+
+  </main>
+</div>

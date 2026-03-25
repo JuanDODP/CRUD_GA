@@ -106,6 +106,11 @@ export const routes: Routes = [
       { path: 'proyectos', loadComponent: () => import('./home/pages/proyectos-page/proyectos-page') },
       { path: 'asignaciones', loadComponent: () => import('./home/pages/asignasiones-page/asignasiones-page') },
       { path: 'usuarios', loadComponent: () => import('./home/pages/usuarios-page/usuarios-page') },
+      { path: 'mi-perfil', loadComponent: () => import('./home/pages/mi-perfil-page/mi-perfil-page') },
+      { path: 'reportes',    loadComponent: () => import('./home/pages/reportes-page/reportes-page') },
+      { path: 'calendario',  loadComponent: () => import('./home/pages/calendario-page/calendario-page') },
+      { path: 'tablero',     loadComponent: () => import('./home/pages/tablero-page/tablero-page') },
+      { path: 'graficas',    loadComponent: () => import('./home/pages/graficas-page/graficas-page') },
       { path: '', redirectTo: 'areas', pathMatch: 'full' } // Solo redirige si entras a localhost:4200/ exactamente
     ]
   },

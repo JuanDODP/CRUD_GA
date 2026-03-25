@@ -35,21 +35,28 @@ export const IsAdminGuard: CanMatchFn = (route, segments) => {
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
 
-  // 1. IMPORTANTE: Si estamos en el servidor (SSR), permitimos el paso inicial.
-  // El cliente (browser) validará el token real un milisegundo después.
+  // SSR: permitir siempre en servidor, el cliente validará después
   if (isPlatformServer(platformId)) return true;
 
-  // 2. Convertimos el Signal de authStatus a un Observable
-  return toObservable(authService.authStatus).pipe(
-    // Esperamos a que el estado sea distinto de 'checking'
-    filter(status => status !== 'checking'),
-    take(1), // Tomamos el primer valor real (authenticated o unauthenticated)
-    map(status => {
-      if (status === 'authenticated') {
-        return true;
-      }
+  const status = authService.authStatus();
 
-      // Si definitivamente no tiene permiso, lo mandamos al login
+  // Estado ya resuelto → retornar SÍNCRONAMENTE sin pasar por effect()
+  // Esto evita el deadlock donde toObservable espera un tick()
+  // que nunca llega porque la propia navegación mantiene el zone ocupado
+  if (status === 'authenticated') return true;
+
+  if (status === 'not-authenticated') {
+    router.navigateByUrl('/auth/login');
+    return false;
+  }
+
+  // Solo 'checking': app arrancando con token en localStorage
+  // Aquí sí esperamos de forma async a que checkStatus() resuelva
+  return toObservable(authService.authStatus).pipe(
+    filter(s => s !== 'checking'),
+    take(1),
+    map(s => {
+      if (s === 'authenticated') return true;
       router.navigateByUrl('/auth/login');
       return false;
     })

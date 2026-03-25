@@ -1,0 +1,115 @@
+<app-navbar />
+
+<main class="min-h-screen bg-base-200 px-4 py-6 md:px-8">
+
+  <!-- ── Header ── -->
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-base-content flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary-content" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </span>
+        Analíticas
+      </h1>
+      <p class="text-sm text-base-content/50 mt-1 ml-12">Visualización de datos · actualización en tiempo real</p>
+    </div>
+
+    <button
+      class="btn btn-sm btn-ghost gap-2"
+      (click)="refresh()"
+      [disabled]="isRefreshing()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4"
+        [class.animate-spin]="isRefreshing()"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+      Actualizar
+    </button>
+  </div>
+
+  <!-- ── KPI row ── -->
+  <app-grafica-kpis [kpis]="kpis()" class="block mb-6" />
+
+  <!-- ── Chart grid 2x2 ── -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+    <!-- Estado de proyectos -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body p-5">
+        <div class="mb-4">
+          <h2 class="font-bold text-base-content text-sm">Estado de Proyectos</h2>
+          <p class="text-[11px] text-base-content/40 mt-0.5">Distribución por estado actual</p>
+        </div>
+        <div class="relative" style="height: 220px;">
+          <app-grafica-estado [data]="dataEstado()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Proyectos por área -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body p-5">
+        <div class="mb-4">
+          <h2 class="font-bold text-base-content text-sm">Proyectos por Área</h2>
+          <p class="text-[11px] text-base-content/40 mt-0.5">Cantidad de proyectos asignados a cada área</p>
+        </div>
+        <div class="relative" style="height: 220px;">
+          <app-grafica-areas [data]="dataAreas()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Carga laboral por usuario -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body p-5">
+        <div class="mb-4">
+          <h2 class="font-bold text-base-content text-sm">Carga Laboral por Usuario</h2>
+          <p class="text-[11px] text-base-content/40 mt-0.5">Top 8 usuarios con más asignaciones</p>
+        </div>
+        <div class="relative" style="height: 220px;">
+          <app-grafica-carga [data]="dataCarga()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Distribución de roles -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body p-5">
+        <div class="mb-4">
+          <h2 class="font-bold text-base-content text-sm">Distribución de Roles</h2>
+          <p class="text-[11px] text-base-content/40 mt-0.5">Proporción de roles en el sistema</p>
+        </div>
+        <div class="relative" style="height: 220px;">
+          <app-grafica-roles [data]="dataRoles()" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Tendencia mensual (full-width) ── -->
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body p-5">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <h2 class="font-bold text-base-content text-sm">Tendencia de Proyectos Activos</h2>
+          <p class="text-[11px] text-base-content/40 mt-0.5">Proyectos en ejecución por mes · últimos 12 meses</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-base-content/40">
+          <span class="w-8 h-0.5 rounded-full inline-block" style="background: #8b5cf6;"></span>
+          Proyectos activos
+        </div>
+      </div>
+      <div class="relative" style="height: 180px;">
+        <app-grafica-tendencia [data]="dataTendencia()" />
+      </div>
+    </div>
+  </div>
+
+</main>
