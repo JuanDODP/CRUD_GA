@@ -37,11 +37,12 @@
       <table class="table table-zebra w-full">
         <thead>
           <tr class="bg-primary text-white">
-            <th class="bg-primary">ID</th>
-            <th class="bg-primary">Imagen</th> <th class="bg-primary">Proyecto</th>
-            <th class="bg-primary">Inicio</th>
-            <th class="bg-primary">Fin</th>
-            <th class="bg-primary text-center">Área</th>
+            <th class="bg-primary hidden sm:table-cell">ID</th>
+            <th class="bg-primary">Imagen</th>
+            <th class="bg-primary">Proyecto</th>
+            <th class="bg-primary hidden md:table-cell">Inicio</th>
+            <th class="bg-primary hidden md:table-cell">Fin</th>
+            <th class="bg-primary text-center hidden sm:table-cell">Área</th>
             <th class="bg-primary text-center">Acciones</th>
           </tr>
         </thead>
@@ -49,7 +50,7 @@
         <tbody>
           @for (item of proyectos(); track item.id) {
           <tr class="hover">
-            <th class="font-mono text-xs">{{ item.id }}</th>
+            <th class="font-mono text-xs hidden sm:table-cell">{{ item.id }}</th>
 
             <td>
               <label for="modal-image-preview" class="cursor-zoom-in" (click)="clear(); getProyecto(item)">
@@ -62,9 +63,9 @@
             </td>
 
             <td class="font-bold">{{ item.nombreProyecto }}</td>
-            <td class="text-sm opacity-70">{{ item.fechaInicio | date:'shortDate' }}</td>
-            <td class="text-sm opacity-70">{{ item.fechaFin | date:'shortDate' }}</td>
-            <td class="text-center">
+            <td class="text-sm opacity-70 hidden md:table-cell">{{ item.fechaInicio | date:'shortDate' }}</td>
+            <td class="text-sm opacity-70 hidden md:table-cell">{{ item.fechaFin | date:'shortDate' }}</td>
+            <td class="text-center hidden sm:table-cell">
               <span class="badge badge-outline badge-info gap-1">
                 {{ item.area.nombre }}
               </span>

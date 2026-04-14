@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Usuario — Sistema de Asignaciones</title>
+  <style>
+    /* ─── TIPOGRAFÍA Y BASE ─────────────────────────────────────── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    /* ─── PORTADA ────────────────────────────────────────────────── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f6cbd 60%, #38bdf8 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 40px;
+      page-break-after: always;
+    }
+
+    .cover-logo {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      margin-bottom: 32px;
+      border: 3px solid rgba(255,255,255,0.4);
+    }
+
+    .cover h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .cover h2 {
+      font-size: 20px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-bottom: 40px;
+    }
+
+    .cover-divider {
+      width: 80px;
+      height: 3px;
+      background: rgba(255,255,255,0.5);
+      margin: 0 auto 40px;
+      border-radius: 2px;
+    }
+
+    .cover-meta {
+      font-size: 13px;
+      opacity: 0.7;
+      line-height: 2;
+    }
+
+    .cover-version {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 28px;
+      border-radius: 99px;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    /* ─── ÍNDICE ─────────────────────────────────────────────────── */
+    .toc-page {
+      padding: 60px 64px;
+      page-break-after: always;
+    }
+
+    .toc-page h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f6cbd;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .toc-section {
+      margin-bottom: 8px;
+    }
+
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px dotted #cbd5e1;
+      font-size: 14px;
+    }
+
+    .toc-item.main {
+      font-weight: 700;
+      font-size: 15px;
+      color: #0f6cbd;
+      border-bottom: none;
+      padding-top: 16px;
+    }
+
+    .toc-item.sub {
+      padding-left: 24px;
+      color: #475569;
+    }
+
+    .toc-num {
+      font-weight: 600;
+      margin-right: 10px;
+      color: #0f6cbd;
+    }
+
+    /* ─── LAYOUT GENERAL ────────────────────────────────────────── */
+    .page {
+      padding: 56px 64px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    /* ─── ENCABEZADOS DE MÓDULO ─────────────────────────────────── */
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 3px solid #e2e8f0;
+    }
+
+    .module-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .module-icon.blue   { background: #dbeafe; }
+    .module-icon.green  { background: #dcfce7; }
+    .module-icon.purple { background: #ede9fe; }
+    .module-icon.orange { background: #ffedd5; }
+    .module-icon.teal   { background: #ccfbf1; }
+    .module-icon.rose   { background: #ffe4e6; }
+    .module-icon.yellow { background: #fef9c3; }
+    .module-icon.slate  { background: #f1f5f9; }
+    .module-icon.indigo { background: #e0e7ff; }
+
+    .module-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .module-title p {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    /* ─── BADGES DE SECCIÓN ─────────────────────────────────────── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 8px;
+    }
+
+    .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+    .badge-green  { background: #dcfce7; color: #15803d; }
+    .badge-red    { background: #fee2e2; color: #b91c1c; }
+    .badge-orange { background: #ffedd5; color: #c2410c; }
+    .badge-yellow { background: #fef9c3; color: #a16207; }
+    .badge-purple { background: #ede9fe; color: #7c3aed; }
+    .badge-slate  { background: #f1f5f9; color: #475569; }
+
+    /* ─── SECCIONES DE CONTENIDO ────────────────────────────────── */
+    h2.section-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 32px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    h3.subsection-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f6cbd;
+      margin: 24px 0 8px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    /* ─── PASOS ────────────────────────────────────────────────── */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 20px;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      min-width: 28px;
+      height: 28px;
+      background: #0f6cbd;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .steps li .step-content {
+      flex: 1;
+    }
+
+    .steps li .step-content strong {
+      display: block;
+      color: #0f172a;
+      font-size: 14px;
+    }
+
+    .steps li .step-content span {
+      color: #475569;
+      font-size: 13px;
+    }
+
+    /* ─── CAJAS INFORMATIVAS ─────────────────────────────────────── */
+    .info-box {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .info-box .icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-box .body strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .info-box .body p {
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .info-box.tip    { background: #eff6ff; border-left: 4px solid #3b82f6; }
+    .info-box.tip .icon    { color: #3b82f6; }
+    .info-box.tip .body strong { color: #1d4ed8; }
+
+    .info-box.warning { background: #fffbeb; border-left: 4px solid #f59e0b; }
+    .info-box.warning .icon { color: #f59e0b; }
+    .info-box.warning .body strong { color: #b45309; }
+
+    .info-box.error   { background: #fef2f2; border-left: 4px solid #ef4444; }
+    .info-box.error .icon   { color: #ef4444; }
+    .info-box.error .body strong { color: #b91c1c; }
+
+    .info-box.success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+    .info-box.success .icon { color: #22c55e; }
+    .info-box.success .body strong { color: #15803d; }
+
+    /* ─── TABLA DE CAMPOS ───────────────────────────────────────── */
+    .fields-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 20px;
+      font-size: 13px;
+    }
+
+    .fields-table th {
+      background: #0f6cbd;
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .fields-table th:first-child { border-radius: 8px 0 0 0; }
+    .fields-table th:last-child  { border-radius: 0 8px 0 0; }
+
+    .fields-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: top;
+    }
+
+    .fields-table tr:nth-child(even) td { background: #f8fafc; }
+    .fields-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+    .fields-table tr:last-child td:last-child  { border-radius: 0 0 8px 0; }
+
+    .required-tag {
+      display: inline-block;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 99px;
+    }
+
+    .optional-tag {
+      display: inline-block;
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 99px;
+    }
+
+    /* ─── GRID DE ACCIONES ──────────────────────────────────────── */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .action-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      background: #fafafa;
+    }
+
+    .action-card .action-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .action-card .action-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .action-card .action-icon.create  { background: #dcfce7; }
+    .action-card .action-icon.edit    { background: #dbeafe; }
+    .action-card .action-icon.delete  { background: #fee2e2; }
+    .action-card .action-icon.export  { background: #fef9c3; }
+    .action-card .action-icon.pdf     { background: #ede9fe; }
+    .action-card .action-icon.preview { background: #ccfbf1; }
+
+    .action-card .action-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #0f172a;
+    }
+
+    .action-card p {
+      font-size: 13px;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* ─── COLUMNAS DE KANBAN ────────────────────────────────────── */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .kanban-col {
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid;
+    }
+
+    .kanban-col.blue   { background: #eff6ff; border-color: #93c5fd; }
+    .kanban-col.green  { background: #f0fdf4; border-color: #86efac; }
+    .kanban-col.orange { background: #fff7ed; border-color: #fdba74; }
+    .kanban-col.red    { background: #fef2f2; border-color: #fca5a5; }
+
+    .kanban-col-header {
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .kanban-col.blue .kanban-col-header   { color: #1d4ed8; }
+    .kanban-col.green .kanban-col-header  { color: #15803d; }
+    .kanban-col.orange .kanban-col-header { color: #c2410c; }
+    .kanban-col.red .kanban-col-header    { color: #b91c1c; }
+
+    .kanban-col p { font-size: 13px; margin: 0; }
+
+    /* ─── STATUS DOTS ───────────────────────────────────────────── */
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13px;
+    }
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── SEPARADOR VISUAL ──────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, #0f6cbd, transparent);
+      margin: 28px 0;
+      opacity: 0.3;
+    }
+
+    /* ─── PIE DE PÁGINA ────────────────────────────────────────── */
+    .page-footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 11px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ─── INTRO BOX ─────────────────────────────────────────────── */
+    .intro-box {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+
+    .intro-box h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1d4ed8;
+      margin-bottom: 8px;
+    }
+
+    .intro-box p {
+      font-size: 13px;
+      color: #1e40af;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* ─── IMPRESIÓN ─────────────────────────────────────────────── */
+    @media print {
+      body { font-size: 13px; }
+
+      .cover { page-break-after: always; min-height: 100vh; }
+      .toc-page { page-break-after: always; }
+      .page-break { page-break-before: always; }
+
+      .actions-grid { grid-template-columns: repeat(2, 1fr); }
+      .kanban-grid  { grid-template-columns: repeat(2, 1fr); }
+
+      /* Evita cortes feos dentro de cajas */
+      .info-box, .action-card, .fields-table, .intro-box {
+        page-break-inside: avoid;
+      }
+
+      /* Fuerza bordes a imprimirse */
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PORTADA
+══════════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">📋</div>
+  <h1>Sistema de Asignaciones</h1>
+  <h2>Manual de Usuario</h2>
+  <div class="cover-divider"></div>
+  <p class="cover-meta">
+    Guía completa para el uso de la plataforma<br/>
+    Áreas · Proyectos · Asignaciones · Usuarios · Reportes<br/>
+    Calendario · Tablero · Analíticas · Mi Perfil
+  </p>
+  <div class="cover-version">Versión 1.0 &nbsp;·&nbsp; Abril 2026</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     ÍNDICE
+══════════════════════════════════════════════════════════════════ -->
+<div class="toc-page">
+  <h2>Contenido del Manual</h2>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">1.</span>¿Qué es este sistema?</span></div>
+    <div class="toc-item sub"><span>1.1 Para qué sirve</span></div>
+    <div class="toc-item sub"><span>1.2 Cómo acceder (inicio de sesión)</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">2.</span>Módulo de Áreas</span></div>
+    <div class="toc-item sub"><span>2.1 ¿Qué es un área?</span></div>
+    <div class="toc-item sub"><span>2.2 Agregar un área</span></div>
+    <div class="toc-item sub"><span>2.3 Editar un área</span></div>
+    <div class="toc-item sub"><span>2.4 Eliminar un área</span></div>
+    <div class="toc-item sub"><span>2.5 Exportar áreas a Excel</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">3.</span>Módulo de Proyectos</span></div>
+    <div class="toc-item sub"><span>3.1 ¿Qué es un proyecto?</span></div>
+    <div class="toc-item sub"><span>3.2 Crear un proyecto</span></div>
+    <div class="toc-item sub"><span>3.3 Editar un proyecto</span></div>
+    <div class="toc-item sub"><span>3.4 Eliminar un proyecto</span></div>
+    <div class="toc-item sub"><span>3.5 Exportar proyectos a Excel</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">4.</span>Módulo de Asignaciones</span></div>
+    <div class="toc-item sub"><span>4.1 ¿Qué es una asignación?</span></div>
+    <div class="toc-item sub"><span>4.2 Crear una asignación</span></div>
+    <div class="toc-item sub"><span>4.3 Editar una asignación</span></div>
+    <div class="toc-item sub"><span>4.4 Eliminar una asignación</span></div>
+    <div class="toc-item sub"><span>4.5 Descargar PDF de una asignación</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">5.</span>Módulo de Usuarios</span></div>
+    <div class="toc-item sub"><span>5.1 ¿Qué es un usuario?</span></div>
+    <div class="toc-item sub"><span>5.2 Registrar un nuevo usuario</span></div>
+    <div class="toc-item sub"><span>5.3 Editar un usuario</span></div>
+    <div class="toc-item sub"><span>5.4 Eliminar un usuario</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">6.</span>Módulo de Reportes</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">7.</span>Módulo de Calendario</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">8.</span>Módulo de Tablero</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">9.</span>Módulo de Analíticas</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">10.</span>Mi Perfil</span></div>
+    <div class="toc-item sub"><span>10.1 Editar información personal</span></div>
+    <div class="toc-item sub"><span>10.2 Cambiar contraseña</span></div>
+    <div class="toc-item sub"><span>10.3 Ver mis asignaciones</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">11.</span>Mensajes del sistema y solución de problemas</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 1 — ¿QUÉ ES ESTE SISTEMA?
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon slate">🏢</div>
+    <div class="module-title">
+      <h1>1. ¿Qué es este sistema?</h1>
+      <p>Introducción y acceso a la plataforma</p>
+    </div>
+  </div>
+
+  <p>El <strong>Sistema de Asignaciones</strong> es una plataforma digital diseñada para que los administradores de una organización puedan gestionar de manera sencilla y ordenada todo lo relacionado con sus <strong>áreas de trabajo, proyectos, usuarios y asignaciones</strong>.</p>
+  <p>En términos simples: es como un tablero de control donde puedes ver quién está trabajando en qué proyecto, cuándo empezó, cuándo termina y si va a tiempo o ya venció el plazo.</p>
+
+  <h2 class="section-title">1.1 Para qué sirve</h2>
+  <p>Con este sistema puedes:</p>
+  <ul style="list-style: disc; padding-left: 24px; margin-bottom: 16px; color: #334155;">
+    <li style="margin-bottom: 6px;">Organizar tu empresa en <strong>áreas</strong> (como Tecnología, Marketing, Ventas, etc.).</li>
+    <li style="margin-bottom: 6px;">Crear <strong>proyectos</strong> dentro de cada área con fechas de inicio y fin.</li>
+    <li style="margin-bottom: 6px;">Asignar <strong>usuarios</strong> (personas de tu equipo) a esos proyectos.</li>
+    <li style="margin-bottom: 6px;">Ver reportes, gráficas y el estado actual de todos los proyectos en tiempo real.</li>
+    <li style="margin-bottom: 6px;">Saber qué proyectos están activos, cuáles están por vencer y cuáles ya vencieron.</li>
+  </ul>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>El flujo de trabajo básico es:</strong>
+      <p>Primero creas las <strong>áreas</strong> de tu organización → luego creas <strong>proyectos</strong> dentro de esas áreas → después registras <strong>usuarios</strong> en el sistema → finalmente creas <strong>asignaciones</strong> para unir a los usuarios con los proyectos.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">1.2 Cómo acceder — Inicio de sesión</h2>
+  <p>Al abrir la aplicación en el navegador, lo primero que verás es la pantalla de inicio de sesión. Aquí deberás ingresar tu correo y contraseña.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Abre la aplicación en tu navegador</strong>
+        <span>Verás una pantalla con dos campos: correo electrónico y contraseña.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe tu correo electrónico</strong>
+        <span>Usa el correo con el que fuiste registrado en el sistema (por ejemplo: juan@empresa.com).</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe tu contraseña</strong>
+        <span>Si olvidaste tu contraseña, contacta al administrador del sistema para que la restablezca.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Iniciar sesión"</strong>
+        <span>El sistema verificará tus datos y te redirigirá al panel principal.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box error">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>¿Qué pasa si no puedo entrar?</strong>
+      <p>Si el sistema muestra un mensaje de error como "Credenciales inválidas", verifica que tu correo y contraseña estén escritos correctamente. Si el problema persiste, comunícate con el administrador del sistema.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Navegación principal</h2>
+  <p>Una vez dentro, verás en la parte superior (o lateral, dependiendo del dispositivo) un menú con todas las secciones disponibles:</p>
+
+  <table class="fields-table">
+    <thead>
+      <tr>
+        <th>Icono</th>
+        <th>Sección</th>
+        <th>¿Qué hace?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>🏛️</td><td><strong>ÁREAS</strong></td><td>Gestiona las áreas de la organización</td></tr>
+      <tr><td>📁</td><td><strong>PROYECTOS</strong></td><td>Crea y administra proyectos</td></tr>
+      <tr><td>📎</td><td><strong>ASIGNACIONES</strong></td><td>Asigna usuarios a proyectos</td></tr>
+      <tr><td>👥</td><td><strong>USUARIOS</strong></td><td>Administra las cuentas de los colaboradores</td></tr>
+      <tr><td>📊</td><td><strong>REPORTES</strong></td><td>Estadísticas y resumen general</td></tr>
+      <tr><td>📅</td><td><strong>CALENDARIO</strong></td><td>Vista tipo Gantt con línea de tiempo</td></tr>
+      <tr><td>🗂️</td><td><strong>TABLERO</strong></td><td>Vista tipo Kanban por estado de proyecto</td></tr>
+      <tr><td>📈</td><td><strong>ANALÍTICAS</strong></td><td>Gráficas y tendencias</td></tr>
+      <tr><td>👤</td><td><strong>MI PERFIL</strong></td><td>Tu información personal y asignaciones</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 1: Introducción</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 2 — MÓDULO DE ÁREAS
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon blue">🏛️</div>
+    <div class="module-title">
+      <h1>2. Módulo de Áreas</h1>
+      <p>Organiza tu empresa en departamentos o divisiones</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">2.1 ¿Qué es un área?</h2>
+  <p>Un <strong>área</strong> representa una división, departamento o grupo dentro de tu organización. Por ejemplo: "Tecnología", "Recursos Humanos", "Marketing", "Finanzas".</p>
+  <p>Piensa en las áreas como las grandes categorías que agrupan a tus proyectos. Antes de poder crear un proyecto, necesitas tener al menos un área creada.</p>
+
+  <div class="intro-box">
+    <h3>¿Qué ves en esta pantalla?</h3>
+    <p>Al entrar al módulo de Áreas verás una <strong>tabla</strong> con todas las áreas registradas. Cada fila muestra: el número de identificación del área (ID), una foto o imagen representativa, el nombre del área y su descripción. En la parte superior hay un botón para agregar una nueva área y otro para exportar la lista a Excel.</p>
+  </div>
+
+  <h2 class="section-title">2.2 Cómo agregar un área nueva</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón "Agregar Área" o "Nueva Área"</strong>
+        <span>Aparecerá una ventana emergente (modal) con un formulario en blanco.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe el nombre del área</strong>
+        <span>Por ejemplo: "Tecnología" o "Recursos Humanos". Este campo es obligatorio.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe una descripción</strong>
+        <span>Explica brevemente a qué se dedica esa área. Por ejemplo: "Área encargada del desarrollo de sistemas y soporte técnico." Este campo también es obligatorio.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona una imagen (opcional)</strong>
+        <span>Puedes subir una foto o imagen para identificar visualmente el área. Si no subes ninguna, el sistema usará una imagen por defecto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Guardar Área"</strong>
+        <span>El sistema registrará el área y la verás aparecer inmediatamente en la tabla.</span>
+      </div>
+    </li>
+  </ol>
+
+  <p><strong>Campos del formulario:</strong></p>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Campo</th><th>¿Qué debes escribir?</th><th>¿Es obligatorio?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Nombre del Área</strong></td><td>El nombre corto y claro del área (ej. "Ventas")</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Descripción</strong></td><td>Una explicación de qué hace esa área</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Imagen</strong></td><td>Una foto o logo representativo (formatos: JPG, PNG)</td><td><span class="optional-tag">Opcional</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box success">
+    <div class="icon">✅</div>
+    <div class="body">
+      <strong>¿Cómo saber si se guardó bien?</strong>
+      <p>Aparecerá una notificación verde en la parte superior de la pantalla con un mensaje de éxito como "Área creada correctamente". La ventana se cerrará y el área nueva aparecerá en la tabla.</p>
+    </div>
+  </div>
+
+  <div class="info-box error">
+    <div class="icon">❌</div>
+    <div class="body">
+      <strong>¿Qué pasa si no se guardó?</strong>
+      <p>Si dejaste el nombre o la descripción en blanco, el formulario te marcará esos campos en rojo y no dejará guardar hasta que los llenes. Si el error es del servidor, aparecerá una notificación roja con el mensaje de error.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">2.3 Cómo editar un área existente</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Encuentra el área que quieres modificar en la tabla</strong>
+        <span>Puedes ver todas las áreas listadas con sus datos.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de edición (ícono de lápiz o botón "Editar")</strong>
+        <span>Se abrirá la misma ventana del formulario, pero esta vez con los datos actuales del área ya cargados.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Modifica los campos que necesites cambiar</strong>
+        <span>Puedes cambiar el nombre, la descripción o la imagen. No tienes que cambiar todo, solo lo que necesites actualizar.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Actualizar Área"</strong>
+        <span>El sistema guardará los cambios y actualizará la tabla automáticamente.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>Consejo sobre imágenes al editar</strong>
+      <p>Si no seleccionas una nueva imagen al editar, el sistema conservará la imagen que tenía antes. Solo súbela si quieres cambiarla.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">2.4 Cómo eliminar un área</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de eliminar (ícono de basura o botón "Eliminar")</strong>
+        <span>Aparecerá una ventana de confirmación preguntando si estás seguro.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Lee el mensaje de confirmación</strong>
+        <span>El sistema te advierte que esta acción no se puede deshacer.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Confirma haciendo clic en "Eliminar" (o cancela si te arrepentiste)</strong>
+        <span>Si confirmas, el área se eliminará permanentemente del sistema.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Importante antes de eliminar un área</strong>
+      <p>No puedes eliminar un área que tenga <strong>proyectos asociados</strong>. Si intentas hacerlo, el sistema mostrará un error indicando que primero debes eliminar o reasignar los proyectos que pertenecen a esa área. Esto protege la integridad de los datos.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">2.5 Exportar áreas a Excel</h2>
+  <p>Puedes descargar toda la lista de áreas en un archivo de Excel para tener un respaldo o compartirlo con alguien.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón "Exportar" o "Exportar a Excel"</strong>
+        <span>Aparecerá una ventana de confirmación.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Confirma la descarga</strong>
+        <span>El archivo se descargará automáticamente a tu carpeta de descargas.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 2: Módulo de Áreas</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 3 — MÓDULO DE PROYECTOS
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon green">📁</div>
+    <div class="module-title">
+      <h1>3. Módulo de Proyectos</h1>
+      <p>Administra los proyectos de cada área de tu organización</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">3.1 ¿Qué es un proyecto?</h2>
+  <p>Un <strong>proyecto</strong> es una tarea, iniciativa o trabajo que tiene un nombre, una fecha de inicio, una fecha de finalización y pertenece a un área específica. Por ejemplo: "Rediseño del sitio web" (área: Tecnología, del 1 enero al 30 marzo).</p>
+
+  <div class="intro-box">
+    <h3>¿Qué ves en esta pantalla?</h3>
+    <p>Al entrar verás una tabla con todos los proyectos registrados. Cada fila muestra el número de identificación, el nombre del proyecto, las fechas de inicio y fin, el área a la que pertenece y una imagen. Arriba hay botones para crear un nuevo proyecto y exportar la lista.</p>
+  </div>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Requisito previo</strong>
+      <p>Para poder crear un proyecto necesitas haber creado al menos <strong>un área</strong> primero. Si no hay áreas registradas, el formulario de proyecto no tendrá opciones para seleccionar.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">3.2 Cómo crear un proyecto nuevo</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Nuevo Proyecto" o "Agregar Proyecto"</strong>
+        <span>Se abrirá una ventana con el formulario de creación.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe el nombre del proyecto</strong>
+        <span>Usa un nombre descriptivo y claro. Por ejemplo: "Campaña de verano 2026".</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona la fecha de inicio</strong>
+        <span>Haz clic en el campo de fecha y elige la fecha en que comienza el proyecto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona la fecha de finalización</strong>
+        <span>Elige cuándo se espera que el proyecto esté terminado.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona el área a la que pertenece</strong>
+        <span>Elige de la lista desplegable el área correspondiente (ej. "Marketing").</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Sube una imagen (opcional)</strong>
+        <span>Puedes agregar una imagen representativa del proyecto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Guardar Proyecto"</strong>
+        <span>El proyecto aparecerá en la tabla y estará disponible para asignar usuarios.</span>
+      </div>
+    </li>
+  </ol>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Campo</th><th>¿Qué debes escribir?</th><th>¿Es obligatorio?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Nombre del Proyecto</strong></td><td>Nombre claro del proyecto</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Fecha de Inicio</strong></td><td>Día en que empieza el proyecto</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Fecha de Fin</strong></td><td>Día en que termina o se espera terminar</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Área</strong></td><td>Selecciona el área de la lista</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Imagen</strong></td><td>Foto o logo del proyecto</td><td><span class="optional-tag">Opcional</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box success">
+    <div class="icon">✅</div>
+    <div class="body">
+      <strong>Confirmación de éxito</strong>
+      <p>Al guardar correctamente aparecerá una notificación verde y el proyecto se agregará a la tabla.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">3.3 Cómo editar un proyecto</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Encuentra el proyecto en la tabla y haz clic en el botón de editar (lápiz)</strong>
+        <span>El formulario se abrirá con todos los datos actuales del proyecto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Modifica lo que necesites (nombre, fechas, área o imagen)</strong>
+        <span>Todos los campos son editables. Puedes cambiar el área a la que pertenece el proyecto si es necesario.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Actualizar Proyecto"</strong>
+        <span>Los cambios se guardarán y la tabla se actualizará.</span>
+      </div>
+    </li>
+  </ol>
+
+  <h2 class="section-title">3.4 Cómo eliminar un proyecto</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de eliminar (basurero) del proyecto que ya no necesitas</strong>
+        <span>Aparecerá una ventana de confirmación.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Confirma que deseas eliminar</strong>
+        <span>Una vez confirmado, el proyecto y todas sus asignaciones asociadas serán eliminados del sistema.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Cuidado al eliminar proyectos</strong>
+      <p>Al eliminar un proyecto, todas las <strong>asignaciones</strong> que tenía ese proyecto también se eliminarán. Los usuarios que estaban asignados a ese proyecto ya no aparecerán en él.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">3.5 Exportar proyectos a Excel</h2>
+  <p>Al igual que en el módulo de Áreas, puedes exportar toda la lista de proyectos a un archivo Excel haciendo clic en el botón "Exportar" y confirmando la descarga.</p>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 3: Módulo de Proyectos</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 4 — MÓDULO DE ASIGNACIONES
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon purple">📎</div>
+    <div class="module-title">
+      <h1>4. Módulo de Asignaciones</h1>
+      <p>Une a los usuarios con los proyectos en los que trabajan</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.1 ¿Qué es una asignación?</h2>
+  <p>Una <strong>asignación</strong> es el registro que indica que una persona (usuario) está trabajando en un proyecto específico a partir de una fecha determinada. Es el vínculo que conecta a las personas con los proyectos.</p>
+  <p>Por ejemplo: "María García fue asignada al proyecto 'Rediseño Web' el 15 de enero de 2026."</p>
+
+  <div class="intro-box">
+    <h3>¿Qué ves en esta pantalla?</h3>
+    <p>Verás una tabla con todas las asignaciones registradas. Cada fila muestra: el ID de la asignación, el nombre del usuario asignado, el proyecto al que fue asignado y la fecha en que se realizó la asignación. También hay botones para editar, eliminar y descargar el detalle en PDF.</p>
+  </div>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Requisitos previos</strong>
+      <p>Para crear una asignación necesitas tener: al menos <strong>un usuario registrado</strong> y al menos <strong>un proyecto creado</strong>. Si falta alguno de los dos, el formulario no tendrá opciones disponibles para seleccionar.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.2 Cómo crear una asignación nueva</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Nueva Asignación"</strong>
+        <span>Se abrirá un formulario con tres campos principales.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona el usuario</strong>
+        <span>Elige de la lista desplegable a la persona que vas a asignar. Verás el nombre y correo de cada usuario.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona el proyecto</strong>
+        <span>Elige el proyecto al que se asignará esa persona. Verás el nombre del proyecto y a qué área pertenece.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Selecciona la fecha de asignación</strong>
+        <span>Esta es la fecha en la que oficialmente el usuario comienza a trabajar en ese proyecto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Crear Asignación"</strong>
+        <span>La asignación quedará registrada y aparecerá en la tabla.</span>
+      </div>
+    </li>
+  </ol>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Campo</th><th>¿Qué debes seleccionar?</th><th>¿Es obligatorio?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Usuario</strong></td><td>La persona que trabajará en el proyecto</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Proyecto</strong></td><td>El proyecto en el que trabajará</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Fecha de Asignación</strong></td><td>Fecha en que se registra la asignación</td><td><span class="required-tag">Obligatorio</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>Un usuario puede estar en varios proyectos</strong>
+      <p>No hay límite en cuántos proyectos puede tener asignados una persona. Puedes crear tantas asignaciones como necesites.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.3 Cómo editar una asignación</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Encuentra la asignación en la tabla y haz clic en el botón de editar</strong>
+        <span>Se abrirá el formulario con los datos actuales de esa asignación.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Cambia el usuario, el proyecto o la fecha según necesites</strong>
+        <span>Puedes modificar cualquiera de los tres campos.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Actualizar Asignación"</strong>
+        <span>Los cambios se guardarán inmediatamente.</span>
+      </div>
+    </li>
+  </ol>
+
+  <h2 class="section-title">4.4 Cómo eliminar una asignación</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de eliminar (basurero) de la asignación</strong>
+        <span>Aparecerá una ventana de confirmación.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Confirma la eliminación</strong>
+        <span>La asignación se borrará. Esto no elimina al usuario ni al proyecto, solo el vínculo entre ellos.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>Eliminar una asignación no borra usuarios ni proyectos</strong>
+      <p>Al eliminar una asignación solo estás quitando la relación entre ese usuario y ese proyecto. Ambos seguirán existiendo en el sistema.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.5 Descargar el detalle de una asignación en PDF</h2>
+  <p>Puedes generar un documento PDF con el detalle completo de cualquier asignación para imprimirlo o enviarlo por correo.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de descarga PDF de la asignación deseada</strong>
+        <span>Aparecerá una ventana de confirmación antes de la descarga.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Confirma la descarga</strong>
+        <span>El archivo PDF se descargará automáticamente a tu carpeta de descargas. Contendrá los datos del usuario, el proyecto y la fecha de asignación.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 4: Módulo de Asignaciones</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 5 — MÓDULO DE USUARIOS
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon orange">👥</div>
+    <div class="module-title">
+      <h1>5. Módulo de Usuarios</h1>
+      <p>Registra y gestiona a los colaboradores de tu organización</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">5.1 ¿Qué es un usuario?</h2>
+  <p>Un <strong>usuario</strong> es una persona registrada en el sistema que puede tener proyectos asignados. Puede ser un empleado, colaborador o cualquier persona que forme parte de tu organización.</p>
+  <p>Cada usuario tiene un <strong>rol</strong> que determina su nivel de acceso:</p>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Rol</th><th>¿Qué puede hacer?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span style="background:#fee2e2;color:#b91c1c;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;">Admin</span></td>
+        <td>Acceso total al sistema. Puede ver y modificar todo.</td>
+      </tr>
+      <tr>
+        <td><span style="background:#ffedd5;color:#c2410c;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;">SuperUser</span></td>
+        <td>Acceso elevado con permisos avanzados.</td>
+      </tr>
+      <tr>
+        <td><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;">User</span></td>
+        <td>Acceso básico. Solo puede ver su propia información.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="intro-box">
+    <h3>¿Qué ves en esta pantalla?</h3>
+    <p>Verás una tabla con todos los usuarios del sistema. Cada fila muestra: la foto del usuario (avatar), su nombre, correo electrónico, su rol en el sistema y su salario. También hay botones de editar y eliminar para cada usuario.</p>
+  </div>
+
+  <h2 class="section-title">5.2 Cómo registrar un nuevo usuario</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Nuevo Usuario" o "Agregar Usuario"</strong>
+        <span>Se abrirá el formulario de registro.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe el nombre completo del usuario</strong>
+        <span>Debe tener al menos 3 caracteres.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe el correo electrónico</strong>
+        <span>Este será su identificador de acceso al sistema. Debe tener formato de correo válido (con @ y punto).</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe una contraseña</strong>
+        <span>Puedes hacer clic en el ícono del ojo 👁️ para ver o esconder lo que escribes. La contraseña debe ser segura.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Ingresa el salario (en números)</strong>
+        <span>Este campo acepta valores numéricos con o sin decimales. El mínimo es 0.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Sube una foto de perfil (opcional)</strong>
+        <span>Puedes cargar una imagen JPG o PNG del usuario.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Guardar Usuario"</strong>
+        <span>El usuario quedará registrado y aparecerá en la tabla.</span>
+      </div>
+    </li>
+  </ol>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Campo</th><th>¿Qué debes escribir?</th><th>¿Es obligatorio?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Nombre</strong></td><td>Nombre completo (mínimo 3 letras)</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Correo electrónico</strong></td><td>Email válido (ej. juan@empresa.com)</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Contraseña</strong></td><td>Contraseña de acceso al sistema</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Salario</strong></td><td>Número (puede ser decimal, mínimo 0)</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Foto de perfil</strong></td><td>Imagen del usuario (JPG o PNG)</td><td><span class="optional-tag">Opcional</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box error">
+    <div class="icon">❌</div>
+    <div class="body">
+      <strong>¿Qué pasa si el correo ya existe?</strong>
+      <p>Si intentas registrar un usuario con un correo que ya está en el sistema, el servidor devolverá un error. Aparecerá una notificación roja indicando que ese correo ya está en uso. Usa un correo diferente.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">5.3 Cómo editar un usuario</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de editar del usuario que deseas modificar</strong>
+        <span>El formulario se cargará con sus datos actuales.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Modifica los campos necesarios</strong>
+        <span>Puedes cambiar nombre, correo, salario o foto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Si quieres cambiar la contraseña, escríbela en el campo de contraseña</strong>
+        <span>Si dejas el campo de contraseña vacío, el sistema conservará la contraseña actual del usuario sin cambiarla.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Actualizar Usuario"</strong>
+        <span>Los cambios se aplicarán inmediatamente.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>Sobre la contraseña al editar</strong>
+      <p>Si solo quieres actualizar el nombre, el correo o el salario de un usuario, deja el campo de contraseña completamente vacío. El sistema es inteligente y no tocará la contraseña existente.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">5.4 Cómo eliminar un usuario</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón de eliminar del usuario</strong>
+        <span>Aparecerá una ventana de confirmación.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Confirma la eliminación</strong>
+        <span>El usuario será eliminado del sistema junto con todas sus asignaciones.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Precaución al eliminar usuarios</strong>
+      <p>Al eliminar un usuario, también se eliminarán todas las <strong>asignaciones</strong> que esa persona tenía. Esta acción no se puede deshacer. Asegúrate de que realmente ya no necesitas ese usuario en el sistema.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 5: Módulo de Usuarios</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 6 — REPORTES
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon teal">📊</div>
+    <div class="module-title">
+      <h1>6. Módulo de Reportes</h1>
+      <p>Resumen ejecutivo con indicadores clave y datos recientes</p>
+    </div>
+  </div>
+
+  <p>El módulo de <strong>Reportes</strong> es una pantalla de solo lectura — es decir, aquí no puedes agregar, editar ni eliminar nada. Su función es darte una visión general y rápida de cómo está el estado de toda la organización.</p>
+  <p>Piensa en esta pantalla como un <strong>tablero de mando ejecutivo</strong>: de un vistazo puedes saber cuántos proyectos hay activos, cuántos usuarios están trabajando y cuáles son los más cargados de trabajo.</p>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>¿Cuándo usar esta pantalla?</strong>
+      <p>Úsala cuando necesites un resumen rápido de la situación general: cuántos proyectos hay activos, si hay proyectos vencidos, qué tan distribuida está la carga de trabajo entre los usuarios, etc.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">¿Qué información encontrarás aquí?</h2>
+
+  <h3 class="subsection-title">Tarjetas de indicadores clave (KPIs)</h3>
+  <p>En la parte superior de la pantalla verás varias tarjetas con números importantes:</p>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Indicador</th><th>¿Qué significa?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Total Áreas</strong></td><td>Cuántas áreas están registradas en el sistema</td></tr>
+      <tr><td><strong>Total Proyectos</strong></td><td>El número total de proyectos (en cualquier estado)</td></tr>
+      <tr><td><strong>Total Asignaciones</strong></td><td>Cuántas asignaciones de usuario-proyecto existen</td></tr>
+      <tr><td><strong>Total Usuarios</strong></td><td>Cuántas personas están registradas en el sistema</td></tr>
+      <tr><td><strong>Proyectos Activos</strong></td><td>Proyectos que están en progreso en este momento</td></tr>
+      <tr><td><strong>Proyectos Vencidos</strong></td><td>Proyectos cuya fecha de fin ya pasó</td></tr>
+      <tr><td><strong>Promedio asignaciones/usuario</strong></td><td>En promedio, cuántos proyectos tiene cada persona</td></tr>
+      <tr><td><strong>Tasa de Cobertura</strong></td><td>El porcentaje de usuarios que tienen al menos una asignación</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Sección de Proyectos</h3>
+  <p>Muestra cuántos proyectos hay por área y su distribución según su estado (activos, por iniciar, vencidos). Te dice también qué porcentaje de proyectos están activos.</p>
+
+  <h3 class="subsection-title">Sección de Carga Laboral</h3>
+  <p>Aquí verás los 6 usuarios con más proyectos asignados, ordenados de mayor a menor carga. Esto te ayuda a identificar quiénes están más ocupados y si la distribución de trabajo es equitativa.</p>
+
+  <h3 class="subsection-title">Sección de Roles</h3>
+  <p>Muestra cómo están distribuidos los usuarios según su tipo de acceso: cuántos son Administradores, cuántos SuperUsuarios y cuántos Usuarios regulares.</p>
+
+  <h3 class="subsection-title">Asignaciones Recientes</h3>
+  <p>Una tabla con las últimas 8 asignaciones realizadas, ordenadas por fecha. Útil para ver qué cambios se han hecho recientemente.</p>
+
+  <h2 class="section-title">Cómo actualizar los datos</h2>
+  <p>Los datos del módulo de Reportes se cargan cuando entras a la pantalla. Si mientras tienes esta pantalla abierta alguien más realizó cambios en el sistema, puedes hacer clic en el botón <strong>"Actualizar"</strong> o <strong>"Refrescar"</strong> para cargar la información más reciente.</p>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 6: Módulo de Reportes</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 7 — CALENDARIO
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon rose">📅</div>
+    <div class="module-title">
+      <h1>7. Módulo de Calendario</h1>
+      <p>Visualiza todos los proyectos en una línea de tiempo (Gantt)</p>
+    </div>
+  </div>
+
+  <p>El módulo de <strong>Calendario</strong> es una pantalla de solo visualización que te muestra todos los proyectos de la organización organizados en una <strong>línea de tiempo</strong>. Es lo que en gestión de proyectos se conoce como un <strong>diagrama de Gantt</strong>.</p>
+  <p>Imagina una regla con el tiempo corriendo de izquierda a derecha. Cada proyecto aparece como una barra que empieza en su fecha de inicio y termina en su fecha de fin. El color de la barra te dice en qué estado está el proyecto.</p>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>¿Para qué sirve este módulo?</strong>
+      <p>Sirve para tener una vista visual y rápida de todos los proyectos: cuáles van a tiempo, cuáles están vencidos, cuándo empieza o termina cada uno, y ver el panorama completo de la organización de un solo vistazo.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">¿Cómo leer la línea de tiempo?</h2>
+
+  <p>La parte superior del calendario muestra los meses. Las filas de proyectos están agrupadas por área. Hay una <strong>línea vertical negra</strong> que indica el día de hoy.</p>
+
+  <h3 class="subsection-title">Colores de los proyectos</h3>
+
+  <div class="status-row"><div class="status-dot" style="background:#22c55e;"></div><strong>Verde — Proyecto Activo:</strong>&nbsp;El proyecto ya inició y todavía no ha vencido. Está en curso.</div>
+  <div class="status-row"><div class="status-dot" style="background:#3b82f6;"></div><strong>Azul — Por Iniciar:</strong>&nbsp;La fecha de inicio del proyecto es en el futuro. Todavía no ha empezado.</div>
+  <div class="status-row" style="border-bottom: none;"><div class="status-dot" style="background:#ef4444;"></div><strong>Rojo — Vencido:</strong>&nbsp;La fecha de fin ya pasó y el proyecto no fue cerrado a tiempo.</div>
+
+  <div style="margin-top: 16px;"></div>
+
+  <h2 class="section-title">Tarjetas de resumen (KPIs)</h2>
+  <p>Arriba del diagrama verás cuatro tarjetas que resumen el estado general:</p>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Tarjeta</th><th>¿Qué indica?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Total</strong></td><td>Total de proyectos visibles en el calendario</td></tr>
+      <tr><td><strong>Activos</strong></td><td>Proyectos actualmente en progreso</td></tr>
+      <tr><td><strong>Por Iniciar</strong></td><td>Proyectos que aún no han comenzado</td></tr>
+      <tr><td><strong>Vencidos</strong></td><td>Proyectos que ya pasaron su fecha de fin</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Cómo ver el detalle de un proyecto</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic sobre cualquier barra de proyecto en la línea de tiempo</strong>
+        <span>Aparecerá un panel lateral o una sección debajo con la información detallada de ese proyecto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Lee la información del panel de detalle</strong>
+        <span>Verás el nombre del proyecto, las fechas de inicio y fin, el área al que pertenece y la lista de usuarios asignados a ese proyecto.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>¿Cuánto tiempo cubre el calendario?</strong>
+      <p>El calendario muestra 3 meses antes y 9 meses después de la fecha de hoy. Esto te da una ventana de 12 meses centrada en el presente para que puedas ver tanto el pasado reciente como el futuro próximo.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 7: Módulo de Calendario</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 8 — TABLERO (KANBAN)
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon yellow">🗂️</div>
+    <div class="module-title">
+      <h1>8. Módulo de Tablero</h1>
+      <p>Vista tipo Kanban: proyectos organizados por su estado actual</p>
+    </div>
+  </div>
+
+  <p>El módulo de <strong>Tablero</strong> es una pantalla de solo visualización que organiza todos los proyectos en columnas según su <strong>estado actual</strong>. Es lo que se conoce como un tablero <strong>Kanban</strong>.</p>
+  <p>Imagina que tienes cuatro cajas sobre una mesa: una para proyectos que aún no empiezan, otra para los que están avanzando bien, otra para los que están por vencer y una última para los que ya vencieron. Eso es exactamente lo que muestra este tablero.</p>
+
+  <h2 class="section-title">Las cuatro columnas del tablero</h2>
+
+  <div class="kanban-grid">
+    <div class="kanban-col blue">
+      <div class="kanban-col-header">🔵 Por Iniciar</div>
+      <p>Proyectos cuya fecha de inicio es en el <strong>futuro</strong>. Todavía no han comenzado. Aparecen ordenados por su fecha de inicio, los que comienzan antes van primero.</p>
+    </div>
+    <div class="kanban-col green">
+      <div class="kanban-col-header">🟢 En Progreso</div>
+      <p>Proyectos activos que tienen <strong>más de 30 días</strong> antes de vencer. Van bien en tiempo. Se muestran primero los que terminan antes.</p>
+    </div>
+    <div class="kanban-col orange">
+      <div class="kanban-col-header">🟠 Por Vencer</div>
+      <p>Proyectos activos con <strong>30 días o menos</strong> para terminar. Requieren atención. Se muestran primero los más urgentes.</p>
+    </div>
+    <div class="kanban-col red">
+      <div class="kanban-col-header">🔴 Vencidos</div>
+      <p>Proyectos cuya fecha de fin <strong>ya pasó</strong>. No se cerraron a tiempo. Se muestran los más recientemente vencidos primero.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Cómo usar el buscador y los filtros</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Barra de búsqueda</strong>
+        <span>Escribe el nombre de un proyecto o el nombre de un área y las tarjetas se filtrarán automáticamente mientras escribes. Solo verás los proyectos que coincidan con tu búsqueda.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Filtros por área</strong>
+        <span>Debajo de la barra de búsqueda verás botones con los nombres de las áreas. Haz clic en uno para ver solo los proyectos de esa área. El botón "Todas las áreas" muestra todos los proyectos.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Limpiar filtros</strong>
+        <span>Si tienes filtros activos, aparecerá un botón para quitarlos todos de golpe y volver a ver todos los proyectos.</span>
+      </div>
+    </li>
+  </ol>
+
+  <h2 class="section-title">Las tarjetas de proyecto</h2>
+  <p>Cada proyecto aparece como una tarjeta con la siguiente información:</p>
+
+  <ul style="list-style: disc; padding-left: 24px; margin-bottom: 16px; color: #334155;">
+    <li style="margin-bottom: 8px;"><strong>Nombre del proyecto</strong> — El título del proyecto.</li>
+    <li style="margin-bottom: 8px;"><strong>Área</strong> — A qué área pertenece.</li>
+    <li style="margin-bottom: 8px;"><strong>Fechas</strong> — Fecha de inicio y fecha de fin.</li>
+    <li style="margin-bottom: 8px;"><strong>Días restantes o transcurridos</strong> — Un pequeño indicador que muestra cuántos días faltan para terminar (o cuántos días lleva vencido).</li>
+    <li style="margin-bottom: 8px;"><strong>Avatares del equipo</strong> — Si haces clic en la tarjeta, se despliega y puedes ver las fotos (avatares) de los usuarios asignados a ese proyecto.</li>
+  </ul>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>Haz clic en una tarjeta para expandirla</strong>
+      <p>Al hacer clic sobre cualquier tarjeta de proyecto, esta se expande y te muestra quiénes están trabajando en ese proyecto (los miembros del equipo con sus avatares).</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 8: Módulo de Tablero</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 9 — ANALÍTICAS
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon indigo">📈</div>
+    <div class="module-title">
+      <h1>9. Módulo de Analíticas</h1>
+      <p>Gráficas interactivas para análisis profundo de la organización</p>
+    </div>
+  </div>
+
+  <p>El módulo de <strong>Analíticas</strong> es una pantalla de solo visualización que presenta la información del sistema en forma de <strong>gráficas</strong>. Es para usuarios que necesitan un análisis más visual y detallado de cómo está la organización.</p>
+  <p>No permite agregar, editar ni eliminar datos. Solo muestra información de manera gráfica para facilitar la toma de decisiones.</p>
+
+  <h2 class="section-title">Indicadores clave en la parte superior</h2>
+  <p>Antes de las gráficas, verás una fila de tarjetas con números clave:</p>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Indicador</th><th>¿Qué significa?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Total Proyectos</strong></td><td>Número total de proyectos en el sistema</td></tr>
+      <tr><td><strong>Total Asignaciones</strong></td><td>Total de veces que se asignó un usuario a un proyecto</td></tr>
+      <tr><td><strong>Total Usuarios</strong></td><td>Cuántas personas hay registradas</td></tr>
+      <tr><td><strong>Cobertura</strong></td><td>Porcentaje de usuarios que tienen al menos un proyecto asignado</td></tr>
+      <tr><td><strong>Proyectos Activos</strong></td><td>Proyectos en progreso en este momento</td></tr>
+      <tr><td><strong>Promedio Asignaciones</strong></td><td>En promedio, cuántos proyectos tiene cada usuario</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Las gráficas disponibles</h2>
+
+  <h3 class="subsection-title">1. Estado de Proyectos (Gráfica circular)</h3>
+  <p>Muestra la distribución de proyectos según su estado: cuántos están <strong>activos</strong>, cuántos están <strong>por iniciar</strong> y cuántos están <strong>vencidos</strong>. Es útil para ver de un vistazo si hay muchos proyectos problemáticos.</p>
+
+  <h3 class="subsection-title">2. Proyectos por Área (Gráfica de barras)</h3>
+  <p>Muestra cuántos proyectos tiene cada área. Las áreas con más proyectos aparecen primero. Te ayuda a identificar qué áreas tienen más carga de trabajo en términos de proyectos.</p>
+
+  <h3 class="subsection-title">3. Carga Laboral por Usuario (Gráfica de barras)</h3>
+  <p>Muestra los 8 usuarios con más asignaciones. Sirve para ver quiénes están más cargados de trabajo y detectar si la distribución es desigual.</p>
+
+  <h3 class="subsection-title">4. Distribución de Roles (Gráfica circular)</h3>
+  <p>Muestra cuántos Administradores, SuperUsuarios y Usuarios regulares hay en el sistema.</p>
+
+  <h3 class="subsection-title">5. Tendencia de 12 Meses (Gráfica de línea)</h3>
+  <p>Una gráfica histórica que muestra cuántos proyectos estuvieron activos en cada uno de los últimos 12 meses. Te permite ver tendencias: ¿está creciendo la actividad? ¿Hay meses con más proyectos que otros?</p>
+
+  <h2 class="section-title">Cómo actualizar las gráficas</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en el botón "Actualizar" o "Refrescar" en la parte superior</strong>
+        <span>Verás un indicador de carga (spinner) mientras se obtienen los datos más recientes.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Espera a que las gráficas se actualicen</strong>
+        <span>En unos segundos todas las gráficas mostrarán la información más reciente del sistema.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>¿Cuándo usar Analíticas vs Reportes?</strong>
+      <p>Ambos módulos muestran información similar, pero de forma distinta. <strong>Reportes</strong> es mejor para ver datos en tabla (números y listas). <strong>Analíticas</strong> es mejor cuando quieres ver tendencias, comparaciones y distribuciones de forma visual (gráficas). Si necesitas una presentación visual para una reunión, usa Analíticas.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 9: Módulo de Analíticas</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 10 — MI PERFIL
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon slate">👤</div>
+    <div class="module-title">
+      <h1>10. Mi Perfil</h1>
+      <p>Gestiona tu información personal, contraseña y tus asignaciones</p>
+    </div>
+  </div>
+
+  <p>La sección de <strong>Mi Perfil</strong> es tu espacio personal dentro del sistema. Aquí puedes ver y actualizar tu propia información, cambiar tu contraseña y consultar en qué proyectos estás participando.</p>
+  <p>Para acceder, haz clic en tu <strong>foto de perfil o avatar</strong> en la parte superior derecha del menú de navegación, o busca la opción "Mi Perfil" en el menú.</p>
+
+  <div class="intro-box">
+    <h3>¿Qué ves en esta pantalla?</h3>
+    <p>Verás una tarjeta en la parte superior con tu foto, nombre, correo y rol. Debajo hay tres pestañas: <strong>Información Personal</strong>, <strong>Seguridad</strong> y <strong>Mis Asignaciones</strong>. Haz clic en cada pestaña para acceder a la sección correspondiente.</p>
+  </div>
+
+  <h2 class="section-title">10.1 Pestaña: Información Personal</h2>
+  <p>Aquí puedes actualizar tu nombre, correo, salario y foto de perfil.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en la pestaña "Información Personal"</strong>
+        <span>Verás un formulario con tus datos actuales ya rellenados.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Modifica el campo que quieras actualizar</strong>
+        <span>Puedes cambiar tu nombre, tu correo electrónico o tu salario.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Para cambiar tu foto, haz clic en el área de imagen</strong>
+        <span>Se abrirá el explorador de archivos. Selecciona una imagen de tu computadora. Verás una previsualización antes de guardar.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Guardar Cambios" o "Actualizar"</strong>
+        <span>Tu información se actualizará en todo el sistema.</span>
+      </div>
+    </li>
+  </ol>
+
+  <table class="fields-table">
+    <thead>
+      <tr><th>Campo</th><th>Descripción</th><th>¿Es obligatorio?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Nombre Completo</strong></td><td>Tu nombre como aparece en el sistema (mínimo 3 caracteres)</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Correo Electrónico</strong></td><td>Tu correo de acceso (debe tener formato válido)</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Salario</strong></td><td>Tu salario registrado en el sistema</td><td><span class="required-tag">Obligatorio</span></td></tr>
+      <tr><td><strong>Foto de Perfil</strong></td><td>Tu imagen de avatar (JPG o PNG)</td><td><span class="optional-tag">Opcional</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box success">
+    <div class="icon">✅</div>
+    <div class="body">
+      <strong>Confirmación de actualización</strong>
+      <p>Cuando se guarda correctamente, aparece una notificación verde. Tu nombre y foto en el menú superior también se actualizarán.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">10.2 Pestaña: Seguridad (Cambio de contraseña)</h2>
+  <p>Aquí puedes cambiar tu contraseña de acceso al sistema.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en la pestaña "Seguridad"</strong>
+        <span>Verás dos campos: "Nueva Contraseña" y "Confirmar Contraseña".</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Escribe tu nueva contraseña</strong>
+        <span>Debe tener al menos 6 caracteres. Puedes hacer clic en el ícono del ojo 👁️ para ver lo que escribes.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Repite la contraseña en el campo de confirmación</strong>
+        <span>Ambas contraseñas deben ser exactamente iguales.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Cambiar Contraseña" o "Guardar"</strong>
+        <span>Tu contraseña se actualizará. La próxima vez que cierres sesión necesitarás usar la nueva contraseña.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="info-box error">
+    <div class="icon">❌</div>
+    <div class="body">
+      <strong>¿Qué pasa si las contraseñas no coinciden?</strong>
+      <p>El sistema no te dejará guardar si las contraseñas en ambos campos son diferentes. Verifica que hayas escrito exactamente lo mismo en los dos campos. Usa el ícono del ojo para asegurarte.</p>
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Requisitos de la contraseña</strong>
+      <p>La nueva contraseña debe tener <strong>al menos 6 caracteres</strong>. Se recomienda usar una combinación de letras, números y símbolos para mayor seguridad.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">10.3 Pestaña: Mis Asignaciones</h2>
+  <p>Esta pestaña muestra todos los proyectos en los que actualmente tienes una asignación. Es de solo lectura — aquí no puedes hacer cambios.</p>
+
+  <p>La tabla muestra:</p>
+  <ul style="list-style: disc; padding-left: 24px; margin-bottom: 16px; color: #334155;">
+    <li style="margin-bottom: 8px;"><strong>ID</strong> de la asignación</li>
+    <li style="margin-bottom: 8px;"><strong>Nombre del Proyecto</strong> al que estás asignado</li>
+    <li style="margin-bottom: 8px;"><strong>Área</strong> a la que pertenece ese proyecto</li>
+    <li style="margin-bottom: 8px;"><strong>Fecha de Inicio</strong> del proyecto</li>
+    <li style="margin-bottom: 8px;"><strong>Fecha de Fin</strong> del proyecto</li>
+    <li style="margin-bottom: 8px;"><strong>Fecha en que te asignaron</strong> al proyecto</li>
+  </ul>
+
+  <p>Si todavía no tienes ningún proyecto asignado, la tabla mostrará un mensaje indicando que aún no hay asignaciones.</p>
+
+  <div class="info-box tip">
+    <div class="icon">💡</div>
+    <div class="body">
+      <strong>¿Quieres ser asignado a un proyecto?</strong>
+      <p>Las asignaciones las hace el administrador del sistema desde el módulo de <strong>Asignaciones</strong>. Si necesitas estar en un proyecto, comunícate con tu administrador para que realice la asignación correspondiente.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Cómo cerrar sesión</h2>
+
+  <ol class="steps">
+    <li>
+      <div class="step-content">
+        <strong>Busca el botón "Cerrar Sesión" en el menú de navegación</strong>
+        <span>Generalmente está en la parte inferior del menú o en el área de tu perfil.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Haz clic en "Cerrar Sesión"</strong>
+        <span>El sistema cerrará tu sesión y te llevará de vuelta a la pantalla de inicio de sesión. Tu información queda guardada y segura.</span>
+      </div>
+    </li>
+  </ol>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario</span>
+    <span>Sección 10: Mi Perfil</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECCIÓN 11 — MENSAJES DEL SISTEMA Y PROBLEMAS COMUNES
+══════════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon rose">🔔</div>
+    <div class="module-title">
+      <h1>11. Mensajes del sistema y solución de problemas</h1>
+      <p>Entiende qué significa cada notificación y cómo reaccionar</p>
+    </div>
+  </div>
+
+  <p>El sistema se comunica contigo a través de notificaciones y mensajes. Aquí te explicamos qué significa cada tipo de mensaje y qué hacer cuando algo no funciona como esperabas.</p>
+
+  <h2 class="section-title">Tipos de notificaciones</h2>
+
+  <div class="info-box success">
+    <div class="icon">✅</div>
+    <div class="body">
+      <strong>Notificación Verde (Éxito)</strong>
+      <p>Aparece cuando una acción se completó correctamente. Por ejemplo: "Área creada correctamente", "Usuario actualizado", "Asignación eliminada". No necesitas hacer nada, solo confirmar que todo salió bien.</p>
+    </div>
+  </div>
+
+  <div class="info-box error">
+    <div class="icon">❌</div>
+    <div class="body">
+      <strong>Notificación Roja (Error)</strong>
+      <p>Aparece cuando algo salió mal. El mensaje te indicará qué ocurrió. Por ejemplo: "No se pudo eliminar el área porque tiene proyectos asociados" o "El correo ya está registrado". Lee el mensaje con atención para saber qué corregir.</p>
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="icon">⚠️</div>
+    <div class="body">
+      <strong>Ventana de Confirmación (Advertencia)</strong>
+      <p>Aparece antes de realizar acciones que no se pueden deshacer, como eliminar un registro. El sistema te pregunta si estás seguro. Tienes la opción de confirmar o cancelar. Si no estás seguro, siempre puedes hacer clic en "Cancelar" sin que pase nada.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Problemas comunes y cómo solucionarlos</h2>
+
+  <h3 class="subsection-title">No puedo iniciar sesión</h3>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Posible causa</th><th>Qué hacer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Correo o contraseña incorrectos</td><td>Verifica que no haya errores tipográficos. Activa el Bloq Mayús y asegúrate de que no esté activado accidentalmente.</td></tr>
+      <tr><td>Cuenta no existe</td><td>Comunícate con el administrador para que cree tu cuenta.</td></tr>
+      <tr><td>El sistema no responde</td><td>Verifica tu conexión a internet. Intenta recargar la página.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">No puedo eliminar un área o proyecto</h3>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Posible causa</th><th>Qué hacer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>El área tiene proyectos asociados</td><td>Primero elimina o reasigna todos los proyectos que pertenecen a esa área.</td></tr>
+      <tr><td>El proyecto tiene asignaciones activas</td><td>El sistema debería permitir eliminarlo (las asignaciones se borran junto con el proyecto). Si hay error, contacta al administrador.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">El formulario no me deja guardar</h3>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Posible causa</th><th>Qué hacer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Hay campos obligatorios vacíos</td><td>El sistema marcará en rojo los campos que faltan llenar. Complétalos todos antes de intentar guardar.</td></tr>
+      <tr><td>El correo no tiene formato válido</td><td>Asegúrate de que el correo tenga el formato correcto: algo@dominio.com</td></tr>
+      <tr><td>Las contraseñas no coinciden</td><td>Verifica que ambos campos de contraseña tengan exactamente el mismo texto.</td></tr>
+      <tr><td>El nombre es muy corto</td><td>Los nombres deben tener al menos 3 caracteres.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Los datos en pantalla parecen desactualizados</h3>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Posible causa</th><th>Qué hacer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Otro usuario hizo cambios mientras tenías la pantalla abierta</td><td>Haz clic en el botón "Actualizar" o "Refrescar" si está disponible. Si no, recarga la página del navegador (F5 o Ctrl+R en Windows / Cmd+R en Mac).</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">No veo el módulo que necesito en el menú</h3>
+  <table class="fields-table">
+    <thead>
+      <tr><th>Posible causa</th><th>Qué hacer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>No tienes los permisos necesarios (rol insuficiente)</td><td>Comunícate con el administrador del sistema para que te asigne el rol correcto.</td></tr>
+      <tr><td>En dispositivo móvil el menú está colapsado</td><td>Busca el ícono de menú (☰ tres líneas) en la esquina superior de la pantalla y tócalo para desplegarlo.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Contacto y soporte</h2>
+  <p>Si encuentras un problema que no está cubierto en esta guía, o si el sistema muestra un error inesperado, comunícate con el administrador del sistema. Cuando lo hagas, intenta describir:</p>
+  <ul style="list-style: disc; padding-left: 24px; margin-bottom: 16px; color: #334155;">
+    <li style="margin-bottom: 6px;">¿Qué estabas intentando hacer?</li>
+    <li style="margin-bottom: 6px;">¿Qué mensaje de error apareció (si hubo alguno)?</li>
+    <li style="margin-bottom: 6px;">¿En qué módulo o pantalla ocurrió el problema?</li>
+  </ul>
+  <p>Con esa información, el administrador podrá resolver el problema mucho más rápidamente.</p>
+
+  <div class="divider"></div>
+
+  <!-- RESUMEN FINAL -->
+  <div style="background: linear-gradient(135deg, #f8fafc, #eff6ff); border: 1px solid #bfdbfe; border-radius: 14px; padding: 28px 32px; margin-top: 8px;">
+    <h2 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 16px; text-align: center;">Resumen de acciones por módulo</h2>
+    <table class="fields-table" style="margin: 0;">
+      <thead>
+        <tr>
+          <th>Módulo</th>
+          <th style="text-align:center;">Crear</th>
+          <th style="text-align:center;">Editar</th>
+          <th style="text-align:center;">Eliminar</th>
+          <th style="text-align:center;">Exportar</th>
+          <th style="text-align:center;">Solo ver</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>🏛️ Áreas</strong></td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">Excel</td><td style="text-align:center;">—</td></tr>
+        <tr><td><strong>📁 Proyectos</strong></td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">Excel</td><td style="text-align:center;">—</td></tr>
+        <tr><td><strong>📎 Asignaciones</strong></td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">PDF</td><td style="text-align:center;">—</td></tr>
+        <tr><td><strong>👥 Usuarios</strong></td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td></tr>
+        <tr><td><strong>📊 Reportes</strong></td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">✅</td></tr>
+        <tr><td><strong>📅 Calendario</strong></td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">✅</td></tr>
+        <tr><td><strong>🗂️ Tablero</strong></td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">✅</td></tr>
+        <tr><td><strong>📈 Analíticas</strong></td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">✅</td></tr>
+        <tr><td><strong>👤 Mi Perfil</strong></td><td style="text-align:center;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">—</td><td style="text-align:center;">—</td><td style="text-align:center;">Asignaciones</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — Manual de Usuario &nbsp;·&nbsp; Versión 1.0 &nbsp;·&nbsp; Abril 2026</span>
+    <span>Sección 11: Mensajes y solución de problemas</span>
+  </div>
+</div>
+
+</body>
+</html>

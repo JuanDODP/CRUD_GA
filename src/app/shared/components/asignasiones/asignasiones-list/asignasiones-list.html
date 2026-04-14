@@ -24,10 +24,10 @@
       <table class="table table-zebra w-full">
         <thead>
           <tr class="bg-primary text-white">
-            <th class="bg-primary">ID</th>
+            <th class="bg-primary hidden sm:table-cell">ID</th>
             <th class="bg-primary">Usuario</th>
             <th class="bg-primary">Proyecto</th>
-            <th class="bg-primary">Fecha de Asignación</th>
+            <th class="bg-primary hidden md:table-cell">Fecha de Asignación</th>
             <th class="bg-primary text-center">Acciones</th>
           </tr>
         </thead>
@@ -35,7 +35,7 @@
         <tbody>
           @for (item of asignaciones(); track item.id) {
           <tr class="hover">
-            <th class="font-mono text-xs">{{item.id}}</th>
+            <th class="font-mono text-xs hidden sm:table-cell">{{item.id}}</th>
 
             <td>
               <div class="flex items-center gap-3">
@@ -60,7 +60,7 @@
               </span>
             </td>
 
-            <td class="text-sm opacity-70">{{item.fechaAsignacion | date:'mediumDate'}}</td>
+            <td class="text-sm opacity-70 hidden md:table-cell">{{item.fechaAsignacion | date:'mediumDate'}}</td>
 
             <td>
               <div class="flex justify-center items-center gap-2">

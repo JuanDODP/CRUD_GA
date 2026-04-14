@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entregables Finales — Continuidad Operativa · CRUDGA</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    /* ─── PORTADA ─────────────────────────────────────────────── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1c1917 0%, #78350f 55%, #b45309 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 40px;
+      page-break-after: always;
+    }
+
+    .cover-logo {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      margin-bottom: 32px;
+      border: 3px solid rgba(255,255,255,0.35);
+    }
+
+    .cover h1 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
+    .cover h2 {
+      font-size: 18px;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-bottom: 36px;
+    }
+
+    .cover-divider {
+      width: 70px;
+      height: 3px;
+      background: rgba(255,255,255,0.4);
+      margin: 0 auto 36px;
+      border-radius: 2px;
+    }
+
+    .cover-meta {
+      font-size: 13px;
+      opacity: 0.65;
+      line-height: 2.2;
+    }
+
+    .cover-version {
+      margin-top: 36px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 9px 26px;
+      border-radius: 99px;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .page {
+      padding: 56px 64px;
+    }
+
+    .page-break { page-break-before: always; }
+
+    /* ─── ENCABEZADO DE SECCIÓN ──────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #e2e8f0;
+    }
+
+    .section-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .ic-amber  { background: #fef3c7; }
+    .ic-blue   { background: #dbeafe; }
+    .ic-green  { background: #dcfce7; }
+    .ic-rose   { background: #ffe4e6; }
+    .ic-slate  { background: #f1f5f9; }
+
+    .section-title-block h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .section-title-block p {
+      font-size: 13px;
+      color: #64748b;
+      margin: 3px 0 0;
+    }
+
+    h2.titulo {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 28px 0 8px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    p { margin-bottom: 10px; color: #334155; }
+
+    /* ─── TARJETAS DE ENTREGABLE ─────────────────────────────── */
+    .deliverable-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 24px;
+    }
+
+    .deliverable-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deliverable-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .dc-amber::before  { background: #f59e0b; }
+    .dc-blue::before   { background: #3b82f6; }
+    .dc-green::before  { background: #22c55e; }
+    .dc-purple::before { background: #8b5cf6; }
+    .dc-teal::before   { background: #14b8a6; }
+
+    .deliverable-card .dc-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .deliverable-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 5px;
+    }
+
+    .deliverable-card p {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .deliverable-card .dc-file {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: monospace;
+      font-size: 11px;
+      background: #f1f5f9;
+      color: #475569;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .deliverable-card .dc-audience {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 2px 9px;
+      border-radius: 99px;
+    }
+
+    .aud-amber  { background: #fef3c7; color: #92400e; }
+    .aud-blue   { background: #dbeafe; color: #1d4ed8; }
+    .aud-green  { background: #dcfce7; color: #15803d; }
+    .aud-purple { background: #ede9fe; color: #7c3aed; }
+    .aud-teal   { background: #ccfbf1; color: #0f766e; }
+
+    /* ─── TABLA ──────────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 20px;
+      font-size: 13px;
+    }
+
+    thead th {
+      background: #78350f;
+      color: white;
+      padding: 9px 13px;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    thead th:first-child { border-radius: 7px 0 0 0; }
+    thead th:last-child  { border-radius: 0 7px 0 0; }
+
+    tbody tr:nth-child(even) { background: #fafaf9; }
+    tbody td {
+      padding: 8px 13px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+    }
+
+    /* ─── ALERTAS ────────────────────────────────────────────── */
+    .alert {
+      display: flex;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+      align-items: flex-start;
+    }
+
+    .alert-icon { font-size: 17px; flex-shrink: 0; margin-top: 2px; }
+    .alert-body strong { display: block; font-size: 13px; margin-bottom: 2px; color: #0f172a; }
+    .alert-body p { font-size: 13px; margin: 0; }
+
+    .alert-warning { background: #fffbeb; border-left: 4px solid #f59e0b; }
+    .alert-success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+    .alert-info    { background: #eff6ff; border-left: 4px solid #3b82f6; }
+
+    /* ─── PASOS ──────────────────────────────────────────────── */
+    .steps { counter-reset: step; list-style: none; padding: 0; margin: 10px 0 18px; }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 13px;
+      margin-bottom: 11px;
+      align-items: flex-start;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      min-width: 26px;
+      height: 26px;
+      background: #78350f;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .steps li > div { flex: 1; }
+    .steps li strong { display: block; font-size: 13px; color: #0f172a; margin-bottom: 2px; }
+    .steps li p { font-size: 13px; color: #475569; margin: 0; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    .page-footer {
+      margin-top: 36px;
+      padding-top: 14px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    @media print {
+      body { font-size: 12px; }
+      .page { padding: 40px 52px; }
+      .page-break { page-break-before: always; }
+      .deliverable-card, table, .alert { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+  <div class="cover-logo">📦</div>
+  <h1>Entregables Finales</h1>
+  <h2>Continuidad Operativa — Sistema de Asignaciones CRUDGA</h2>
+  <div class="cover-divider"></div>
+  <p class="cover-meta">
+    Documento de cierre y traspaso del sistema<br>
+    Define qué se entrega, a quién, y cómo garantiza<br>
+    que el sistema pueda sostenerse sin el equipo original
+  </p>
+  <div class="cover-version">v1.0 · Abril 2026</div>
+</div>
+
+<!-- SECCIÓN 1: QUÉ ES Y POR QUÉ IMPORTA -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-icon ic-amber">🎯</div>
+    <div class="section-title-block">
+      <h1>1. ¿Qué es la Continuidad Operativa?</h1>
+      <p>Definición, alcance y objetivo del documento</p>
+    </div>
+  </div>
+
+  <p>La <strong>continuidad operativa</strong> es la capacidad del sistema para seguir funcionando correctamente después de que el equipo de desarrollo original entregue el proyecto. No depende únicamente del software en sí, sino de que las personas responsables de operarlo cuenten con la información y los recursos necesarios para hacerlo.</p>
+
+  <p>Este documento formaliza el cierre del proyecto CRUDGA identificando cada artefacto producido, su propósito, su destinatario y cómo contribuye a que el sistema pueda instalarse, usarse, mantenerse y evolucionar de forma autónoma.</p>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>¿A quién va dirigido este documento?</strong>
+      <p>Al responsable de recibir el sistema — ya sea el cliente, el área de TI, el administrador o el siguiente equipo de desarrollo. Es el punto de entrada que les indica qué tienen en sus manos y cómo empezar.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: ENTREGABLES -->
+  <div class="section-header" style="margin-top:36px;">
+    <div class="section-icon ic-green">📦</div>
+    <div class="section-title-block">
+      <h1>2. Entregables Finales del Proyecto</h1>
+      <p>Cinco artefactos que conforman la entrega completa</p>
+    </div>
+  </div>
+
+  <p>El proyecto CRUDGA se entrega como un conjunto de cinco elementos. Cada uno cumple un rol distinto e irremplazable dentro de la continuidad. La ausencia de cualquiera de ellos genera una brecha operativa.</p>
+
+  <div class="deliverable-grid">
+
+    <div class="deliverable-card dc-blue">
+      <div class="dc-icon">💻</div>
+      <h3>Sistema de Asignaciones (Software)</h3>
+      <p>El producto principal: Frontend Angular + Backend NestJS + Base de datos SQL Server. Repositorios Git con historial de cambios completo.</p>
+      <div><span class="dc-file">Repositorio Frontend + Backend</span></div>
+      <div><span class="dc-audience aud-blue">Equipo de TI / Desarrolladores</span></div>
+    </div>
+
+    <div class="deliverable-card dc-amber">
+      <div class="dc-icon">👤</div>
+      <h3>Manual de Usuario</h3>
+      <p>Guía paso a paso de todas las funcionalidades del sistema: áreas, proyectos, asignaciones, usuarios, gráficas, calendario y tablero Kanban.</p>
+      <div><span class="dc-file">manualUser.html</span></div>
+      <div><span class="dc-audience aud-amber">Usuarios finales / Administradores</span></div>
+    </div>
+
+    <div class="deliverable-card dc-green">
+      <div class="dc-icon">⚙️</div>
+      <h3>Manual de Instalación y Técnico</h3>
+      <p>Guía de instalación del entorno completo (Docker, BD, Backend, Frontend) más referencia técnica de arquitectura, rutas, servicios y endpoints.</p>
+      <div><span class="dc-file">manualInstall.html</span></div>
+      <div><span class="dc-audience aud-green">Desarrolladores / Administradores de TI</span></div>
+    </div>
+
+    <div class="deliverable-card dc-purple">
+      <div class="dc-icon">📋</div>
+      <h3>Documento de Continuidad Operativa</h3>
+      <p>Este mismo documento. Formaliza la entrega, define roles y responsabilidades, y establece el protocolo básico ante incidencias.</p>
+      <div><span class="dc-file">continuidad.html</span></div>
+      <div><span class="dc-audience aud-purple">Receptor del proyecto / Dirección</span></div>
+    </div>
+
+  </div>
+
+  <div class="alert alert-success">
+    <div class="alert-icon">✅</div>
+    <div class="alert-body">
+      <strong>Criterio de entrega completa</strong>
+      <p>El proyecto se considera entregado en su totalidad cuando el receptor puede instalar el sistema desde cero siguiendo el <code>manualInstall.html</code>, operar todas sus funciones con el <code>manualUser.html</code>, y este documento ha sido leído y firmado por las partes.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Continuidad Operativa · v1.0 · Abril 2026</span>
+  </div>
+</div>
+
+<!-- SECCIÓN 3: ROLES Y RESPONSABILIDADES -->
+<div class="page page-break">
+  <div class="section-header">
+    <div class="section-icon ic-blue">👥</div>
+    <div class="section-title-block">
+      <h1>3. Roles y Responsabilidades Post-Entrega</h1>
+      <p>Quién hace qué a partir de la recepción del sistema</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rol</th>
+        <th>Responsabilidad principal</th>
+        <th>Documento de referencia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Administrador del sistema</strong></td>
+        <td>Gestionar usuarios, áreas, proyectos y asignaciones. Monitorear el uso diario de la plataforma.</td>
+        <td><code>manualUser.html</code></td>
+      </tr>
+      <tr>
+        <td><strong>Administrador de TI</strong></td>
+        <td>Mantener el servidor Docker activo, realizar backups de la base de datos, gestionar credenciales y accesos.</td>
+        <td><code>manualInstall.html</code> §4–7</td>
+      </tr>
+      <tr>
+        <td><strong>Desarrollador de mantenimiento</strong></td>
+        <td>Aplicar correcciones de bugs, actualizar dependencias, extender funcionalidades del sistema.</td>
+        <td><code>manualInstall.html</code> §10–14</td>
+      </tr>
+      <tr>
+        <td><strong>Usuario final</strong></td>
+        <td>Consultar el sistema, registrar asignaciones, generar reportes y exportar datos según su rol.</td>
+        <td><code>manualUser.html</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Punto crítico: credenciales y variables de entorno</strong>
+      <p>El archivo <code>.env</code> del Backend contiene las credenciales de la base de datos y <strong>no debe subirse al repositorio Git</strong>. El administrador de TI es responsable de custodiarlo, respaldarlo y actualizarlo en caso de cambio de contraseñas o servidores.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: PROTOCOLO DE CONTINGENCIA -->
+  <div class="section-header" style="margin-top:36px;">
+    <div class="section-icon ic-rose">🚨</div>
+    <div class="section-title-block">
+      <h1>4. Protocolo Básico de Contingencia</h1>
+      <p>Qué hacer ante los escenarios de fallo más comunes</p>
+    </div>
+  </div>
+
+  <h2 class="titulo">El sistema no responde o está caído</h2>
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Verificar que Docker Desktop está corriendo</strong>
+        <p>El ícono de la ballena en la barra del sistema debe indicar estado activo. Si no, abrirlo y esperar a que inicie.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Comprobar el estado del contenedor de base de datos</strong>
+        <p>En terminal: <code>docker ps</code>. El contenedor <code>CRUDGA_DB</code> debe aparecer como <em>Up</em>. Si no, ejecutar <code>docker compose up -d</code> desde el directorio del Backend.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Reiniciar el Backend y el Frontend</strong>
+        <p>Detener ambos procesos (Ctrl+C en cada terminal) y volver a ejecutarlos siguiendo el orden de arranque del <code>manualInstall.html</code> §7.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Revisar logs del contenedor</strong>
+        <p>Si el problema persiste: <code>docker logs CRUDGA_DB</code> para diagnosticar el motor de base de datos. El <code>manualInstall.html</code> §8 contiene los errores más frecuentes y sus soluciones.</p>
+      </div>
+    </li>
+  </ul>
+
+  <h2 class="titulo">Pérdida o corrupción de datos</h2>
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Detener el contenedor inmediatamente</strong>
+        <p>Ejecutar <code>docker compose down</code> para evitar que se escriban más datos sobre un estado inconsistente.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Restaurar desde el último backup</strong>
+        <p>Los datos persisten en la carpeta <code>mssql-data/</code> del servidor. Si se dispone de un backup previo de esta carpeta, restaurarlo antes de volver a levantar el contenedor.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>El sistema no incluye backups automáticos</strong>
+      <p>La versión entregada no tiene una política de backups programados. Es responsabilidad del administrador de TI implementar una rutina de copia de la carpeta <code>mssql-data/</code> con la frecuencia que requiera el negocio.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: MAPA DE DOCUMENTOS -->
+  <div class="section-header" style="margin-top:36px;">
+    <div class="section-icon ic-slate">🗂️</div>
+    <div class="section-title-block">
+      <h1>5. Mapa de Documentos — Cuándo Consultar Cada Uno</h1>
+      <p>Guía de navegación entre los entregables según la situación</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Situación</th>
+        <th>Documento a consultar</th>
+        <th>Sección específica</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Instalar el sistema por primera vez</td>
+        <td><code>manualInstall.html</code></td>
+        <td>§2 Requisitos → §3 Herramientas → §4 BD → §5 Backend → §6 Frontend</td>
+      </tr>
+      <tr>
+        <td>Arrancar el sistema cada día</td>
+        <td><code>manualInstall.html</code></td>
+        <td>§7 Orden de Arranque</td>
+      </tr>
+      <tr>
+        <td>Aprender a usar una funcionalidad</td>
+        <td><code>manualUser.html</code></td>
+        <td>Módulo correspondiente (Áreas, Proyectos, etc.)</td>
+      </tr>
+      <tr>
+        <td>El sistema falla al iniciar</td>
+        <td><code>manualInstall.html</code></td>
+        <td>§8 Solución de Problemas</td>
+      </tr>
+      <tr>
+        <td>Entender la arquitectura del código</td>
+        <td><code>manualInstall.html</code></td>
+        <td>§10 Arquitectura → §11 Auth → §12 Rutas → §13 Servicios</td>
+      </tr>
+      <tr>
+        <td>Consultar qué endpoints expone la API</td>
+        <td><code>manualInstall.html</code></td>
+        <td>§14 Endpoints de la API</td>
+      </tr>
+      <tr>
+        <td>Asignar responsabilidades al equipo receptor</td>
+        <td><code>continuidad.html</code></td>
+        <td>§3 Roles y Responsabilidades</td>
+      </tr>
+      <tr>
+        <td>El sistema está caído y no sé qué hacer</td>
+        <td><code>continuidad.html</code></td>
+        <td>§4 Protocolo de Contingencia</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-success">
+    <div class="alert-icon">✅</div>
+    <div class="alert-body">
+      <strong>Sistema listo para operar de forma autónoma</strong>
+      <p>Con estos entregables en mano, cualquier persona con el perfil adecuado puede instalar el sistema desde cero, usarlo en su totalidad, diagnosticar los problemas más comunes y tomar decisiones técnicas informadas sin necesidad de contactar al equipo de desarrollo original.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Continuidad Operativa · v1.0 · Abril 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -6,7 +6,7 @@
 }
 
 <div class="p-4 md:p-8 bg-base-200 min-h-screen">
-  <div class="flex justify-between items-center mb-6">
+  <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
     <div>
       <h1 class="text-2xl font-bold text-primary">Gestión de Usuarios</h1>
       <p class="text-sm text-gray-500">Administra los accesos y perfiles de la organización</p>
@@ -26,18 +26,19 @@
       <table class="table table-zebra w-full">
         <thead>
           <tr class="bg-primary text-white">
-            <th class="bg-primary">ID</th>
+            <th class="bg-primary hidden sm:table-cell">ID</th>
             <th class="bg-primary">Perfil</th>
             <th class="bg-primary">Nombre</th>
-            <th class="bg-primary">Correo Electrónico</th>
-            <th class="bg-primary">Rol</th>
-            <th class="bg-primary text-right">Salario</th> <th class="bg-primary text-center">Acciones</th>
+            <th class="bg-primary hidden md:table-cell">Correo Electrónico</th>
+            <th class="bg-primary hidden lg:table-cell">Rol</th>
+            <th class="bg-primary text-right hidden lg:table-cell">Salario</th>
+            <th class="bg-primary text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
           @for (user of usuarios(); track user.id) {
           <tr class="hover">
-            <th class="font-mono text-xs">{{ user.id }}</th>
+            <th class="font-mono text-xs hidden sm:table-cell">{{ user.id }}</th>
 
             <td>
               <label for="modal-image-preview" class="cursor-zoom-in" (click)="clear(); getUsuarios(user)">
@@ -50,15 +51,15 @@
             </td>
 
             <td class="font-bold">{{ user.name }}</td>
-            <td>{{ user.email }}</td>
+            <td class="hidden md:table-cell">{{ user.email }}</td>
 
-            <td>
+            <td class="hidden lg:table-cell">
               <span class="badge badge-ghost badge-sm uppercase font-semibold">
                 {{ user.rol }}
               </span>
             </td>
 
-            <td class="text-right">
+            <td class="text-right hidden lg:table-cell">
               <span class="font-mono text-success font-semibold">
                 {{ (user.salary || 0) | currency:'USD':'symbol':'1.2-2' }}
               </span>

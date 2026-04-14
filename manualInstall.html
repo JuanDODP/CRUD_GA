@@ -1,0 +1,2683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Instalación y Técnico — Sistema de Asignaciones CRUDGA</title>
+  <style>
+    /* ─── TIPOGRAFÍA Y BASE ─────────────────────────────────────── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    /* ─── PORTADA ────────────────────────────────────────────────── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2942 0%, #1a5276 55%, #1e8449 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 40px;
+      page-break-after: always;
+    }
+
+    .cover-logo {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      margin-bottom: 32px;
+      border: 3px solid rgba(255,255,255,0.4);
+    }
+
+    .cover h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .cover h2 {
+      font-size: 20px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-bottom: 40px;
+    }
+
+    .cover-divider {
+      width: 80px;
+      height: 3px;
+      background: rgba(255,255,255,0.5);
+      margin: 0 auto 40px;
+      border-radius: 2px;
+    }
+
+    .cover-meta {
+      font-size: 13px;
+      opacity: 0.7;
+      line-height: 2;
+    }
+
+    .cover-version {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 28px;
+      border-radius: 99px;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .cover-stack {
+      display: flex;
+      gap: 14px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cover-pill {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 18px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── ÍNDICE ─────────────────────────────────────────────────── */
+    .toc-page {
+      padding: 60px 64px;
+      page-break-after: always;
+    }
+
+    .toc-page h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a5276;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .toc-section {
+      margin-bottom: 8px;
+    }
+
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px dotted #cbd5e1;
+      font-size: 14px;
+    }
+
+    .toc-item.main {
+      font-weight: 700;
+      font-size: 15px;
+      color: #1a5276;
+      border-bottom: none;
+      padding-top: 16px;
+    }
+
+    .toc-item.sub {
+      padding-left: 24px;
+      color: #475569;
+    }
+
+    .toc-num {
+      font-weight: 600;
+      margin-right: 10px;
+      color: #1a5276;
+    }
+
+    /* ─── LAYOUT GENERAL ────────────────────────────────────────── */
+    .page {
+      padding: 56px 64px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    /* ─── ENCABEZADOS DE MÓDULO ─────────────────────────────────── */
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 3px solid #e2e8f0;
+    }
+
+    .module-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .module-icon.blue   { background: #dbeafe; }
+    .module-icon.green  { background: #dcfce7; }
+    .module-icon.purple { background: #ede9fe; }
+    .module-icon.orange { background: #ffedd5; }
+    .module-icon.teal   { background: #ccfbf1; }
+    .module-icon.rose   { background: #ffe4e6; }
+    .module-icon.yellow { background: #fef9c3; }
+    .module-icon.slate  { background: #f1f5f9; }
+    .module-icon.indigo { background: #e0e7ff; }
+    .module-icon.dark   { background: #1e293b; }
+
+    .module-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .module-title p {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    /* ─── BADGES DE SECCIÓN ─────────────────────────────────────── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 8px;
+    }
+
+    .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+    .badge-green  { background: #dcfce7; color: #15803d; }
+    .badge-red    { background: #fee2e2; color: #b91c1c; }
+    .badge-orange { background: #ffedd5; color: #c2410c; }
+    .badge-yellow { background: #fef9c3; color: #a16207; }
+    .badge-purple { background: #ede9fe; color: #7c3aed; }
+    .badge-slate  { background: #f1f5f9; color: #475569; }
+    .badge-teal   { background: #ccfbf1; color: #0f766e; }
+    .badge-dark   { background: #1e293b; color: #f8fafc; }
+
+    /* ─── SECCIONES DE CONTENIDO ────────────────────────────────── */
+    h2.section-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 32px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    h3.subsection-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a5276;
+      margin: 24px 0 8px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    /* ─── PASOS ────────────────────────────────────────────────── */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 20px;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      min-width: 28px;
+      height: 28px;
+      background: #1a5276;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .steps li > div { flex: 1; }
+
+    .steps li strong {
+      display: block;
+      font-size: 14px;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+
+    .steps li p {
+      font-size: 13px;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* ─── BLOQUES DE CÓDIGO ─────────────────────────────────────── */
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 12px 0 20px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block .cb-label {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #64748b;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .code-block .comment { color: #64748b; }
+    .code-block .key     { color: #38bdf8; }
+    .code-block .val     { color: #86efac; }
+    .code-block .cmd     { color: #fde68a; }
+    .code-block .str     { color: #f9a8d4; }
+
+    code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 12px;
+    }
+
+    /* ─── ALERTAS / TIPS ────────────────────────────────────────── */
+    .alert {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin: 16px 0;
+      align-items: flex-start;
+    }
+
+    .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .alert-body { flex: 1; }
+    .alert-body strong { display: block; font-size: 13px; margin-bottom: 3px; color: #0f172a; }
+    .alert-body p { font-size: 13px; margin: 0; }
+
+    .alert-info    { background: #eff6ff; border-left: 4px solid #3b82f6; }
+    .alert-warning { background: #fffbeb; border-left: 4px solid #f59e0b; }
+    .alert-success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+    .alert-danger  { background: #fff1f2; border-left: 4px solid #ef4444; }
+    .alert-tip     { background: #f0fdfa; border-left: 4px solid #14b8a6; }
+
+    /* ─── TABLA DE REQUISITOS ───────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 22px;
+      font-size: 13px;
+    }
+
+    thead th {
+      background: #1a5276;
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    thead th:first-child { border-radius: 8px 0 0 0; }
+    thead th:last-child  { border-radius: 0 8px 0 0; }
+
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody tr:hover { background: #f1f5f9; }
+
+    tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .chip-green  { background: #dcfce7; color: #15803d; }
+    .chip-blue   { background: #dbeafe; color: #1d4ed8; }
+    .chip-orange { background: #ffedd5; color: #c2410c; }
+    .chip-red    { background: #fee2e2; color: #b91c1c; }
+
+    /* ─── SECCIÓN DE ARQUITECTURA ───────────────────────────────── */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin: 16px 0 24px;
+    }
+
+    .arch-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+    }
+
+    .arch-card .arch-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .arch-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .arch-card p {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0;
+    }
+
+    .arch-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #94a3b8;
+      padding: 8px 0;
+    }
+
+    /* ─── RESUMEN DE PUERTOS ────────────────────────────────────── */
+    .port-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .port-badge {
+      background: #1a5276;
+      color: white;
+      padding: 4px 14px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .port-info strong { font-size: 13px; display: block; color: #0f172a; }
+    .port-info span   { font-size: 12px; color: #64748b; }
+
+    /* ─── FOOTER DE PÁGINA ─────────────────────────────────────── */
+    .page-footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* ─── IMPRESIÓN ────────────────────────────────────────────── */
+    @media print {
+      body { font-size: 12px; }
+      .cover { min-height: 100vh; }
+      .page  { padding: 40px 52px; }
+      .toc-page { padding: 40px 52px; }
+      .code-block { font-size: 11px; }
+      .page-break { page-break-before: always; }
+      table, .alert, .arch-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  PORTADA                                                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">⚙️</div>
+  <h1>Manual de Instalación y Técnico</h1>
+  <h2>Sistema de Asignaciones — CRUDGA</h2>
+  <div class="cover-divider"></div>
+  <p class="cover-meta">
+    Guía completa de instalación, configuración y referencia técnica del sistema<br>
+    Cubre: Base de Datos · Backend API · Frontend Angular · Arquitectura · Endpoints<br>
+    Compatible con: macOS (Apple Silicon / Intel) · Windows
+  </p>
+  <div class="cover-stack">
+    <span class="cover-pill">🐳 Docker</span>
+    <span class="cover-pill">🗄️ SQL Server 2022</span>
+    <span class="cover-pill">🪺 NestJS</span>
+    <span class="cover-pill">🅰️ Angular 21</span>
+    <span class="cover-pill">Node.js 20+</span>
+  </div>
+  <div class="cover-version">v1.0 · Abril 2026</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  TABLA DE CONTENIDOS                                           -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="toc-page">
+  <h2>📋 Tabla de Contenidos</h2>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">1.</span>Visión General de la Arquitectura</span></div>
+    <div class="toc-item sub"><span>1.1 Diagrama de capas</span></div>
+    <div class="toc-item sub"><span>1.2 Puertos y servicios</span></div>
+    <div class="toc-item sub"><span>1.3 Flujo de datos</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">2.</span>Requisitos Previos del Sistema</span></div>
+    <div class="toc-item sub"><span>2.1 Software obligatorio</span></div>
+    <div class="toc-item sub"><span>2.2 Versiones mínimas</span></div>
+    <div class="toc-item sub"><span>2.3 Recursos de hardware recomendados</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">3.</span>Instalación de Herramientas Base</span></div>
+    <div class="toc-item sub"><span>3.1 Node.js y npm</span></div>
+    <div class="toc-item sub"><span>3.2 Docker Desktop</span></div>
+    <div class="toc-item sub"><span>3.3 DataGrip (cliente SQL)</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">4.</span>Configuración de la Base de Datos</span></div>
+    <div class="toc-item sub"><span>4.1 Levantar SQL Server con Docker</span></div>
+    <div class="toc-item sub"><span>4.2 Variables de entorno (.env)</span></div>
+    <div class="toc-item sub"><span>4.3 Crear la base de datos</span></div>
+    <div class="toc-item sub"><span>4.4 Conectar con DataGrip</span></div>
+    <div class="toc-item sub"><span>4.5 Opción alternativa: SQL Server local</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">5.</span>Instalación del Backend (NestJS)</span></div>
+    <div class="toc-item sub"><span>5.1 Clonar el repositorio</span></div>
+    <div class="toc-item sub"><span>5.2 Instalar dependencias</span></div>
+    <div class="toc-item sub"><span>5.3 Configurar variables de entorno</span></div>
+    <div class="toc-item sub"><span>5.4 Ejecutar en modo desarrollo</span></div>
+    <div class="toc-item sub"><span>5.5 Verificar la API</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">6.</span>Instalación del Frontend (Angular)</span></div>
+    <div class="toc-item sub"><span>6.1 Clonar el repositorio</span></div>
+    <div class="toc-item sub"><span>6.2 Instalar dependencias</span></div>
+    <div class="toc-item sub"><span>6.3 Variables de entorno y configuración</span></div>
+    <div class="toc-item sub"><span>6.4 Ejecutar en modo desarrollo</span></div>
+    <div class="toc-item sub"><span>6.5 Compilar para producción</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">7.</span>Orden de Arranque del Sistema</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">8.</span>Solución de Problemas Comunes</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">9.</span>Referencia Rápida de Comandos</span></div>
+  </div>
+
+  <div class="toc-item main" style="margin-top:20px; padding-top:20px; border-top:2px solid #e2e8f0; color:#1a5276; font-size:17px;">
+    ── MANUAL TÉCNICO ──────────────────────────────
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">10.</span>Arquitectura del Frontend (Angular)</span></div>
+    <div class="toc-item sub"><span>10.1 Estructura de carpetas</span></div>
+    <div class="toc-item sub"><span>10.2 Capas de la aplicación</span></div>
+    <div class="toc-item sub"><span>10.3 Patrones de diseño aplicados</span></div>
+    <div class="toc-item sub"><span>10.4 Configuración del proyecto</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">11.</span>Sistema de Autenticación y Seguridad</span></div>
+    <div class="toc-item sub"><span>11.1 Flujo de autenticación JWT</span></div>
+    <div class="toc-item sub"><span>11.2 AuthService con Signals</span></div>
+    <div class="toc-item sub"><span>11.3 Guards de ruta</span></div>
+    <div class="toc-item sub"><span>11.4 Interceptor HTTP</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">12.</span>Módulos, Rutas y Componentes</span></div>
+    <div class="toc-item sub"><span>12.1 Tabla de rutas del sistema</span></div>
+    <div class="toc-item sub"><span>12.2 Componentes compartidos (shared)</span></div>
+    <div class="toc-item sub"><span>12.3 Componentes de utilidad (utils)</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">13.</span>Servicios y Modelos de Datos</span></div>
+    <div class="toc-item sub"><span>13.1 Interfaces TypeScript</span></div>
+    <div class="toc-item sub"><span>13.2 Servicios con estado reactivo (Signals)</span></div>
+    <div class="toc-item sub"><span>13.3 Patrón de manejo de estado</span></div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-item main"><span><span class="toc-num">14.</span>Endpoints de la API (Backend)</span></div>
+    <div class="toc-item sub"><span>14.1 Autenticación</span></div>
+    <div class="toc-item sub"><span>14.2 Áreas</span></div>
+    <div class="toc-item sub"><span>14.3 Proyectos</span></div>
+    <div class="toc-item sub"><span>14.4 Usuarios</span></div>
+    <div class="toc-item sub"><span>14.5 Asignaciones</span></div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Manual de Instalación y Técnico v1.0</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 1: ARQUITECTURA                                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon blue">🏗️</div>
+    <div class="module-title">
+      <h1>1. Visión General de la Arquitectura</h1>
+      <p>Diagrama de capas, puertos activos y flujo de datos del sistema</p>
+    </div>
+  </div>
+
+  <p>El Sistema CRUDGA está compuesto por tres capas independientes que trabajan en conjunto. Cada capa tiene su propio repositorio, proceso de instalación y puerto de red. Comprender esta arquitectura antes de instalar garantiza una configuración correcta.</p>
+
+  <h2 class="section-title">1.1 Diagrama de Capas</h2>
+
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="arch-icon">🌐</div>
+      <h4>Frontend</h4>
+      <p>Angular 21 + TailwindCSS + DaisyUI<br>Puerto: <strong>4200</strong></p>
+    </div>
+    <div class="arch-card">
+      <div class="arch-icon">🪺</div>
+      <h4>Backend API</h4>
+      <p>NestJS sobre Node.js<br>Puerto: <strong>3000</strong></p>
+    </div>
+    <div class="arch-card">
+      <div class="arch-icon">🗄️</div>
+      <h4>Base de Datos</h4>
+      <p>SQL Server 2022 (Docker)<br>Puerto: <strong>1433</strong></p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Repositorios separados</strong>
+      <p>El Frontend y el Backend son repositorios Git distintos. Cada uno debe clonarse, configurarse y ejecutarse por separado. La base de datos se levanta con Docker desde el directorio del Backend.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">1.2 Puertos y Servicios</h2>
+
+  <div class="port-row">
+    <div class="port-badge">:4200</div>
+    <div class="port-info"><strong>Frontend Angular</strong><span>Interfaz de usuario — acceso desde el navegador en http://localhost:4200</span></div>
+  </div>
+  <div class="port-row">
+    <div class="port-badge">:3000</div>
+    <div class="port-info"><strong>Backend NestJS (API REST)</strong><span>Endpoints de datos — consumido por el Frontend</span></div>
+  </div>
+  <div class="port-row">
+    <div class="port-badge">:1433</div>
+    <div class="port-info"><strong>SQL Server 2022 (Docker)</strong><span>Motor de base de datos — consumido únicamente por el Backend</span></div>
+  </div>
+
+  <h2 class="section-title">1.3 Flujo de Datos</h2>
+
+  <p>El navegador del usuario se comunica exclusivamente con el Frontend. El Frontend envía peticiones HTTP al Backend. El Backend es el único que accede a la base de datos. Ningún componente externo se conecta directamente al puerto 1433 en producción.</p>
+
+  <div class="code-block">
+    <span class="cb-label">FLUJO</span>
+    <span class="comment"># Navegador → Frontend → Backend → Base de Datos</span>
+    <br><br>
+    Usuario (browser)<br>
+    &nbsp;&nbsp;└─▶ <span class="key">Angular</span> :4200 &nbsp;&nbsp;&nbsp;<span class="comment"># Renderiza la UI</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─▶ <span class="key">NestJS</span>  :3000 &nbsp;&nbsp;&nbsp;<span class="comment"># Lógica de negocio / API REST</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─▶ <span class="key">MSSQL</span>  :1433 &nbsp;&nbsp;&nbsp;<span class="comment"># Persistencia — contenedor Docker</span>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 1 · Arquitectura</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 2: REQUISITOS PREVIOS                                 -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon yellow">📋</div>
+    <div class="module-title">
+      <h1>2. Requisitos Previos del Sistema</h1>
+      <p>Software obligatorio, versiones mínimas y recursos de hardware</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">2.1 Software Obligatorio</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Herramienta</th>
+        <th>Versión Mínima</th>
+        <th>Versión Recomendada</th>
+        <th>Uso</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Node.js</strong></td>
+        <td>18.x LTS</td>
+        <td>20.x LTS o superior</td>
+        <td>Runtime para Backend y CLI de Angular</td>
+        <td><span class="chip chip-red">Obligatorio</span></td>
+      </tr>
+      <tr>
+        <td><strong>npm</strong></td>
+        <td>9.x</td>
+        <td>11.x (incluido con Node 20+)</td>
+        <td>Gestor de paquetes</td>
+        <td><span class="chip chip-red">Obligatorio</span></td>
+      </tr>
+      <tr>
+        <td><strong>Angular CLI</strong></td>
+        <td>21.x</td>
+        <td>21.x</td>
+        <td>Herramienta de desarrollo Angular</td>
+        <td><span class="chip chip-red">Obligatorio</span></td>
+      </tr>
+      <tr>
+        <td><strong>Docker Desktop</strong></td>
+        <td>4.x</td>
+        <td>Última versión estable</td>
+        <td>Contenedor SQL Server</td>
+        <td><span class="chip chip-red">Obligatorio</span></td>
+      </tr>
+      <tr>
+        <td><strong>Git</strong></td>
+        <td>2.x</td>
+        <td>Última versión estable</td>
+        <td>Control de versiones y clonación</td>
+        <td><span class="chip chip-red">Obligatorio</span></td>
+      </tr>
+      <tr>
+        <td><strong>DataGrip</strong></td>
+        <td>2023.x</td>
+        <td>Última versión estable</td>
+        <td>Cliente GUI para SQL Server</td>
+        <td><span class="chip chip-orange">Recomendado</span></td>
+      </tr>
+      <tr>
+        <td><strong>TypeScript</strong></td>
+        <td>5.x</td>
+        <td>5.9.x</td>
+        <td>Instalado automáticamente con las dependencias</td>
+        <td><span class="chip chip-blue">Automático</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <strong>Alternativa a DataGrip</strong>
+      <p>Si no cuentas con licencia de DataGrip, puedes usar <strong>TablePlus</strong> (gratuito con limitaciones) o <strong>Azure Data Studio</strong> (gratuito, de Microsoft) como cliente para conectarte al SQL Server.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">2.2 Versiones del Stack de la Aplicación</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Paquete</th>
+        <th>Versión en Proyecto</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>@angular/core</code></td>
+        <td>^21.1.0</td>
+        <td>Framework principal del Frontend</td>
+      </tr>
+      <tr>
+        <td><code>@angular/cli</code></td>
+        <td>^21.1.0</td>
+        <td>Herramientas de scaffolding y build</td>
+      </tr>
+      <tr>
+        <td><code>tailwindcss</code></td>
+        <td>^4.1.18</td>
+        <td>Framework de utilidades CSS</td>
+      </tr>
+      <tr>
+        <td><code>daisyui</code></td>
+        <td>^5.5.14</td>
+        <td>Componentes UI sobre Tailwind</td>
+      </tr>
+      <tr>
+        <td><code>rxjs</code></td>
+        <td>~7.8.0</td>
+        <td>Programación reactiva</td>
+      </tr>
+      <tr>
+        <td><code>typescript</code></td>
+        <td>~5.9.2</td>
+        <td>Tipado estático</td>
+      </tr>
+      <tr>
+        <td>SQL Server (imagen Docker)</td>
+        <td>2022-latest</td>
+        <td>Motor de base de datos relacional</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">2.3 Recursos de Hardware Recomendados</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Recurso</th>
+        <th>Mínimo</th>
+        <th>Recomendado</th>
+        <th>Nota</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>RAM</strong></td>
+        <td>8 GB</td>
+        <td>16 GB o más</td>
+        <td>SQL Server requiere al menos 2 GB para su contenedor</td>
+      </tr>
+      <tr>
+        <td><strong>Almacenamiento</strong></td>
+        <td>10 GB libres</td>
+        <td>20 GB libres</td>
+        <td>Incluye imagen Docker, dependencias npm y datos de BD</td>
+      </tr>
+      <tr>
+        <td><strong>Procesador</strong></td>
+        <td>Cualquier x86_64 / ARM64</td>
+        <td>Apple Silicon M1/M2/M4 o Intel i5+</td>
+        <td>La imagen Docker usa emulación <code>linux/amd64</code> en Mac ARM</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Mac con Apple Silicon (M1, M2, M3, M4)</strong>
+      <p>La imagen de SQL Server para Docker <strong>no tiene soporte nativo ARM64</strong>. El <code>docker-compose.yml</code> del proyecto ya incluye la directiva <code>platform: linux/amd64</code> para forzar la emulación de forma automática. No es necesario ningún ajuste adicional.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 2 · Requisitos</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 3: HERRAMIENTAS BASE                                  -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon teal">🔧</div>
+    <div class="module-title">
+      <h1>3. Instalación de Herramientas Base</h1>
+      <p>Node.js, Docker Desktop y DataGrip — instalar una única vez</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">3.1 Node.js y npm</h2>
+  <p>Node.js es el runtime de JavaScript requerido tanto para el Backend (NestJS) como para las herramientas de compilación del Frontend (Angular CLI). Se recomienda instalar la versión LTS más reciente (20.x o superior).</p>
+
+  <span class="section-badge badge-blue">📦 Instalación con nvm (recomendado)</span>
+  <p><strong>nvm</strong> (Node Version Manager) permite tener múltiples versiones de Node.js y cambiar entre ellas sin conflictos. Es la forma recomendada para entornos de desarrollo.</p>
+
+  <div class="code-block">
+    <span class="cb-label">macOS / Linux — Terminal</span>
+    <span class="comment"># 1. Instalar nvm</span><br>
+    <span class="cmd">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash</span><br>
+    <br>
+    <span class="comment"># 2. Reiniciar la terminal o ejecutar:</span><br>
+    <span class="cmd">source ~/.zshrc</span><br>
+    <br>
+    <span class="comment"># 3. Instalar Node.js LTS</span><br>
+    <span class="cmd">nvm install --lts</span><br>
+    <span class="cmd">nvm use --lts</span><br>
+    <br>
+    <span class="comment"># 4. Verificar instalación</span><br>
+    <span class="cmd">node --version</span>  <span class="comment"># Debe mostrar v20.x.x o superior</span><br>
+    <span class="cmd">npm --version</span>   <span class="comment"># Debe mostrar 10.x.x o superior</span>
+  </div>
+
+  <span class="section-badge badge-blue">💻 Instalación directa (Windows)</span>
+  <p>Descarga el instalador oficial desde <strong>nodejs.org</strong> → sección "Downloads" → selecciona la versión <strong>LTS</strong> → ejecuta el instalador <code>.msi</code> y sigue los pasos. Asegúrate de marcar la opción <em>"Add to PATH"</em>.</p>
+
+  <div class="alert alert-success">
+    <div class="alert-icon">✅</div>
+    <div class="alert-body">
+      <strong>Verificación exitosa</strong>
+      <p>Al ejecutar <code>node --version</code> en la terminal debe aparecer <code>v20.x.x</code> o superior. Si ves <code>v18.x.x</code> también es válido, pero se recomienda actualizar.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">3.2 Docker Desktop</h2>
+  <p>Docker Desktop es la plataforma de contenedores que permite ejecutar SQL Server en un entorno aislado sin instalarlo directamente en el sistema operativo. Es el método recomendado para desarrollo local.</p>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Descargar Docker Desktop</strong>
+        <p>Visita <strong>docker.com/products/docker-desktop</strong> y descarga la versión correspondiente a tu sistema operativo (Mac Intel / Mac Apple Silicon / Windows).</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Ejecutar el instalador</strong>
+        <p>En macOS: arrastra Docker.app a la carpeta Aplicaciones y ábrelo. En Windows: ejecuta el instalador <code>.exe</code> y acepta los permisos de administrador.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Iniciar Docker Desktop</strong>
+        <p>Abre la aplicación. Espera hasta que el ícono de la ballena en la barra de menú (macOS) o la bandeja del sistema (Windows) muestre el estado <em>"Docker is running"</em>.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Configurar recursos (recomendado)</strong>
+        <p>En Docker Desktop → Settings → Resources → Memory: asigna al menos <strong>4 GB de RAM</strong> para que SQL Server funcione correctamente.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Verificar instalación</strong>
+        <p>En una terminal, ejecuta <code>docker --version</code>. Debe mostrar <code>Docker version 24.x.x</code> o superior.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">VERIFICACIÓN</span>
+    <span class="cmd">docker --version</span><br>
+    <span class="val">Docker version 27.x.x, build xxxxxxx</span><br>
+    <br>
+    <span class="cmd">docker compose version</span><br>
+    <span class="val">Docker Compose version v2.x.x</span>
+  </div>
+
+  <h2 class="section-title">3.3 DataGrip (Cliente SQL)</h2>
+  <p>DataGrip es el IDE de JetBrains para bases de datos. Permite conectarse al contenedor Docker de SQL Server, explorar tablas, ejecutar consultas y crear la base de datos inicial de forma visual.</p>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Descargar DataGrip</strong>
+        <p>Visita <strong>jetbrains.com/datagrip</strong> y descarga la versión de prueba (30 días gratuitos) o activa tu licencia de JetBrains/estudiante.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Instalar y abrir</strong>
+        <p>Ejecuta el instalador y sigue los pasos. Al abrirlo por primera vez, selecciona el tema de interfaz de tu preferencia.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Nueva conexión a SQL Server</strong>
+        <p>En el panel Database → <code>+</code> → Data Source → Microsoft SQL Server. Los datos de conexión se configuran en la Sección 4.4.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="alert alert-tip">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <strong>Alternativas gratuitas a DataGrip</strong>
+      <p><strong>Azure Data Studio</strong> (gratis, de Microsoft, recomendado para Windows) o <strong>TablePlus</strong> (versión gratuita con funcionalidad suficiente para desarrollo) son excelentes opciones sin costo.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 3 · Herramientas Base</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 4: BASE DE DATOS                                      -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon green">🗄️</div>
+    <div class="module-title">
+      <h1>4. Configuración de la Base de Datos</h1>
+      <p>SQL Server 2022 en Docker · Variables de entorno · Creación de la BD</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.1 Levantar SQL Server con Docker</h2>
+  <p>El repositorio del Backend incluye un archivo <code>docker-compose.yml</code> preconfigurado con SQL Server 2022. Esta es la forma recomendada de ejecutar la base de datos en desarrollo.</p>
+
+  <p>El contenedor está configurado con los siguientes parámetros:</p>
+
+  <div class="code-block">
+    <span class="cb-label">docker-compose.yml</span>
+    <span class="key">db</span>:<br>
+    &nbsp;&nbsp;<span class="key">image</span>: <span class="val">mcr.microsoft.com/mssql/server:2022-latest</span><br>
+    &nbsp;&nbsp;<span class="comment"># VITAL para Mac M4: fuerza emulación para evitar errores de arquitectura</span><br>
+    &nbsp;&nbsp;<span class="key">platform</span>: <span class="val">linux/amd64</span><br>
+    &nbsp;&nbsp;<span class="key">container_name</span>: <span class="val">CRUDGA_DB</span><br>
+    &nbsp;&nbsp;<span class="key">restart</span>: <span class="val">always</span><br>
+    &nbsp;&nbsp;<span class="key">environment</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- <span class="val">ACCEPT_EULA=Y</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- <span class="val">MSSQL_SA_PASSWORD=${DB_PASSWORD}</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- <span class="val">MSSQL_PID=Developer</span><br>
+    &nbsp;&nbsp;<span class="key">ports</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- <span class="val">"1433:1433"</span><br>
+    &nbsp;&nbsp;<span class="key">volumes</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- <span class="val">./mssql-data:/var/opt/mssql/data</span><br>
+    &nbsp;&nbsp;<span class="key">mem_limit</span>: <span class="val">2g</span>
+  </div>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Configurar el archivo .env antes de levantar Docker</strong>
+      <p>El <code>docker-compose.yml</code> lee la contraseña desde la variable <code>DB_PASSWORD</code> del archivo <code>.env</code>. Si el archivo no existe o la contraseña no cumple los requisitos de SQL Server, el contenedor no arrancará correctamente. Ver Sección 4.2.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.2 Variables de Entorno del Backend (.env)</h2>
+  <p>El Backend incluye un archivo de ejemplo <code>.env.example</code>. Debes copiarlo y completarlo con tus valores antes de cualquier otro paso.</p>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Copiar el archivo de ejemplo</strong>
+        <p>Desde la raíz del repositorio del Backend, ejecuta:</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Backend</span>
+    <span class="cmd">cp .env.example .env</span>
+  </div>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Editar el archivo .env</strong>
+        <p>Abre el archivo <code>.env</code> con tu editor de código y completa las variables:</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">.env — Backend</span>
+    <span class="comment"># ── Base de Datos ────────────────────────────────────</span><br>
+    <span class="key">DB_HOST</span>=<span class="val">localhost</span><br>
+    <span class="key">DB_PORT</span>=<span class="val">1433</span><br>
+    <span class="key">DB_NAME</span>=<span class="val">CRUDGA_DB</span><br>
+    <span class="key">DB_USER</span>=<span class="val">sa</span><br>
+    <span class="key">DB_PASSWORD</span>=<span class="val">TuContraseñaSegura123!</span><br>
+    <br>
+    <span class="comment"># ── Aplicación ───────────────────────────────────────</span><br>
+    <span class="key">PORT</span>=<span class="val">3000</span><br>
+    <span class="key">NODE_ENV</span>=<span class="val">development</span>
+  </div>
+
+  <div class="alert alert-danger">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>Requisitos de contraseña de SQL Server</strong>
+      <p>La contraseña en <code>DB_PASSWORD</code> <strong>debe</strong> tener al menos 8 caracteres e incluir: mayúsculas, minúsculas, números y un carácter especial (ej: <code>!</code>, <code>@</code>, <code>#</code>). SQL Server rechazará contraseñas débiles y el contenedor no iniciará.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">4.3 Levantar el Contenedor y Crear la Base de Datos</h2>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Iniciar el contenedor de SQL Server</strong>
+        <p>Desde la raíz del repositorio del Backend (donde está el <code>docker-compose.yml</code>):</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Backend</span>
+    <span class="cmd">docker compose up -d</span><br>
+    <br>
+    <span class="comment"># Verificar que el contenedor está corriendo:</span><br>
+    <span class="cmd">docker ps</span><br>
+    <span class="val">CONTAINER ID   IMAGE                           STATUS         PORTS<br>
+xxxxxxxxxxxx   mcr.microsoft.com/mssql/...    Up 30 seconds  0.0.0.0:1433->1433/tcp</span>
+  </div>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Esperar a que SQL Server inicie completamente</strong>
+        <p>El motor de SQL Server tarda entre 20 y 40 segundos en estar listo. Puedes ver los logs con <code>docker logs CRUDGA_DB</code>. Cuando aparezca el mensaje <em>"SQL Server is now ready for client connections"</em>, continúa.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Crear la base de datos</strong>
+        <p>Conéctate con DataGrip (ver Sección 4.4) o cualquier cliente SQL y ejecuta:</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">SQL — Crear Base de Datos</span>
+    <span class="cmd">CREATE DATABASE CRUDGA_DB;</span>
+  </div>
+
+  <h2 class="section-title">4.4 Conectar con DataGrip</h2>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Crear nueva fuente de datos</strong>
+        <p>En DataGrip → panel Database → clic en <code>+</code> → Data Source → <strong>Microsoft SQL Server</strong>.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Completar los datos de conexión</strong>
+        <p>Usa los mismos valores que configuraste en el archivo <code>.env</code>:</p>
+      </div>
+    </li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr><th>Campo</th><th>Valor</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Host</td><td><code>localhost</code></td></tr>
+      <tr><td>Port</td><td><code>1433</code></td></tr>
+      <tr><td>User</td><td><code>sa</code></td></tr>
+      <tr><td>Password</td><td>El valor de <code>DB_PASSWORD</code> en tu <code>.env</code></td></tr>
+      <tr><td>Database</td><td><code>CRUDGA_DB</code> (tras crearla)</td></tr>
+    </tbody>
+  </table>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Descargar el driver y probar la conexión</strong>
+        <p>DataGrip te pedirá descargar el driver de Microsoft SQL Server. Acepta. Luego haz clic en <strong>"Test Connection"</strong>. Debe aparecer el mensaje en verde <em>"Successful"</em>.</p>
+      </div>
+    </li>
+  </ul>
+
+  <h2 class="section-title">4.5 Opción Alternativa: SQL Server Local (sin Docker)</h2>
+  <p>Si ya tienes SQL Server instalado directamente en tu sistema (Express o Developer Edition), puedes usarlo en lugar del contenedor Docker.</p>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Requisitos para la opción sin Docker</strong>
+      <p>El servicio SQL Server debe estar corriendo en el puerto <strong>1433</strong>. El usuario <code>sa</code> debe estar habilitado con la misma contraseña definida en el archivo <code>.env</code>. La autenticación mixta (SQL + Windows) debe estar activada.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 4 · Base de Datos</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 5: BACKEND NESTJS                                     -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon purple">🪺</div>
+    <div class="module-title">
+      <h1>5. Instalación del Backend (NestJS)</h1>
+      <p>API REST con NestJS sobre Node.js · Configuración y arranque</p>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Prerrequisito</strong>
+      <p>Antes de continuar, asegúrate de haber completado la Sección 3 (Node.js instalado) y la Sección 4 (contenedor Docker corriendo y base de datos <code>CRUDGA_DB</code> creada).</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">5.1 Clonar el Repositorio del Backend</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal</span>
+    <span class="comment"># Clonar el repositorio del Backend en tu directorio de trabajo</span><br>
+    <span class="cmd">git clone &lt;URL_REPOSITORIO_BACKEND&gt;</span><br>
+    <span class="cmd">cd &lt;nombre-del-directorio-backend&gt;</span>
+  </div>
+
+  <h2 class="section-title">5.2 Instalar Dependencias</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Backend</span>
+    <span class="comment"># Instalar todas las dependencias de Node.js</span><br>
+    <span class="cmd">npm install</span><br>
+    <br>
+    <span class="comment"># El proceso puede tardar 1-3 minutos en la primera instalación</span>
+  </div>
+
+  <h2 class="section-title">5.3 Configurar Variables de Entorno</h2>
+  <p>Si aún no has configurado el archivo <code>.env</code>, hazlo ahora siguiendo los pasos de la Sección 4.2. Este paso es obligatorio antes de iniciar el servidor.</p>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Backend</span>
+    <span class="comment"># Copiar el archivo de ejemplo (si no lo has hecho)</span><br>
+    <span class="cmd">cp .env.example .env</span><br>
+    <br>
+    <span class="comment"># Abre .env con tu editor y completa los valores</span><br>
+    <span class="comment"># (ver Sección 4.2 para los campos requeridos)</span>
+  </div>
+
+  <h2 class="section-title">5.4 Ejecutar en Modo Desarrollo</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Backend</span>
+    <span class="comment"># Iniciar el servidor en modo desarrollo con hot-reload</span><br>
+    <span class="cmd">npm run start:dev</span><br>
+    <br>
+    <span class="comment"># Salida esperada en consola:</span><br>
+    <span class="val">[Nest] LOG  [NestApplication] Nest application successfully started</span><br>
+    <span class="val">[Nest] LOG  Application is running on: http://localhost:3000</span>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Hot-Reload activado</strong>
+      <p>En modo desarrollo (<code>start:dev</code>), NestJS usa Webpack Watch para recompilar automáticamente cada vez que guardas un archivo TypeScript. No es necesario reiniciar el servidor manualmente durante el desarrollo.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">5.5 Verificar que la API Está Funcionando</h2>
+
+  <p>Abre tu navegador o usa una herramienta como <strong>Postman</strong> para confirmar que el Backend responde correctamente.</p>
+
+  <div class="code-block">
+    <span class="cb-label">Verificación en navegador o curl</span>
+    <span class="comment"># Abre en el navegador:</span><br>
+    <span class="val">http://localhost:3000</span><br>
+    <br>
+    <span class="comment"># O desde la terminal:</span><br>
+    <span class="cmd">curl http://localhost:3000</span><br>
+    <br>
+    <span class="comment"># Respuesta esperada (varía según el endpoint raíz configurado):</span><br>
+    <span class="val">{"status":"ok","message":"CRUDGA API running"}</span>
+  </div>
+
+  <h2 class="section-title">Otros Comandos del Backend</h2>
+
+  <table>
+    <thead>
+      <tr><th>Comando</th><th>Descripción</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>npm run start</code></td>
+        <td>Inicia el servidor en modo producción (sin hot-reload)</td>
+      </tr>
+      <tr>
+        <td><code>npm run start:dev</code></td>
+        <td>Modo desarrollo con hot-reload (uso habitual)</td>
+      </tr>
+      <tr>
+        <td><code>npm run build</code></td>
+        <td>Compila TypeScript a JavaScript en la carpeta <code>dist/</code></td>
+      </tr>
+      <tr>
+        <td><code>npm run test</code></td>
+        <td>Ejecuta los tests unitarios con Jest</td>
+      </tr>
+      <tr>
+        <td><code>docker compose up -d</code></td>
+        <td>Inicia el contenedor de SQL Server en segundo plano</td>
+      </tr>
+      <tr>
+        <td><code>docker compose down</code></td>
+        <td>Detiene y elimina el contenedor (los datos persisten en <code>mssql-data/</code>)</td>
+      </tr>
+      <tr>
+        <td><code>docker logs CRUDGA_DB</code></td>
+        <td>Ver los logs del contenedor SQL Server</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 5 · Backend NestJS</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 6: FRONTEND ANGULAR                                   -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon orange">🅰️</div>
+    <div class="module-title">
+      <h1>6. Instalación del Frontend (Angular)</h1>
+      <p>Angular 21 + TailwindCSS + DaisyUI · Configuración y arranque</p>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Prerrequisito</strong>
+      <p>El Backend debe estar corriendo en <code>http://localhost:3000</code> antes de iniciar el Frontend. De lo contrario, las peticiones HTTP de la aplicación fallarán al cargar datos.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">6.1 Clonar el Repositorio del Frontend</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal</span>
+    <span class="comment"># Clonar el repositorio del Frontend (en un directorio distinto al Backend)</span><br>
+    <span class="cmd">git clone &lt;URL_REPOSITORIO_FRONTEND&gt;</span><br>
+    <span class="cmd">cd CRUDGA</span>
+  </div>
+
+  <h2 class="section-title">6.2 Instalar Angular CLI (Global)</h2>
+  <p>Angular CLI es la herramienta de línea de comandos oficial para crear, compilar y servir aplicaciones Angular. Solo necesitas instalarlo una vez a nivel global en tu sistema.</p>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Instalar Angular CLI globalmente</span>
+    <span class="comment"># Instalar la versión 21 de Angular CLI</span><br>
+    <span class="cmd">npm install -g @angular/cli@21</span><br>
+    <br>
+    <span class="comment"># Verificar la instalación</span><br>
+    <span class="cmd">ng version</span><br>
+    <span class="val">Angular CLI: 21.x.x</span><br>
+    <span class="val">Node: 20.x.x</span><br>
+    <span class="val">Package Manager: npm 11.x.x</span>
+  </div>
+
+  <h2 class="section-title">6.3 Instalar Dependencias del Proyecto</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Frontend (CRUDGA/)</span>
+    <span class="comment"># Instalar todas las dependencias del proyecto</span><br>
+    <span class="cmd">npm install</span><br>
+    <br>
+    <span class="comment"># Dependencias instaladas incluyen:</span><br>
+    <span class="comment"># - @angular/core, forms, router, common (^21.1.0)</span><br>
+    <span class="comment"># - tailwindcss (^4.1.18)</span><br>
+    <span class="comment"># - daisyui (^5.5.14)</span><br>
+    <span class="comment"># - rxjs (~7.8.0)</span><br>
+    <span class="comment"># - chart.js (^4.5.1)</span>
+  </div>
+
+  <h2 class="section-title">6.4 Configuración: URL del Backend</h2>
+  <p>El Frontend necesita conocer la dirección del Backend para enviar peticiones HTTP. Esta configuración generalmente se encuentra en los archivos de entorno de Angular.</p>
+
+  <div class="code-block">
+    <span class="cb-label">src/environments/environment.ts — Configuración típica</span>
+    <span class="key">export const</span> <span class="val">environment</span> = {<br>
+    &nbsp;&nbsp;<span class="key">production</span>: <span class="val">false</span>,<br>
+    &nbsp;&nbsp;<span class="key">apiUrl</span>: <span class="str">'http://localhost:3000'</span><br>
+    };
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Configuración por defecto</strong>
+      <p>La URL <code>http://localhost:3000</code> es la configuración estándar para desarrollo local. Si el Backend corre en otro puerto o host, actualiza el valor de <code>apiUrl</code> antes de iniciar el Frontend.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">6.5 Ejecutar en Modo Desarrollo</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio del Frontend</span>
+    <span class="comment"># Iniciar el servidor de desarrollo con hot-reload</span><br>
+    <span class="cmd">npm start</span><br>
+    <span class="comment"># Equivalente a: ng serve</span><br>
+    <br>
+    <span class="comment"># Salida esperada en consola:</span><br>
+    <span class="val">▲ Angular Vite/esbuild builder  </span><br>
+    <span class="val">✔ Browser application bundle generation complete.</span><br>
+    <span class="val">Watch mode enabled. Watching for file changes...</span><br>
+    <span class="val">  ➜  Local:   http://localhost:4200/</span>
+  </div>
+
+  <p>Abre tu navegador y navega a <strong>http://localhost:4200</strong>. La aplicación debe mostrar la pantalla de inicio de sesión del Sistema de Asignaciones.</p>
+
+  <h2 class="section-title">6.6 Compilar para Producción</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Compilación optimizada para producción</span>
+    <span class="cmd">npm run build</span><br>
+    <span class="comment"># Equivalente a: ng build</span><br>
+    <br>
+    <span class="comment"># Los archivos compilados se generan en:</span><br>
+    <span class="val">dist/CRUDGA/browser/</span>  <span class="comment"># Archivos estáticos para el servidor web</span>
+  </div>
+
+  <h2 class="section-title">Comandos Útiles del Frontend</h2>
+
+  <table>
+    <thead>
+      <tr><th>Comando</th><th>Descripción</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>npm start</code></td>
+        <td>Inicia el servidor de desarrollo con hot-reload en el puerto 4200</td>
+      </tr>
+      <tr>
+        <td><code>npm run build</code></td>
+        <td>Compila la app para producción en <code>dist/CRUDGA/</code></td>
+      </tr>
+      <tr>
+        <td><code>npm run watch</code></td>
+        <td>Compilación continua en modo desarrollo (sin servidor)</td>
+      </tr>
+      <tr>
+        <td><code>npm test</code></td>
+        <td>Ejecuta los tests unitarios con Vitest</td>
+      </tr>
+      <tr>
+        <td><code>ng generate component nombre</code></td>
+        <td>Genera un nuevo componente Angular</td>
+      </tr>
+      <tr>
+        <td><code>ng generate service nombre</code></td>
+        <td>Genera un nuevo servicio Angular</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 6 · Frontend Angular</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 7: ORDEN DE ARRANQUE                                  -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon indigo">🚀</div>
+    <div class="module-title">
+      <h1>7. Orden de Arranque del Sistema</h1>
+      <p>Secuencia correcta para iniciar el entorno de desarrollo cada día</p>
+    </div>
+  </div>
+
+  <p>Una vez que todo el sistema está instalado, el orden de arranque para el trabajo diario es el siguiente. Respeta la secuencia para evitar errores de conexión.</p>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Iniciar Docker Desktop</strong>
+        <p>Abre la aplicación Docker Desktop y espera a que el ícono de la ballena indique que el daemon está corriendo. Sin este paso, el contenedor de SQL Server no puede iniciarse.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Levantar el contenedor de la Base de Datos</strong>
+        <p>Desde el directorio del Backend, en la terminal:</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio Backend</span>
+    <span class="cmd">docker compose up -d</span><br>
+    <span class="comment"># Verifica que el contenedor CRUDGA_DB aparezca como "Up"</span><br>
+    <span class="cmd">docker ps</span>
+  </div>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Iniciar el Backend (NestJS)</strong>
+        <p>Desde el directorio del Backend, en una terminal nueva:</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio Backend</span>
+    <span class="cmd">npm run start:dev</span><br>
+    <span class="comment"># Espera hasta ver: "Nest application successfully started"</span><br>
+    <span class="comment"># El Backend queda disponible en http://localhost:3000</span>
+  </div>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Iniciar el Frontend (Angular)</strong>
+        <p>Desde el directorio del Frontend, en otra terminal nueva:</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="code-block">
+    <span class="cb-label">Terminal — Directorio Frontend</span>
+    <span class="cmd">npm start</span><br>
+    <span class="comment"># El Frontend queda disponible en http://localhost:4200</span>
+  </div>
+
+  <ul class="steps">
+    <li>
+      <div>
+        <strong>Abrir el sistema en el navegador</strong>
+        <p>Navega a <strong>http://localhost:4200</strong>. Si todos los servicios están activos, la pantalla de inicio de sesión del Sistema de Asignaciones debe cargar correctamente.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="alert alert-success">
+    <div class="alert-icon">✅</div>
+    <div class="alert-body">
+      <strong>Sistema completamente operativo</strong>
+      <p>Cuando los tres servicios están activos, tienes 3 terminales abiertas: una con el Backend corriendo, una con el Frontend corriendo, y Docker Desktop en segundo plano con el contenedor SQL Server. Este es el estado normal de trabajo.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Resumen Visual de Servicios Activos</h2>
+
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="arch-icon">🐳</div>
+      <h4>Docker Container</h4>
+      <p>CRUDGA_DB<br><strong>localhost:1433</strong><br>Estado: <span class="chip chip-green">Running</span></p>
+    </div>
+    <div class="arch-card">
+      <div class="arch-icon">🪺</div>
+      <h4>NestJS API</h4>
+      <p>Backend Server<br><strong>localhost:3000</strong><br>Estado: <span class="chip chip-green">Running</span></p>
+    </div>
+    <div class="arch-card">
+      <div class="arch-icon">🅰️</div>
+      <h4>Angular App</h4>
+      <p>Frontend Server<br><strong>localhost:4200</strong><br>Estado: <span class="chip chip-green">Running</span></p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Apagar el Sistema</h2>
+
+  <div class="code-block">
+    <span class="cb-label">Orden de apagado</span>
+    <span class="comment"># 1. Detener el Frontend: Ctrl+C en la terminal del Frontend</span><br>
+    <span class="comment"># 2. Detener el Backend:  Ctrl+C en la terminal del Backend</span><br>
+    <span class="comment"># 3. Detener el contenedor Docker:</span><br>
+    <span class="cmd">docker compose down</span><br>
+    <br>
+    <span class="comment"># Nota: los datos de la base de datos persisten en ./mssql-data/</span><br>
+    <span class="comment"># El siguiente "docker compose up -d" los restaurará automáticamente</span>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 7 · Orden de Arranque</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 8: SOLUCIÓN DE PROBLEMAS                              -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon rose">🔍</div>
+    <div class="module-title">
+      <h1>8. Solución de Problemas Comunes</h1>
+      <p>Errores frecuentes y cómo resolverlos paso a paso</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">8.1 El contenedor Docker no inicia</h2>
+  <span class="section-badge badge-red">🔴 Error Crítico</span>
+  <p><strong>Síntoma:</strong> <code>docker compose up -d</code> falla o el contenedor entra en estado <code>Exit 1</code> inmediatamente.</p>
+
+  <table>
+    <thead><tr><th>Causa Posible</th><th>Solución</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Contraseña débil en <code>DB_PASSWORD</code></td>
+        <td>La contraseña debe tener 8+ caracteres, mayúsculas, minúsculas, número y carácter especial</td>
+      </tr>
+      <tr>
+        <td>Archivo <code>.env</code> no existe</td>
+        <td>Ejecutar <code>cp .env.example .env</code> y completar los valores</td>
+      </tr>
+      <tr>
+        <td>Puerto 1433 ocupado por otro proceso</td>
+        <td>Verificar con <code>lsof -i :1433</code> (Mac/Linux) y detener el proceso conflictivo</td>
+      </tr>
+      <tr>
+        <td>Docker Desktop no está corriendo</td>
+        <td>Abrir Docker Desktop y esperar a que el daemon inicie por completo</td>
+      </tr>
+      <tr>
+        <td>Memoria insuficiente asignada a Docker</td>
+        <td>En Docker Desktop → Settings → Resources → Memory: asignar mínimo 4 GB</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="code-block">
+    <span class="cb-label">Diagnóstico — Ver logs del contenedor</span>
+    <span class="cmd">docker logs CRUDGA_DB</span><br>
+    <span class="comment"># Busca mensajes de error en la salida</span>
+  </div>
+
+  <h2 class="section-title">8.2 El Backend no conecta a la base de datos</h2>
+  <span class="section-badge badge-orange">⚠️ Error de Conexión</span>
+  <p><strong>Síntoma:</strong> Al iniciar <code>npm run start:dev</code>, aparecen errores de conexión a la base de datos o la API no responde en el puerto 3000.</p>
+
+  <table>
+    <thead><tr><th>Causa Posible</th><th>Solución</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Contenedor Docker no está corriendo</td>
+        <td>Ejecutar <code>docker compose up -d</code> antes de iniciar el Backend</td>
+      </tr>
+      <tr>
+        <td>Base de datos <code>CRUDGA_DB</code> no fue creada</td>
+        <td>Conectarse con DataGrip y ejecutar <code>CREATE DATABASE CRUDGA_DB;</code></td>
+      </tr>
+      <tr>
+        <td>Credenciales incorrectas en el <code>.env</code></td>
+        <td>Verificar que <code>DB_PASSWORD</code> en <code>.env</code> coincide con la del contenedor Docker</td>
+      </tr>
+      <tr>
+        <td>SQL Server aún no terminó de iniciar</td>
+        <td>Esperar 30-40 segundos más después de <code>docker compose up -d</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">8.3 El Frontend no carga datos</h2>
+  <span class="section-badge badge-yellow">⚠️ Error de Comunicación</span>
+  <p><strong>Síntoma:</strong> La aplicación Angular abre en el navegador pero las listas aparecen vacías o hay errores de red en la consola del navegador (F12).</p>
+
+  <table>
+    <thead><tr><th>Causa Posible</th><th>Solución</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Backend no está corriendo</td>
+        <td>Verificar que <code>npm run start:dev</code> está activo en la terminal del Backend</td>
+      </tr>
+      <tr>
+        <td>URL del Backend incorrecta</td>
+        <td>Revisar que <code>apiUrl</code> en <code>environment.ts</code> apunta a <code>http://localhost:3000</code></td>
+      </tr>
+      <tr>
+        <td>Error CORS en la API</td>
+        <td>Verificar que el Backend tiene CORS habilitado para el origen <code>http://localhost:4200</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">8.4 Error de versión de Node.js</h2>
+  <span class="section-badge badge-slate">ℹ️ Compatibilidad</span>
+  <p><strong>Síntoma:</strong> <code>npm install</code> falla con errores sobre versión de Node.js incompatible.</p>
+
+  <div class="code-block">
+    <span class="cb-label">Solución — Actualizar Node.js con nvm</span>
+    <span class="comment"># Verificar versión actual</span><br>
+    <span class="cmd">node --version</span><br>
+    <br>
+    <span class="comment"># Instalar y usar la versión LTS si es inferior a 18</span><br>
+    <span class="cmd">nvm install --lts</span><br>
+    <span class="cmd">nvm use --lts</span><br>
+    <br>
+    <span class="comment"># Repetir la instalación de dependencias</span><br>
+    <span class="cmd">npm install</span>
+  </div>
+
+  <h2 class="section-title">8.5 Error al instalar en Mac Apple Silicon</h2>
+  <span class="section-badge badge-purple">🍎 Apple Silicon</span>
+  <p><strong>Síntoma:</strong> Errores relacionados con arquitectura <code>arm64</code> al construir el contenedor Docker.</p>
+
+  <div class="alert alert-success">
+    <div class="alert-icon">✅</div>
+    <div class="alert-body">
+      <strong>Ya está resuelto en el proyecto</strong>
+      <p>El <code>docker-compose.yml</code> del proyecto ya incluye <code>platform: linux/amd64</code>. Esto le indica a Docker que use emulación Rosetta para ejecutar la imagen de SQL Server (que solo existe en x86_64) en chips Apple Silicon. No requiere ninguna acción adicional de tu parte.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 8 · Solución de Problemas</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 9: REFERENCIA RÁPIDA                                  -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon slate">⚡</div>
+    <div class="module-title">
+      <h1>9. Referencia Rápida de Comandos</h1>
+      <p>Hoja de referencia para el día a día del desarrollo</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Base de Datos — Docker</h2>
+
+  <table>
+    <thead><tr><th>Comando</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td><code>docker compose up -d</code></td><td>Iniciar el contenedor SQL Server en segundo plano</td></tr>
+      <tr><td><code>docker compose down</code></td><td>Detener el contenedor (los datos persisten)</td></tr>
+      <tr><td><code>docker ps</code></td><td>Ver contenedores activos y su estado</td></tr>
+      <tr><td><code>docker logs CRUDGA_DB</code></td><td>Ver los logs del contenedor SQL Server</td></tr>
+      <tr><td><code>docker compose restart db</code></td><td>Reiniciar solo el servicio de base de datos</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Backend — NestJS</h2>
+
+  <table>
+    <thead><tr><th>Comando</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td><code>npm install</code></td><td>Instalar/actualizar dependencias</td></tr>
+      <tr><td><code>npm run start:dev</code></td><td>Servidor de desarrollo con hot-reload (:3000)</td></tr>
+      <tr><td><code>npm run start</code></td><td>Servidor de producción (:3000)</td></tr>
+      <tr><td><code>npm run build</code></td><td>Compilar TypeScript a JavaScript</td></tr>
+      <tr><td><code>npm run test</code></td><td>Ejecutar tests unitarios</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Frontend — Angular</h2>
+
+  <table>
+    <thead><tr><th>Comando</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td><code>npm install</code></td><td>Instalar/actualizar dependencias</td></tr>
+      <tr><td><code>npm start</code></td><td>Servidor de desarrollo con hot-reload (:4200)</td></tr>
+      <tr><td><code>npm run build</code></td><td>Compilar para producción en <code>dist/</code></td></tr>
+      <tr><td><code>npm test</code></td><td>Ejecutar tests unitarios con Vitest</td></tr>
+      <tr><td><code>ng generate component &lt;nombre&gt;</code></td><td>Crear nuevo componente Angular</td></tr>
+      <tr><td><code>ng generate service &lt;nombre&gt;</code></td><td>Crear nuevo servicio Angular</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Puertos y URLs de Acceso</h2>
+
+  <div class="port-row">
+    <div class="port-badge">:4200</div>
+    <div class="port-info"><strong>Frontend Angular — Interfaz de usuario</strong><span>http://localhost:4200</span></div>
+  </div>
+  <div class="port-row">
+    <div class="port-badge">:3000</div>
+    <div class="port-info"><strong>Backend NestJS — API REST</strong><span>http://localhost:3000</span></div>
+  </div>
+  <div class="port-row">
+    <div class="port-badge">:1433</div>
+    <div class="port-info"><strong>SQL Server — Motor de base de datos (Docker)</strong><span>localhost:1433 · Usuario: sa</span></div>
+  </div>
+
+  <h2 class="section-title">Secuencia Completa de Arranque</h2>
+
+  <div class="code-block">
+    <span class="cb-label">CHEAT SHEET — Arranque diario</span>
+    <span class="comment"># ① Asegúrate de que Docker Desktop está corriendo</span><br>
+    <br>
+    <span class="comment"># ② Base de datos (directorio del Backend)</span><br>
+    <span class="cmd">docker compose up -d</span><br>
+    <br>
+    <span class="comment"># ③ Backend — nueva terminal (directorio del Backend)</span><br>
+    <span class="cmd">npm run start:dev</span><br>
+    <br>
+    <span class="comment"># ④ Frontend — nueva terminal (directorio del Frontend)</span><br>
+    <span class="cmd">npm start</span><br>
+    <br>
+    <span class="comment"># ⑤ Abrir en el navegador</span><br>
+    <span class="val">http://localhost:4200</span>
+  </div>
+
+  <div class="alert alert-tip">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <strong>Consejo de productividad</strong>
+      <p>Usa un gestor de terminales como iTerm2 (macOS) o Windows Terminal con múltiples pestañas para tener Docker, Backend y Frontend en tabs separadas y visibles simultáneamente.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA</span>
+    <span>Sección 9 · Referencia Rápida · Manual de Instalación y Técnico · v1.0 · Abril 2026</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  DIVISOR MANUAL TÉCNICO                                        -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0f2942 0%,#1a5276 55%,#0f5132 100%);color:white;text-align:center;padding:60px 40px;">
+  <div style="font-size:64px;margin-bottom:28px;">🛠️</div>
+  <h1 style="font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:12px;color:white;">Manual Técnico</h1>
+  <h2 style="font-size:18px;font-weight:400;opacity:0.85;margin-bottom:36px;color:white;">Sistema de Asignaciones — CRUDGA</h2>
+  <div style="width:80px;height:3px;background:rgba(255,255,255,0.5);margin:0 auto 36px;border-radius:2px;"></div>
+  <p style="font-size:13px;opacity:0.7;line-height:2;color:white;">
+    Arquitectura del sistema · Módulos y rutas · Servicios con Signals<br>
+    Modelos de datos · Guards y seguridad · Endpoints de la API
+  </p>
+  <div style="margin-top:36px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:10px 28px;border-radius:99px;font-size:13px;letter-spacing:1px;color:white;">
+    Secciones 10 – 14
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 10: ARQUITECTURA FRONTEND                             -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon blue">🅰️</div>
+    <div class="module-title">
+      <h1>10. Arquitectura del Frontend (Angular)</h1>
+      <p>Estructura de carpetas, capas de la aplicación y patrones de diseño</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">10.1 Estructura de Carpetas</h2>
+  <p>El proyecto Frontend sigue una arquitectura modular organizada por dominio de negocio. Cada módulo encapsula sus propias páginas, componentes y lógica.</p>
+
+  <div class="code-block">
+    <span class="cb-label">ÁRBOL — src/app/</span>
+    <span class="val">src/</span><br>
+    <span class="val">├── app/</span><br>
+    <span class="val">│   ├── <span class="key">auth/</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Módulo de autenticación</span><br>
+    <span class="val">│   │   ├── guards/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># IsAdminGuard · NotAuthenticatedGuard</span><br>
+    <span class="val">│   │   ├── interceptors/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># authInterceptor (JWT Bearer)</span><br>
+    <span class="val">│   │   ├── interface/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># AuthResponse · User · Usuario</span><br>
+    <span class="val">│   │   ├── pages/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># login-page · register-page</span><br>
+    <span class="val">│   │   └── services/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># AuthService</span><br>
+    <span class="val">│   ├── <span class="key">home/</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Módulo principal de la aplicación</span><br>
+    <span class="val">│   │   ├── interface/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Area · Proyecto · Asignacion · Usuario</span><br>
+    <span class="val">│   │   └── pages/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Páginas del sistema (ver sección 12)</span><br>
+    <span class="val">│   │       └── services/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># AreasService · ProyectosService · etc.</span><br>
+    <span class="val">│   ├── <span class="key">shared/</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Componentes reutilizables por dominio</span><br>
+    <span class="val">│   │   ├── components/areas/</span>&nbsp;&nbsp;&nbsp;<span class="comment"># aras-list · area-modal</span><br>
+    <span class="val">│   │   ├── components/proyectos/</span><span class="comment"># proyectos-list · add-proyecto-modal</span><br>
+    <span class="val">│   │   ├── components/usuarios/</span> <span class="comment"># usuarios-list · usuarios-modal</span><br>
+    <span class="val">│   │   ├── components/asignasiones/</span><span class="comment"># asignasiones-list · add-asignacion-modal</span><br>
+    <span class="val">│   │   ├── components/graficas/</span>&nbsp;<span class="comment"># grafica-areas · grafica-kpis · etc.</span><br>
+    <span class="val">│   │   ├── components/calendario/</span><span class="comment"># calendario-detalle · calendario-gantt</span><br>
+    <span class="val">│   │   ├── components/tablero/</span>&nbsp;&nbsp;<span class="comment"># tablero-card · tablero-columna</span><br>
+    <span class="val">│   │   └── interceptors/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># loggin.interceptor</span><br>
+    <span class="val">│   ├── <span class="key">utils/</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Componentes de feedback y UI global</span><br>
+    <span class="val">│   │   ├── alert-sucess/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Alerta de operación exitosa</span><br>
+    <span class="val">│   │   ├── alert-error/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Alerta de error de operación</span><br>
+    <span class="val">│   │   ├── action-alert-error/</span>&nbsp;<span class="comment"># Alerta de error de acción</span><br>
+    <span class="val">│   │   ├── modal-delete/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Modal de confirmación de eliminación</span><br>
+    <span class="val">│   │   └── modal-download/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Modal de descarga (Excel / PDF)</span><br>
+    <span class="val">│   ├── app.routes.ts</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Definición de rutas con lazy loading</span><br>
+    <span class="val">│   ├── app.config.ts</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Proveedores: HttpClient, Router, etc.</span><br>
+    <span class="val">│   └── app.ts</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Componente raíz (router-outlet)</span><br>
+    <span class="val">└── environments/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># environment.ts · environment.development.ts</span>
+  </div>
+
+  <h2 class="section-title">10.2 Capas de la Aplicación</h2>
+
+  <table>
+    <thead><tr><th>Capa</th><th>Carpeta</th><th>Responsabilidad</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Autenticación</strong></td>
+        <td><code>auth/</code></td>
+        <td>Login, registro, verificación de token JWT, guards de navegación</td>
+      </tr>
+      <tr>
+        <td><strong>Dominio</strong></td>
+        <td><code>home/pages/</code></td>
+        <td>Páginas con lógica de negocio específica de cada módulo del sistema</td>
+      </tr>
+      <tr>
+        <td><strong>Servicios</strong></td>
+        <td><code>home/pages/services/</code></td>
+        <td>Estado reactivo con Signals, llamadas HTTP a la API, gestión de CRUD</td>
+      </tr>
+      <tr>
+        <td><strong>Interfaces</strong></td>
+        <td><code>home/interface/</code></td>
+        <td>Contratos TypeScript para los modelos de datos de la API</td>
+      </tr>
+      <tr>
+        <td><strong>Componentes Compartidos</strong></td>
+        <td><code>shared/components/</code></td>
+        <td>Listas, modales y gráficas reutilizables organizadas por dominio</td>
+      </tr>
+      <tr>
+        <td><strong>Utilidades</strong></td>
+        <td><code>utils/</code></td>
+        <td>Componentes de feedback global: alertas, modales de confirmación y descarga</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">10.3 Patrones de Diseño Aplicados</h2>
+
+  <table>
+    <thead><tr><th>Patrón</th><th>Implementación</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Standalone Components</strong></td>
+        <td>Todos los componentes son standalone (sin NgModules), usando <code>imports: []</code> directamente</td>
+      </tr>
+      <tr>
+        <td><strong>OnPush Change Detection</strong></td>
+        <td><code>ChangeDetectionStrategy.OnPush</code> en todos los componentes para máximo rendimiento</td>
+      </tr>
+      <tr>
+        <td><strong>Signals (Estado Reactivo)</strong></td>
+        <td><code>signal()</code>, <code>computed()</code> y <code>rxResource()</code> para estado asíncrono sin BehaviorSubject</td>
+      </tr>
+      <tr>
+        <td><strong>Lazy Loading</strong></td>
+        <td>Todas las páginas se cargan bajo demanda con <code>loadComponent()</code> en el router</td>
+      </tr>
+      <tr>
+        <td><strong>Functional Guards</strong></td>
+        <td>Guards como funciones puras (<code>CanMatchFn</code>, <code>CanActivateFn</code>) sin clases</td>
+      </tr>
+      <tr>
+        <td><strong>Functional Interceptors</strong></td>
+        <td>Interceptores HTTP como funciones puras con <code>inject()</code> interno</td>
+      </tr>
+      <tr>
+        <td><strong>Reactive Forms</strong></td>
+        <td><code>FormBuilder</code> para todos los formularios de captura de datos</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">10.4 Configuración del Proyecto</h2>
+
+  <div class="code-block">
+    <span class="cb-label">src/environments/environment.ts</span>
+    <span class="key">export const</span> environment = {<br>
+    &nbsp;&nbsp;<span class="key">baseUrl</span>: <span class="str">'http://localhost:3000/api'</span><br>
+    };<br>
+    <br>
+    <span class="comment"># Todas las peticiones HTTP del sistema apuntan a esta URL base</span><br>
+    <span class="comment"># Para producción, actualizar en environment.ts con la URL del servidor</span>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Control Flow moderno de Angular</strong>
+      <p>El proyecto utiliza la sintaxis de control de flujo nativa de Angular 17+ (<code>@if</code>, <code>@for</code>, <code>@switch</code>) en las plantillas HTML en lugar de las directivas estructurales antiguas (<code>*ngIf</code>, <code>*ngFor</code>).</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA · Manual Técnico</span>
+    <span>Sección 10 · Arquitectura Frontend</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 11: AUTENTICACIÓN Y SEGURIDAD                         -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon rose">🔐</div>
+    <div class="module-title">
+      <h1>11. Sistema de Autenticación y Seguridad</h1>
+      <p>JWT · AuthService con Signals · Guards de ruta · Interceptor HTTP</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">11.1 Flujo de Autenticación JWT</h2>
+
+  <div class="code-block">
+    <span class="cb-label">FLUJO COMPLETO</span>
+    <span class="comment"># 1. El usuario ingresa email y contraseña en LoginPage</span><br>
+    <span class="comment"># 2. AuthService.login() hace POST /api/auth/login</span><br>
+    <span class="comment"># 3. El backend responde con { user, token }</span><br>
+    <span class="comment"># 4. handleLoginSuccess() guarda el token en localStorage</span><br>
+    <span class="comment"># 5. Los signals _user, _token y _authStatus se actualizan</span><br>
+    <span class="comment"># 6. El Router navega a /areas (ruta protegida)</span><br>
+    <span class="comment"># 7. authInterceptor adjunta el token en cada petición HTTP</span><br>
+    <span class="comment"># 8. Al recargar la página: checkStatus() valida el token con /api/auth/check-status</span>
+  </div>
+
+  <h2 class="section-title">11.2 AuthService — Estado con Signals</h2>
+  <p>El servicio de autenticación usa tres signals privados para gestionar el estado de la sesión. Los signals públicos son de solo lectura (<code>computed</code>).</p>
+
+  <table>
+    <thead><tr><th>Signal</th><th>Tipo</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>_authStatus</code></td>
+        <td><code>signal&lt;AuthStatus&gt;</code></td>
+        <td>Estado interno: <code>'checking'</code> | <code>'authenticated'</code> | <code>'not-authenticated'</code></td>
+      </tr>
+      <tr>
+        <td><code>_user</code></td>
+        <td><code>signal&lt;User | null&gt;</code></td>
+        <td>Datos del usuario autenticado actualmente</td>
+      </tr>
+      <tr>
+        <td><code>_token</code></td>
+        <td><code>signal&lt;string | null&gt;</code></td>
+        <td>Token JWT almacenado en localStorage</td>
+      </tr>
+      <tr>
+        <td><code>authStatus</code></td>
+        <td><code>computed()</code></td>
+        <td>Estado público derivado — consumido por los guards</td>
+      </tr>
+      <tr>
+        <td><code>user</code></td>
+        <td><code>computed()</code></td>
+        <td>Usuario público de solo lectura</td>
+      </tr>
+      <tr>
+        <td><code>token</code></td>
+        <td><code>computed()</code></td>
+        <td>Token público de solo lectura — consumido por el interceptor</td>
+      </tr>
+      <tr>
+        <td><code>checkstatusResource</code></td>
+        <td><code>rxResource()</code></td>
+        <td>Verifica el token con el backend al iniciar la aplicación</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">11.3 Guards de Ruta</h2>
+
+  <h3 class="subsection-title">IsAdminGuard — Protege rutas autenticadas</h3>
+  <p>Implementado como <code>CanMatchFn</code> funcional. Evalúa el <code>authStatus</code> del <code>AuthService</code> de forma síncrona cuando el estado ya está resuelto, o de forma asíncrona (Observable) cuando la app está arrancando con un token en localStorage.</p>
+
+  <table>
+    <thead><tr><th>Estado del auth</th><th>Resultado del guard</th></tr></thead>
+    <tbody>
+      <tr><td><code>'authenticated'</code></td><td>Retorna <code>true</code> de forma síncrona — acceso permitido</td></tr>
+      <tr><td><code>'not-authenticated'</code></td><td>Retorna <code>false</code> + redirige a <code>/auth/login</code></td></tr>
+      <tr><td><code>'checking'</code></td><td>Retorna un Observable que espera a que <code>checkStatus()</code> resuelva</td></tr>
+      <tr><td>Servidor (SSR)</td><td>Retorna <code>true</code> siempre — el cliente validará después</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Por qué CanMatch y no CanActivate</strong>
+      <p><code>canMatch</code> evalúa el guard <em>antes</em> de cargar el componente con lazy loading, evitando que el chunk de JavaScript se descargue si el usuario no está autorizado. El proyecto usa <code>canActivate</code> con <code>IsAdminGuard</code> sobre el bloque de rutas protegidas, y <code>canMatch</code> con <code>NotAuthenticatedGuard</code> en el bloque de auth.</p>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">NotAuthenticatedGuard — Protege rutas públicas</h3>
+  <p>Impide que un usuario ya autenticado acceda a <code>/auth/login</code> o <code>/auth/register</code>. Si el usuario tiene sesión activa, lo redirige a la ruta principal.</p>
+
+  <h2 class="section-title">11.4 Interceptor HTTP — authInterceptor</h2>
+  <p>Interceptor funcional que adjunta automáticamente el token JWT a todas las peticiones salientes de la aplicación mediante la cabecera <code>Authorization: Bearer &lt;token&gt;</code>.</p>
+
+  <div class="code-block">
+    <span class="cb-label">src/app/auth/interceptors/auth.interceptor.ts</span>
+    <span class="key">export function</span> authInterceptor(req, next) {<br>
+    &nbsp;&nbsp;<span class="comment">// Obtiene el token desde AuthService vía inject()</span><br>
+    &nbsp;&nbsp;const authToken = inject(AuthService).token();<br>
+    &nbsp;&nbsp;<span class="comment">// Clona la request y agrega la cabecera Authorization</span><br>
+    &nbsp;&nbsp;const newReq = req.clone({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;headers: req.headers.append(<span class="str">'Authorization'</span>, <span class="str">`Bearer ${authToken}`</span>)<br>
+    &nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;return next(newReq);<br>
+    }
+  </div>
+
+  <div class="alert alert-warning">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Inyección con inject() dentro de funciones</strong>
+      <p>Los interceptores funcionales permiten usar <code>inject()</code> directamente en el cuerpo de la función (no en el constructor), eliminando la necesidad de clases y evitando dependencias circulares (<code>NG0200</code>).</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA · Manual Técnico</span>
+    <span>Sección 11 · Autenticación y Seguridad</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 12: MÓDULOS, RUTAS Y COMPONENTES                      -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon purple">🗺️</div>
+    <div class="module-title">
+      <h1>12. Módulos, Rutas y Componentes</h1>
+      <p>Tabla de rutas · Componentes de dominio · Utilidades globales</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">12.1 Tabla de Rutas del Sistema</h2>
+  <p>Todas las rutas protegidas están agrupadas bajo el guard <code>IsAdminGuard</code>. El acceso a cualquiera de estas rutas sin sesión activa redirige al login. Las páginas se cargan con lazy loading (<code>loadComponent</code>).</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Ruta URL</th>
+        <th>Componente (Página)</th>
+        <th>Acceso</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/auth/login</code></td>
+        <td><code>login-page</code></td>
+        <td><span class="chip chip-orange">Público</span></td>
+        <td>Formulario de inicio de sesión</td>
+      </tr>
+      <tr>
+        <td><code>/auth/register</code></td>
+        <td><code>register-page</code></td>
+        <td><span class="chip chip-orange">Público</span></td>
+        <td>Formulario de registro de usuario</td>
+      </tr>
+      <tr>
+        <td><code>/areas</code></td>
+        <td><code>areas-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Gestión de áreas (CRUD completo)</td>
+      </tr>
+      <tr>
+        <td><code>/proyectos</code></td>
+        <td><code>proyectos-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Gestión de proyectos por área</td>
+      </tr>
+      <tr>
+        <td><code>/asignaciones</code></td>
+        <td><code>asignasiones-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Asignación de usuarios a proyectos</td>
+      </tr>
+      <tr>
+        <td><code>/usuarios</code></td>
+        <td><code>usuarios-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Gestión de usuarios del sistema</td>
+      </tr>
+      <tr>
+        <td><code>/mi-perfil</code></td>
+        <td><code>mi-perfil-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Perfil del usuario en sesión</td>
+      </tr>
+      <tr>
+        <td><code>/reportes</code></td>
+        <td><code>reportes-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Reportes y estadísticas exportables</td>
+      </tr>
+      <tr>
+        <td><code>/calendario</code></td>
+        <td><code>calendario-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Vista de calendario de proyectos</td>
+      </tr>
+      <tr>
+        <td><code>/tablero</code></td>
+        <td><code>tablero-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Tablero Kanban de proyectos</td>
+      </tr>
+      <tr>
+        <td><code>/graficas</code></td>
+        <td><code>graficas-page</code></td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Gráficas y visualizaciones con Chart.js</td>
+      </tr>
+      <tr>
+        <td><code>/</code> (raíz)</td>
+        <td>—</td>
+        <td><span class="chip chip-red">Autenticado</span></td>
+        <td>Redirige automáticamente a <code>/areas</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">12.2 Componentes Compartidos (shared/)</h2>
+  <p>Los componentes compartidos están organizados por dominio de negocio. Cada dominio tiene su componente de lista y su modal de creación/edición.</p>
+
+  <table>
+    <thead><tr><th>Dominio</th><th>Componentes</th><th>Función</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Áreas</strong></td>
+        <td><code>aras-list</code> · <code>area-modal</code></td>
+        <td>Lista con acciones CRUD y modal de creación/edición con imagen</td>
+      </tr>
+      <tr>
+        <td><strong>Proyectos</strong></td>
+        <td><code>proyectos-list</code> · <code>add-proyecto-modal</code></td>
+        <td>Lista de proyectos por área y modal de gestión</td>
+      </tr>
+      <tr>
+        <td><strong>Usuarios</strong></td>
+        <td><code>usuarios-list</code> · <code>usuarios-modal</code></td>
+        <td>Lista de usuarios del sistema y modal de gestión</td>
+      </tr>
+      <tr>
+        <td><strong>Asignaciones</strong></td>
+        <td><code>asignasiones-list</code> · <code>add-asignacion-modal</code></td>
+        <td>Lista de asignaciones usuario-proyecto y modal de asignación</td>
+      </tr>
+      <tr>
+        <td><strong>Gráficas</strong></td>
+        <td><code>grafica-areas</code> · <code>grafica-kpis</code> · <code>grafica-estado</code> · <code>grafica-carga</code> · <code>grafica-tendencia</code> · <code>grafica-roles</code></td>
+        <td>Visualizaciones con Chart.js: áreas, KPIs, estados, carga laboral y tendencias</td>
+      </tr>
+      <tr>
+        <td><strong>Calendario</strong></td>
+        <td><code>calendario-detalle</code> · <code>calendario-gantt</code></td>
+        <td>Vista detallada y diagrama Gantt de proyectos</td>
+      </tr>
+      <tr>
+        <td><strong>Tablero</strong></td>
+        <td><code>tablero-card</code> · <code>tablero-columna</code></td>
+        <td>Tarjetas Kanban y columnas de estado para proyectos</td>
+      </tr>
+      <tr>
+        <td><strong>Perfil</strong></td>
+        <td><code>perfil-hero</code> · <code>perfil-tabs</code></td>
+        <td>Encabezado del perfil y secciones de información del usuario</td>
+      </tr>
+      <tr>
+        <td><strong>Navbar</strong></td>
+        <td><code>navbar</code> · <code>navbar-options</code> · <code>navbar-options-movil</code></td>
+        <td>Barra de navegación principal, versión desktop y versión móvil</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">12.3 Componentes de Utilidad (utils/)</h2>
+
+  <table>
+    <thead><tr><th>Componente</th><th>Propósito</th></tr></thead>
+    <tbody>
+      <tr><td><code>alert-sucess</code></td><td>Alerta visual de operación exitosa (crear, editar, eliminar)</td></tr>
+      <tr><td><code>alert-error</code></td><td>Alerta de error genérico de la aplicación</td></tr>
+      <tr><td><code>action-alert-error</code></td><td>Alerta de error específico de una acción CRUD</td></tr>
+      <tr><td><code>modal-delete</code></td><td>Modal de confirmación antes de eliminar un registro</td></tr>
+      <tr><td><code>modal-download</code></td><td>Modal para exportar datos (Excel)</td></tr>
+      <tr><td><code>modal-download-pdf</code></td><td>Modal para exportar datos en formato PDF</td></tr>
+      <tr><td><code>modal-image-preview</code></td><td>Modal de vista previa de imágenes de áreas y proyectos</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA · Manual Técnico</span>
+    <span>Sección 12 · Módulos, Rutas y Componentes</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 13: SERVICIOS Y MODELOS DE DATOS                      -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon teal">📐</div>
+    <div class="module-title">
+      <h1>13. Servicios y Modelos de Datos</h1>
+      <p>Interfaces TypeScript · Servicios con Signals · Patrón de estado reactivo</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">13.1 Interfaces TypeScript (Contratos de la API)</h2>
+  <p>Cada módulo tiene sus interfaces tipadas que definen exactamente la estructura de los datos recibidos desde el Backend. Garantizan type-safety en toda la aplicación.</p>
+
+  <h3 class="subsection-title">Entidad: Usuario (auth/interface/user.interface.ts)</h3>
+  <div class="code-block">
+    <span class="cb-label">TypeScript</span>
+    <span class="key">interface</span> <span class="val">User</span> {<br>
+    &nbsp;&nbsp;id:       <span class="str">number</span>;<br>
+    &nbsp;&nbsp;name:     <span class="str">string</span>;<br>
+    &nbsp;&nbsp;email:    <span class="str">string</span>;<br>
+    &nbsp;&nbsp;password?: <span class="str">string</span>; <span class="comment">// opcional — no se expone al cliente</span><br>
+    &nbsp;&nbsp;isActive: <span class="str">boolean</span>;<br>
+    &nbsp;&nbsp;rol:      <span class="str">string[]</span>; <span class="comment">// array de roles: ['admin', 'user']</span><br>
+    &nbsp;&nbsp;token:    <span class="str">string</span>;<br>
+    }
+  </div>
+
+  <h3 class="subsection-title">Entidad: Área (home/interface/area.interface.ts)</h3>
+  <div class="code-block">
+    <span class="cb-label">TypeScript</span>
+    <span class="key">interface</span> <span class="val">Area</span> {<br>
+    &nbsp;&nbsp;id:          <span class="str">number</span>;<br>
+    &nbsp;&nbsp;nombre:      <span class="str">string</span>;<br>
+    &nbsp;&nbsp;description: <span class="str">string</span>;<br>
+    &nbsp;&nbsp;imagen:      <span class="str">string</span>; <span class="comment">// URL o nombre de archivo</span><br>
+    }<br>
+    <br>
+    <span class="key">interface</span> <span class="val">AreasResponse</span> {<br>
+    &nbsp;&nbsp;ok:    <span class="str">boolean</span>;<br>
+    &nbsp;&nbsp;areas: <span class="val">Area[]</span>;<br>
+    }
+  </div>
+
+  <h3 class="subsection-title">Entidad: Proyecto (home/interface/proyectos.interface.ts)</h3>
+  <div class="code-block">
+    <span class="cb-label">TypeScript</span>
+    <span class="key">interface</span> <span class="val">Proyecto</span> {<br>
+    &nbsp;&nbsp;id:             <span class="str">number</span>;<br>
+    &nbsp;&nbsp;nombreProyecto: <span class="str">string</span>;<br>
+    &nbsp;&nbsp;fechaInicio:    <span class="str">Date | string</span>;<br>
+    &nbsp;&nbsp;fechaFin:       <span class="str">Date | string</span>;<br>
+    &nbsp;&nbsp;imagen?:        <span class="str">string</span>; <span class="comment">// opcional</span><br>
+    &nbsp;&nbsp;area:           <span class="val">Area</span>;   <span class="comment">// relación embebida</span><br>
+    }
+  </div>
+
+  <h3 class="subsection-title">Entidad: Asignación (home/interface/asignaciones.interface.ts)</h3>
+  <div class="code-block">
+    <span class="cb-label">TypeScript</span>
+    <span class="key">interface</span> <span class="val">Asignacion</span> {<br>
+    &nbsp;&nbsp;id:              <span class="str">number</span>;<br>
+    &nbsp;&nbsp;fechaAsignacion: <span class="str">string</span>;<br>
+    &nbsp;&nbsp;usuario:         <span class="val">Usuario</span>;  <span class="comment">// relación embebida</span><br>
+    &nbsp;&nbsp;proyecto:        <span class="val">Proyecto</span>; <span class="comment">// relación embebida con área anidada</span><br>
+    }<br>
+    <br>
+    <span class="comment"># La respuesta de la API incluye siempre la clave 'ok' para verificar éxito</span>
+  </div>
+
+  <h2 class="section-title">13.2 Servicios con Estado Reactivo (Signals)</h2>
+  <p>Cada entidad de dominio tiene su propio servicio inyectado en la raíz (<code>providedIn: 'root'</code>). Los servicios exponen señales de estado que los componentes consumen directamente sin subscripciones manuales.</p>
+
+  <table>
+    <thead><tr><th>Servicio</th><th>Signals de Estado</th><th>Operaciones</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>AreasService</code></td>
+        <td><code>areas</code> · <code>selectedArea</code> · <code>update_or_create</code> · <code>isSuccess</code> · <code>isError</code></td>
+        <td>getAreas · createArea · updateArea · deleteArea · exportToExcel</td>
+      </tr>
+      <tr>
+        <td><code>ProyectosService</code></td>
+        <td><code>proyectos</code> · <code>selectedProyecto</code> · <code>isSuccess</code> · <code>isError</code></td>
+        <td>getProyectos · createProyecto · updateProyecto · deleteProyecto</td>
+      </tr>
+      <tr>
+        <td><code>UsuariosService</code></td>
+        <td><code>usuarios</code> · <code>isSuccess</code> · <code>isError</code></td>
+        <td>getUsuarios · updateUsuario · deleteUsuario</td>
+      </tr>
+      <tr>
+        <td><code>AsignacionesService</code></td>
+        <td><code>asignaciones</code> · <code>isSuccess</code> · <code>isError</code></td>
+        <td>getAsignaciones · createAsignacion · deleteAsignacion</td>
+      </tr>
+      <tr>
+        <td><code>AuthService</code></td>
+        <td><code>authStatus</code> · <code>user</code> · <code>token</code> · <code>allUsers</code></td>
+        <td>login · register · logout · checkStatus · getUsers</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">13.3 Patrón de Estado Reactivo</h2>
+  <p>El patrón de estado de los servicios CRUD sigue la misma estructura en todos los módulos, garantizando coherencia y previsibilidad.</p>
+
+  <div class="code-block">
+    <span class="cb-label">Patrón aplicado en todos los servicios CRUD</span>
+    <span class="comment"># Estado de datos</span><br>
+    entidades = <span class="key">signal</span>&lt;Entidad[]&gt;([])          <span class="comment"># Lista principal</span><br>
+    selectedEntidad = <span class="key">signal</span>&lt;Entidad | null&gt;(null) <span class="comment"># Ítem en edición</span><br>
+    <br>
+    <span class="comment"># Estado de operaciones</span><br>
+    isSuccess = <span class="key">signal</span>&lt;boolean&gt;(false)         <span class="comment"># Operación exitosa</span><br>
+    isError   = <span class="key">signal</span>&lt;boolean&gt;(false)         <span class="comment"># Error en operación</span><br>
+    <br>
+    <span class="comment"># Actualización optimista (sin recargar desde el servidor)</span><br>
+    <span class="comment"># Al crear:   entidades.update(list => [...list, nuevo])</span><br>
+    <span class="comment"># Al editar:  entidades.update(list => list.map(e => e.id === id ? editado : e))</span><br>
+    <span class="comment"># Al borrar:  entidades.update(list => list.filter(e => e.id !== id))</span>
+  </div>
+
+  <div class="alert alert-tip">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <strong>Actualización optimista sin reload</strong>
+      <p>Los servicios actualizan el signal local inmediatamente tras una operación exitosa sin recargar los datos desde el servidor. Esto garantiza una interfaz instantánea y reduce la carga de red.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA · Manual Técnico</span>
+    <span>Sección 13 · Servicios y Modelos de Datos</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SECCIÓN 14: ENDPOINTS DE LA API                               -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="module-header">
+    <div class="module-icon dark">🔌</div>
+    <div class="module-title">
+      <h1>14. Endpoints de la API (Backend)</h1>
+      <p>Referencia completa de endpoints REST consumidos por el Frontend</p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>URL base de la API</strong>
+      <p>Todos los endpoints están bajo el prefijo <code>http://localhost:3000/api</code>. Las rutas en esta sección se expresan como rutas relativas a esa base. El interceptor <code>authInterceptor</code> adjunta automáticamente el header <code>Authorization: Bearer &lt;token&gt;</code> en todas las peticiones protegidas.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">14.1 Autenticación — /api/auth</h2>
+
+  <table>
+    <thead><tr><th>Método</th><th>Endpoint</th><th>Body</th><th>Respuesta</th><th>Auth</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="chip chip-green">POST</span></td>
+        <td><code>/auth/login</code></td>
+        <td><code>{ email, password }</code></td>
+        <td><code>{ user, token }</code></td>
+        <td><span class="chip chip-orange">Pública</span></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-green">POST</span></td>
+        <td><code>/auth/register</code></td>
+        <td><code>{ name, email, password }</code></td>
+        <td><code>{ user, token }</code></td>
+        <td><span class="chip chip-orange">Pública</span></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/auth/check-status</code></td>
+        <td>—</td>
+        <td><code>{ user, token }</code></td>
+        <td><span class="chip chip-red">Bearer JWT</span></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/auth/users</code></td>
+        <td>—</td>
+        <td><code>{ ok, usuarios[] }</code></td>
+        <td><span class="chip chip-red">Bearer JWT</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">14.2 Áreas — /api/areas</h2>
+
+  <table>
+    <thead><tr><th>Método</th><th>Endpoint</th><th>Body / Params</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/areas</code></td>
+        <td>—</td>
+        <td><code>{ ok, areas[] }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-green">POST</span></td>
+        <td><code>/areas</code></td>
+        <td><code>FormData: nombre, description, imagen?</code></td>
+        <td><code>{ area }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-orange">PATCH</span></td>
+        <td><code>/areas/:id</code></td>
+        <td><code>FormData: nombre, description, imagen?</code></td>
+        <td><code>{ area }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-red">DELETE</span></td>
+        <td><code>/areas/:id</code></td>
+        <td>—</td>
+        <td><code>204 No Content</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/areas/export/excel</code></td>
+        <td>—</td>
+        <td><code>Blob (.xlsx)</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-info">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-body">
+      <strong>Carga de imágenes con FormData</strong>
+      <p>Los endpoints de crear y editar Áreas y Proyectos reciben los datos como <code>multipart/form-data</code> (no JSON) para permitir el envío de archivos de imagen junto con los demás campos.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">14.3 Proyectos — /api/proyectos</h2>
+
+  <table>
+    <thead><tr><th>Método</th><th>Endpoint</th><th>Body / Params</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/proyectos</code></td>
+        <td>—</td>
+        <td><code>{ ok, proyectos[] }</code> — incluye área anidada</td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-green">POST</span></td>
+        <td><code>/proyectos</code></td>
+        <td><code>FormData: nombreProyecto, fechaInicio, fechaFin, areaId, imagen?</code></td>
+        <td><code>{ proyecto }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-orange">PATCH</span></td>
+        <td><code>/proyectos/:id</code></td>
+        <td><code>FormData: campos actualizables</code></td>
+        <td><code>{ proyecto }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-red">DELETE</span></td>
+        <td><code>/proyectos/:id</code></td>
+        <td>—</td>
+        <td><code>204 No Content</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">14.4 Usuarios — /api/usuarios</h2>
+
+  <table>
+    <thead><tr><th>Método</th><th>Endpoint</th><th>Body / Params</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/usuarios</code></td>
+        <td>—</td>
+        <td><code>{ ok, usuarios[] }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-orange">PATCH</span></td>
+        <td><code>/usuarios/:id</code></td>
+        <td><code>{ name?, email?, rol?, isActive? }</code></td>
+        <td><code>{ usuario }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-red">DELETE</span></td>
+        <td><code>/usuarios/:id</code></td>
+        <td>—</td>
+        <td><code>204 No Content</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">14.5 Asignaciones — /api/asignaciones</h2>
+
+  <table>
+    <thead><tr><th>Método</th><th>Endpoint</th><th>Body / Params</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="chip chip-blue">GET</span></td>
+        <td><code>/asignaciones</code></td>
+        <td>—</td>
+        <td><code>{ ok, asignaciones[] }</code> — incluye usuario y proyecto anidados</td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-green">POST</span></td>
+        <td><code>/asignaciones</code></td>
+        <td><code>{ usuarioId, proyectoId, fechaAsignacion }</code></td>
+        <td><code>{ asignacion }</code></td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-red">DELETE</span></td>
+        <td><code>/asignaciones/:id</code></td>
+        <td>—</td>
+        <td><code>204 No Content</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-tip">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <strong>Relaciones embebidas en las respuestas</strong>
+      <p>El Backend devuelve los objetos relacionados completos en un solo request. Por ejemplo, <code>GET /asignaciones</code> retorna cada asignación con el objeto <code>usuario</code> y el objeto <code>proyecto</code> (que a su vez incluye el objeto <code>area</code>) ya anidados, evitando múltiples llamadas al servidor.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Resumen de la API por Entidad</h2>
+
+  <table>
+    <thead><tr><th>Entidad</th><th>GET (listar)</th><th>POST</th><th>PATCH</th><th>DELETE</th><th>Extra</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Auth</strong></td>
+        <td><code>/auth/check-status</code></td>
+        <td><code>/auth/login</code> · <code>/auth/register</code></td>
+        <td>—</td>
+        <td>—</td>
+        <td><code>/auth/users</code></td>
+      </tr>
+      <tr>
+        <td><strong>Áreas</strong></td>
+        <td>✔</td><td>✔ (FormData)</td><td>✔ (FormData)</td><td>✔</td>
+        <td>Export Excel</td>
+      </tr>
+      <tr>
+        <td><strong>Proyectos</strong></td>
+        <td>✔</td><td>✔ (FormData)</td><td>✔ (FormData)</td><td>✔</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Usuarios</strong></td>
+        <td>✔</td><td>—</td><td>✔ (JSON)</td><td>✔</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Asignaciones</strong></td>
+        <td>✔</td><td>✔ (JSON)</td><td>—</td><td>✔</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Sistema de Asignaciones — CRUDGA · Manual Técnico</span>
+    <span>Sección 14 · Endpoints de la API · v1.0 · Abril 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

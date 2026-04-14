@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagrama de Clases UML — Sistema de Asignaciones</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+    .hdr { background: linear-gradient(135deg,#161b22,#1c2128); border-bottom: 1px solid #21262d; padding: 18px 24px; display: flex; align-items: center; gap: 16px; }
+    .hdr-icon { width:44px; height:44px; background: linear-gradient(135deg,#1f6feb,#388bfd); border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .hdr-title { font-size:19px; font-weight:700; color:#e6edf3; }
+    .hdr-sub { font-size:12px; color:#8b949e; margin-top:2px; }
+    .hdr-badge { margin-left:auto; background:#1f6feb22; border:1px solid #1f6feb55; color:#58a6ff; padding:4px 16px; border-radius:999px; font-size:12px; font-weight:600; white-space:nowrap; }
+    .hdr-badge2 { background:#238636; color:#fff; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; margin-left:8px; }
+
+    .tabs { background:#161b22; border-bottom:1px solid #21262d; padding:0 12px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:thin; scrollbar-color:#21262d transparent; }
+    .tab { background:transparent; border:none; border-bottom:2px solid transparent; color:#8b949e; padding:12px 16px; font-size:13px; font-weight:500; cursor:pointer; white-space:nowrap; transition:color .15s, border-color .15s; }
+    .tab:hover { color:#c9d1d9; }
+    .tab.active { color:#58a6ff; border-bottom-color:#1f6feb; }
+
+    .page { display:none; padding:16px; }
+    .page.active { display:block; }
+    .pg-hdr { margin-bottom:12px; }
+    .pg-hdr h2 { font-size:17px; font-weight:700; color:#e6edf3; }
+    .pg-hdr p { font-size:12px; color:#8b949e; margin-top:4px; line-height:1.6; max-width:900px; }
+
+    .legend { display:flex; flex-wrap:wrap; gap:8px 20px; margin-bottom:12px; }
+    .leg { display:flex; align-items:center; gap:6px; font-size:11px; color:#8b949e; }
+    .leg-sq { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
+
+    .diagram { background:#f1f5f9; border-radius:10px; border:1px solid #30363d; overflow:auto; padding:2px; }
+    .diagram svg { display:block; }
+  </style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-icon">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <rect x="2" y="3" width="8" height="6" rx="1"/><rect x="14" y="3" width="8" height="6" rx="1"/>
+      <rect x="2" y="15" width="8" height="6" rx="1"/><rect x="14" y="15" width="8" height="6" rx="1"/>
+      <line x1="6" y1="9" x2="6" y2="15"/><line x1="18" y1="9" x2="18" y2="15"/>
+      <line x1="6" y1="12" x2="18" y2="12"/>
+    </svg>
+  </div>
+  <div>
+    <div class="hdr-title">Diagrama de Clases UML</div>
+    <div class="hdr-sub">Sistema de Asignaciones · Angular 19+ · TypeScript · NestJS REST API</div>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+    <div class="hdr-badge2">UML 2.5</div>
+    <div class="hdr-badge">6 Páginas</div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-page="p1">① Modelo de Dominio</button>
+  <button class="tab" data-page="p2">② DTOs e Interfaces</button>
+  <button class="tab" data-page="p3">③ Servicios Angular</button>
+  <button class="tab" data-page="p4">④ Componentes de Página</button>
+  <button class="tab" data-page="p5">⑤ Componentes Compartidos</button>
+  <button class="tab" data-page="p6">⑥ Seguridad y Enrutamiento</button>
+</nav>
+
+<main>
+
+  <!-- PAGE 1 -->
+  <div id="p1" class="page active">
+    <div class="pg-hdr">
+      <h2>① Modelo de Dominio</h2>
+      <p>Entidades principales del sistema y sus relaciones de asociación, composición y dependencia. Muestra la jerarquía de datos desde la autenticación hasta la gestión de asignaciones entre usuarios y proyectos, incluyendo el enum <code>Rol</code> y el tipo de estado <code>AuthStatus</code>.</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-sq" style="background:#1e3a8a"></div>«entity» Entidad de Dominio</div>
+      <div class="leg"><div class="leg-sq" style="background:#4c1d95"></div>«interface» Interfaz TypeScript</div>
+      <div class="leg"><div class="leg-sq" style="background:#374151"></div>«enum» / «type» Tipo Escalar</div>
+      <div class="leg">──▶ Asociación (navega hacia)</div>
+      <div class="leg">- - ▶ Dependencia (usa)</div>
+    </div>
+    <div class="diagram">
+      <svg id="svg-p1" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" width="1400" height="700"></svg>
+    </div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="p2" class="page">
+    <div class="pg-hdr">
+      <h2>② DTOs e Interfaces de API</h2>
+      <p>Objetos de transferencia de datos para las respuestas de la API REST. Incluye interfaces de respuesta para cada recurso, interfaces de vistas especializadas para el <strong>Tablero Kanban</strong> (<code>TableroItem</code>, <code>TeamMember</code>) y el <strong>Calendario Gantt</strong> (<code>ProyectoBar</code>, <code>TimelineRow</code>, <code>MonthSegment</code>).</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-sq" style="background:#4c1d95"></div>«interface» — todos los DTOs son interfaces TypeScript</div>
+      <div class="leg"><div class="leg-sq" style="background:#374151"></div>«type» — union type escalar</div>
+    </div>
+    <div class="diagram">
+      <svg id="svg-p2" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" width="1400" height="700"></svg>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div id="p3" class="page">
+    <div class="pg-hdr">
+      <h2>③ Servicios Angular — Capa de Datos</h2>
+      <p>Servicios inyectables (<code>@Injectable({providedIn:'root'})</code>) con estado reactivo via <strong>Angular Signals</strong>. Gestionan operaciones CRUD contra la API REST, mantienen el estado global de las colecciones de datos y coordinan dependencias entre sí para mantener la consistencia del estado de la UI.</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-sq" style="background:#064e3b"></div>«@Injectable» Servicio Angular</div>
+      <div class="leg"><div class="leg-sq" style="background:#374151"></div>Dependencia Externa</div>
+      <div class="leg">- -▶ injects → Inyección de dependencia entre servicios</div>
+      <div class="leg">- -▷ dep → Dependencia técnica (HttpClient, environment)</div>
+    </div>
+    <div class="diagram">
+      <svg id="svg-p3" viewBox="0 0 1400 650" xmlns="http://www.w3.org/2000/svg" width="1400" height="650"></svg>
+    </div>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div id="p4" class="page">
+    <div class="pg-hdr">
+      <h2>④ Componentes de Página (Smart Components)</h2>
+      <p>Componentes de alto nivel con lógica de negocio: inyectan servicios, gestionan estado local con <code>signal()</code> y <code>computed()</code>, y exponen datos procesados a los componentes hijos. Todos implementan <code>ChangeDetectionStrategy.OnPush</code> para máximo rendimiento.</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-sq" style="background:#7c2d12"></div>«page component» — Componente de Página</div>
+      <div class="leg">attrs = servicios inyectados + signals de estado local</div>
+      <div class="leg">methods = computed signals + handlers de eventos</div>
+    </div>
+    <div class="diagram">
+      <svg id="svg-p4" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" width="1400" height="800"></svg>
+    </div>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div id="p5" class="page">
+    <div class="pg-hdr">
+      <h2>⑤ Componentes Compartidos (Presentational)</h2>
+      <p>Componentes reutilizables sin lógica de negocio propia, agrupados por módulo funcional. Reciben datos mediante <strong>signal inputs</strong> (<code>input.required&lt;T&gt;()</code>) y emiten eventos mediante <strong>outputs</strong> (<code>output&lt;T&gt;()</code>). Implementan <code>ChangeDetectionStrategy.OnPush</code>.</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-sq" style="background:#0c4a6e"></div>«shared component» — Componente Presentacional</div>
+      <div class="leg">attrs = signal inputs del componente</div>
+      <div class="leg">methods = outputs + métodos de renderizado</div>
+    </div>
+    <div class="diagram">
+      <svg id="svg-p5" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" width="1400" height="900"></svg>
+    </div>
+  </div>
+
+  <!-- PAGE 6 -->
+  <div id="p6" class="page">
+    <div class="pg-hdr">
+      <h2>⑥ Seguridad y Enrutamiento</h2>
+      <p>Guards de autenticación (<code>CanActivateFn</code> / <code>CanMatchFn</code>), interceptores HTTP para agregar el token JWT a cada petición, y la configuración completa de rutas con <strong>lazy loading</strong> de componentes. El guard maneja el estado SSR y la espera asíncrona del estado <code>'checking'</code>.</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-sq" style="background:#7f1d1d"></div>«guard» — Función de Guarda de Ruta</div>
+      <div class="leg"><div class="leg-sq" style="background:#4a1942"></div>«interceptor» — Interceptor HTTP funcional</div>
+      <div class="leg"><div class="leg-sq" style="background:#1e3a8a"></div>Configuración de Rutas / ApplicationConfig</div>
+    </div>
+    <div class="diagram">
+      <svg id="svg-p6" viewBox="0 0 1400 680" xmlns="http://www.w3.org/2000/svg" width="1400" height="680"></svg>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ════════════════════════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ════════════════════════════════════════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.page).classList.add('active');
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════════
+// SVG HELPERS
+// ════════════════════════════════════════════════════════════════════════════════
+const NS = 'http://www.w3.org/2000/svg';
+
+function el(tag, attrs) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  return e;
+}
+
+function txt(parent, x, y, content, o = {}) {
+  const t = el('text', {
+    x, y,
+    'text-anchor': o.anchor || 'start',
+    fill: o.fill || '#0f172a',
+    'font-size': o.size || 10.5,
+    'font-family': o.family || '"Courier New", Consolas, monospace',
+    'font-weight': o.bold ? 'bold' : 'normal',
+    'font-style': o.italic ? 'italic' : 'normal',
+  });
+  t.textContent = content;
+  parent.appendChild(t);
+  return t;
+}
+
+function setupDefs(svg) {
+  const defs = el('defs');
+
+  const ms = [
+    { id:'nav',   sh:'polyline', pts:'0,0 9,4.5 0,9',   fi:'none',    st:'#64748b' },
+    { id:'nav-b', sh:'polyline', pts:'0,0 9,4.5 0,9',   fi:'none',    st:'#1d4ed8' },
+    { id:'nav-g', sh:'polyline', pts:'0,0 9,4.5 0,9',   fi:'none',    st:'#059669' },
+    { id:'nav-p', sh:'polyline', pts:'0,0 9,4.5 0,9',   fi:'none',    st:'#6d28d9' },
+    { id:'nav-a', sh:'polyline', pts:'0,0 9,4.5 0,9',   fi:'none',    st:'#92400e' },
+    { id:'nav-c', sh:'polyline', pts:'0,0 9,4.5 0,9',   fi:'none',    st:'#0369a1' },
+    { id:'dep',   sh:'polygon',  pts:'0,0 9,4 0,8',     fi:'#64748b', st:'#64748b' },
+    { id:'dep-g', sh:'polygon',  pts:'0,0 9,4 0,8',     fi:'#059669', st:'#059669' },
+    { id:'dep-r', sh:'polygon',  pts:'0,0 9,4 0,8',     fi:'#991b1b', st:'#991b1b' },
+    { id:'dep-p', sh:'polygon',  pts:'0,0 9,4 0,8',     fi:'#6d28d9', st:'#6d28d9' },
+    { id:'inh',   sh:'polygon',  pts:'0,0 10,5 0,10',   fi:'white',   st:'#64748b' },
+  ];
+
+  for (const m of ms) {
+    const mk = el('marker', { id:m.id, markerWidth:11, markerHeight:10, refX:10, refY: m.sh==='polygon'?4:4.5, orient:'auto' });
+    mk.appendChild(el(m.sh, { points:m.pts, fill:m.fi, stroke:m.st, 'stroke-width':1.5 }));
+    defs.appendChild(mk);
+  }
+
+  const pat = el('pattern', { id:'grid', width:40, height:40, patternUnits:'userSpaceOnUse' });
+  pat.appendChild(el('path', { d:'M 40 0 L 0 0 0 40', fill:'none', stroke:'#e2e8f0', 'stroke-width':0.5 }));
+  defs.appendChild(pat);
+
+  const flt = el('filter', { id:'sh', x:'-5%', y:'-5%', width:'115%', height:'115%' });
+  flt.appendChild(el('feDropShadow', { dx:1, dy:2, stdDeviation:2.5, 'flood-color':'#00000015' }));
+  defs.appendChild(flt);
+
+  svg.appendChild(defs);
+}
+
+function addBg(svg, w, h) {
+  svg.appendChild(el('rect', { width:w, height:h, fill:'url(#grid)' }));
+  svg.appendChild(el('rect', { width:w, height:h, fill:'#f8fafc', opacity:0.55 }));
+}
+
+// ─── BOX ENGINE ─────────────────────────────────────────────────────────────
+const HH = 50;  // header height: 16 (stereo) + 26 (name) + 8 (pad)
+const RH = 17;  // row height
+const PD = 7;   // section padding (top & bottom)
+
+function secH(n) { return Math.max(n, 1) * RH + PD * 2 + 4; }
+
+function compH(box) {
+  const ah = secH(box.attrs.length);
+  const mh = box.methods.length > 0 ? secH(box.methods.length) + 1 : 0;
+  return HH + ah + mh;
+}
+
+function drawBox(parent, box) {
+  box.computedH = compH(box);
+  const { x, y, w, computedH: h } = box;
+  const lc = box.lc || '#cbd5e1';
+  const hc = box.hc || '#1e3a8a';
+
+  parent.appendChild(el('rect', { x, y, width:w, height:h, rx:7, ry:7, fill:'white', stroke:lc, 'stroke-width':1.5, filter:'url(#sh)' }));
+  parent.appendChild(el('rect', { x, y, width:w, height:HH, rx:7, ry:7, fill:hc }));
+  parent.appendChild(el('rect', { x, y:y+HH-7, width:w, height:7, fill:hc }));
+
+  if (box.stereo) txt(parent, x+w/2, y+15, box.stereo, { anchor:'middle', fill:'rgba(255,255,255,0.6)', size:9.5, italic:true });
+  txt(parent, x+w/2, y+HH-11, box.name, { anchor:'middle', fill:'white', size:13, bold:true, family:'"Segoe UI", system-ui, sans-serif' });
+
+  let ay = y + HH + PD + RH - 2;
+  for (const a of box.attrs) {
+    txt(parent, x+8, ay, a, { fill:'#0f172a', size:10.5 });
+    ay += RH;
+  }
+  if (box.attrs.length === 0) {
+    txt(parent, x+w/2, y+HH+PD+12, '(sin atributos)', { anchor:'middle', fill:'#94a3b8', size:9, italic:true });
+  }
+
+  if (box.methods.length > 0) {
+    const ah = secH(box.attrs.length);
+    const divY = y + HH + ah;
+    parent.appendChild(el('line', { x1:x, y1:divY, x2:x+w, y2:divY, stroke:lc, 'stroke-width':0.75 }));
+    let my = divY + 1 + PD + RH - 2;
+    for (const m of box.methods) {
+      txt(parent, x+8, my, m, { fill:'#374151', size:10.5 });
+      my += RH;
+    }
+  }
+}
+
+function sp(box, side) {
+  const h = box.computedH;
+  if (side === 'left')   return { x: box.x,           y: box.y + h/2 };
+  if (side === 'right')  return { x: box.x + box.w,   y: box.y + h/2 };
+  if (side === 'top')    return { x: box.x + box.w/2,  y: box.y };
+  if (side === 'bottom') return { x: box.x + box.w/2,  y: box.y + h };
+  return { x: box.x + box.w/2, y: box.y + h/2 };
+}
+
+function route(p1, p2, s1, s2) {
+  const isH1 = s1==='left' || s1==='right';
+  const isH2 = s2==='left' || s2==='right';
+  const r = n => Math.round(n * 2) / 2;
+  if (isH1 && isH2) {
+    const mx = r((p1.x+p2.x)/2);
+    return `M ${r(p1.x)} ${r(p1.y)} H ${mx} V ${r(p2.y)} H ${r(p2.x)}`;
+  }
+  if (!isH1 && !isH2) {
+    const my = r((p1.y+p2.y)/2);
+    return `M ${r(p1.x)} ${r(p1.y)} V ${my} H ${r(p2.x)} V ${r(p2.y)}`;
+  }
+  if (isH1) return `M ${r(p1.x)} ${r(p1.y)} H ${r(p2.x)} V ${r(p2.y)}`;
+  return `M ${r(p1.x)} ${r(p1.y)} V ${r(p2.y)} H ${r(p2.x)}`;
+}
+
+function conn(parent, fb, fs, tb, ts, o = {}) {
+  const { mk='nav', color='#64748b', dash=false, label='' } = o;
+  const p1 = sp(fb, fs), p2 = sp(tb, ts);
+  const d = route(p1, p2, fs, ts);
+  parent.appendChild(el('path', { d, stroke:color, 'stroke-width':1.5, fill:'none', 'stroke-dasharray':dash?'6 3':'none', 'marker-end':`url(#${mk})` }));
+  if (label) {
+    const mx=(p1.x+p2.x)/2, my=(p1.y+p2.y)/2;
+    parent.appendChild(el('rect', { x:mx-26, y:my-13, width:52, height:15, fill:'white', rx:3, opacity:0.92 }));
+    txt(parent, mx, my-1, label, { anchor:'middle', fill:color, size:9.5, bold:true, family:'"Segoe UI",sans-serif' });
+  }
+}
+
+function grpBox(parent, x, y, w, h, label, color) {
+  parent.appendChild(el('rect', { x, y, width:w, height:h, rx:10, fill:color+'18', stroke:color+'66', 'stroke-width':1.2, 'stroke-dasharray':'8 4' }));
+  const lw = label.length * 7.2 + 16;
+  parent.appendChild(el('rect', { x:x+10, y:y-9, width:lw, height:19, rx:4, fill:color }));
+  txt(parent, x+18, y+6, label, { fill:'white', size:11, bold:true, family:'"Segoe UI",sans-serif' });
+}
+
+// ─── COLOR TOKENS ─────────────────────────────────────────────────────────────
+const C = {
+  ent:   { hc:'#1e3a8a', lc:'#93c5fd', mk:'nav-b' },
+  ifc:   { hc:'#4c1d95', lc:'#c4b5fd', mk:'nav-p' },
+  enu:   { hc:'#374151', lc:'#9ca3af', mk:'nav'   },
+  svc:   { hc:'#064e3b', lc:'#6ee7b7', mk:'nav-g' },
+  pag:   { hc:'#7c2d12', lc:'#fbbf24', mk:'nav-a' },
+  shd:   { hc:'#0c4a6e', lc:'#7dd3fc', mk:'nav-c' },
+  grd:   { hc:'#7f1d1d', lc:'#fca5a5', mk:'dep-r' },
+  itp:   { hc:'#4a1942', lc:'#d8b4fe', mk:'dep-p' },
+  ext:   { hc:'#334155', lc:'#94a3b8', mk:'dep'   },
+  rut:   { hc:'#1e3a8a', lc:'#93c5fd', mk:'nav-b' },
+};
+
+// ════════════════════════════════════════════════════════════════════════════════
+// PAGE 1 — MODELO DE DOMINIO
+// ════════════════════════════════════════════════════════════════════════════════
+function renderP1() {
+  const svg = document.getElementById('svg-p1');
+  setupDefs(svg); addBg(svg, 1400, 700);
+  const gc = el('g'); svg.appendChild(gc);
+  const gb = el('g'); svg.appendChild(gb);
+
+  const B = {
+    area: { x:30, y:50, w:235, name:'Area', stereo:'«entity»', ...C.ent,
+      attrs:['+ id : number','+ nombre : string','+ description : string','+ imagen : string'],
+      methods:[] },
+
+    proyecto: { x:305, y:50, w:265, name:'Proyecto', stereo:'«entity»', ...C.ent,
+      attrs:['+ id : number','+ nombreProyecto : string','+ fechaInicio : Date | string','+ fechaFin : Date | string','+ imagen? : string','+ area : Area'],
+      methods:[] },
+
+    user: { x:620, y:50, w:245, name:'User', stereo:'«interface»', ...C.ifc,
+      attrs:['+ id : number','+ name : string','+ email : string','+ password? : string','+ isActive : boolean','+ rol : string[]','+ token : string'],
+      methods:[] },
+
+    authstatus: { x:915, y:50, w:255, name:'AuthStatus', stereo:'«type»', ...C.enu,
+      attrs:['"checking"','"authenticated"','"not-authenticated"'],
+      methods:[] },
+
+    usuario: { x:30, y:295, w:245, name:'Usuario', stereo:'«entity»', ...C.ent,
+      attrs:['+ id : number','+ name : string','+ email : string','+ rol : Rol','+ imagen : string','+ salary? : number | string'],
+      methods:[] },
+
+    asignacione: { x:315, y:295, w:265, name:'Asignacione', stereo:'«entity»', ...C.ent,
+      attrs:['+ id : number','+ fechaAsignacion : string','+ usuario : Usuario','+ proyecto : Proyecto'],
+      methods:[] },
+
+    authresp: { x:625, y:295, w:245, name:'AuthResponse', stereo:'«interface»', ...C.ifc,
+      attrs:['+ user : User','+ token : string'],
+      methods:[] },
+
+    allusers: { x:625, y:490, w:245, name:'AllUsers', stereo:'«interface»', ...C.ifc,
+      attrs:['+ ok : boolean','+ usuarios : Usuario[]'],
+      methods:[] },
+
+    rol: { x:30, y:545, w:245, name:'Rol', stereo:'«enum»', ...C.enu,
+      attrs:['Admin = "admin"','SuperUser = "super-user"','User = "user"'],
+      methods:[] },
+  };
+
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  // Note labels
+  grpBox(gb, 900, 260, 470, 220, 'Auth Domain', '#6d28d9');
+  grpBox(gb, 20, 25, 560, 460, 'Project & Assignment Domain', '#1d4ed8');
+
+  // Re-draw boxes on top of group labels
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  conn(gc, B.proyecto, 'left',   B.area,      'right',  { mk:'nav-b', color:'#1d4ed8', label:'area' });
+  conn(gc, B.asignacione, 'top', B.proyecto,  'bottom', { mk:'nav-b', color:'#1d4ed8', label:'proyecto' });
+  conn(gc, B.asignacione, 'left',B.usuario,   'right',  { mk:'nav-b', color:'#1d4ed8', label:'usuario' });
+  conn(gc, B.usuario, 'bottom',  B.rol,       'top',    { mk:'dep',   color:'#64748b', dash:true, label:'uses' });
+  conn(gc, B.authresp, 'top',    B.user,      'bottom', { mk:'nav-p', color:'#6d28d9', label:'user' });
+  conn(gc, B.allusers, 'top',    B.authresp,  'bottom', { mk:'nav-p', color:'#6d28d9', dash:true });
+
+  // Static annotation
+  const note = el('g');
+  note.appendChild(el('rect', { x:920, y:282, width:200, height:36, rx:5, fill:'#fef9c3', stroke:'#fde047', 'stroke-width':1 }));
+  txt(note, 930, 298, '«uses» toObservable()', { fill:'#713f12', size:10, italic:true });
+  txt(note, 930, 313, 'RxJS interop pattern', { fill:'#713f12', size:10, italic:true });
+  gb.appendChild(note);
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// PAGE 2 — DTOs E INTERFACES
+// ════════════════════════════════════════════════════════════════════════════════
+function renderP2() {
+  const svg = document.getElementById('svg-p2');
+  setupDefs(svg); addBg(svg, 1400, 700);
+  const gc = el('g'); svg.appendChild(gc);
+  const gb = el('g'); svg.appendChild(gb);
+
+  grpBox(gb, 20, 30, 1360, 170, 'Response DTOs — Wrappers de API', '#4c1d95');
+  grpBox(gb, 20, 255, 1360, 195, 'Tablero Kanban Interfaces', '#7c2d12');
+  grpBox(gb, 20, 505, 1360, 175, 'Calendario Gantt Interfaces', '#064e3b');
+
+  const B = {
+    arearesp: { x:30, y:60, w:230, name:'AreasReponse', stereo:'«interface»', ...C.ifc,
+      attrs:['+ ok : boolean','+ areas : Area[]'], methods:[] },
+
+    proyresp: { x:295, y:60, w:255, name:'ProyectosResponse', stereo:'«interface»', ...C.ifc,
+      attrs:['+ ok : boolean','+ proyectos : Proyecto[]'], methods:[] },
+
+    userresp: { x:585, y:60, w:245, name:'UsersResponse', stereo:'«interface»', ...C.ifc,
+      attrs:['+ ok : boolean','+ usuarios : Usuario[]'], methods:[] },
+
+    asignresp: { x:865, y:60, w:265, name:'AsignacionesResponse', stereo:'«interface»', ...C.ifc,
+      attrs:['+ ok : boolean','+ asignaciones : Asignacione[]'], methods:[] },
+
+    allusers: { x:1165, y:60, w:215, name:'AllUsers', stereo:'«interface»', ...C.ifc,
+      attrs:['+ ok : boolean','+ usuarios : Usuario[]'], methods:[] },
+
+    tableroitem: { x:30, y:270, w:275, name:'TableroItem', stereo:'«interface»', ...C.ifc,
+      attrs:['+ proyecto : Proyecto','+ team : TeamMember[]','+ daysLabel : string','+ daysColorClass : string','+ barColorClass : string'], methods:[] },
+
+    teammember: { x:340, y:270, w:245, name:'TeamMember', stereo:'«interface»', ...C.ifc,
+      attrs:['+ id : number','+ name : string','+ email : string','+ imagen? : string'], methods:[] },
+
+    projstatus: { x:625, y:270, w:255, name:'ProjectStatus', stereo:'«type»', ...C.enu,
+      attrs:['"activo"  — dentro del rango de fechas','"vencido"  — pasó la fecha fin','"por-iniciar"  — no ha comenzado'], methods:[] },
+
+    kpistats: { x:915, y:270, w:250, name:'KpiStats', stereo:'«interface»', ...C.ifc,
+      attrs:['+ total : number','+ activos : number','+ vencidos : number','+ porIniciar : number'], methods:[] },
+
+    proyectobar: { x:30, y:520, w:265, name:'ProyectoBar', stereo:'«interface»', ...C.svc,
+      attrs:['+ proyecto : ProyectoRef','+ left : number','+ width : number','+ outOfLeft : boolean','+ outOfRight : boolean','+ status : ProjectStatus'], methods:[] },
+
+    timelinerow: { x:330, y:520, w:250, name:'TimelineRow', stereo:'«interface»', ...C.svc,
+      attrs:['+ area : { id: number; nombre: string }','+ proyectos : ProyectoBar[]'], methods:[] },
+
+    monthseg: { x:615, y:520, w:255, name:'MonthSegment', stereo:'«interface»', ...C.svc,
+      attrs:['+ label : string','+ left : number','+ width : number','+ isCurrentMonth : boolean'], methods:[] },
+
+    tablerocol: { x:905, y:520, w:260, name:'TableroColumna inputs', stereo:'«interface»', ...C.shd,
+      attrs:['titulo = input<string>()','dotClass = input<string>()','badgeClass = input<string>()','items = input<TableroItem[]>()','expandedId = input<number | null>()'], methods:[] },
+  };
+
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  conn(gc, B.tableroitem, 'right', B.teammember,  'left',  { mk:'nav-p', color:'#6d28d9', label:'team[]' });
+  conn(gc, B.tableroitem, 'right', B.projstatus,  'left',  { mk:'dep',   color:'#64748b', dash:true });
+  conn(gc, B.timelinerow, 'left',  B.proyectobar, 'right', { mk:'nav-g', color:'#059669', label:'proyectos[]' });
+  conn(gc, B.proyectobar, 'right', B.projstatus,  'bottom',{ mk:'dep',   color:'#64748b', dash:true, label:'status' });
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// PAGE 3 — SERVICIOS ANGULAR
+// ════════════════════════════════════════════════════════════════════════════════
+function renderP3() {
+  const svg = document.getElementById('svg-p3');
+  setupDefs(svg); addBg(svg, 1400, 650);
+  const gc = el('g'); svg.appendChild(gc);
+  const gb = el('g'); svg.appendChild(gb);
+
+  grpBox(gb, 20, 30, 1070, 285, 'Servicios de Negocio (providedIn: root)', '#064e3b');
+  grpBox(gb, 20, 370, 720, 255, 'Servicios de Negocio (cont.)', '#064e3b');
+  grpBox(gb, 1100, 30, 280, 590, 'Dependencias Externas', '#334155');
+
+  const B = {
+    authsvc: { x:30, y:60, w:330, name:'AuthService', stereo:'«@Injectable»', ...C.svc,
+      attrs:['authStatus : ComputedSignal<AuthStatus>','user : ComputedSignal<User | null>','token : ComputedSignal<string | null>','allUsers : Signal<Usuario[]>','checkstatusResource : RxResource'],
+      methods:['login(email, password) : Observable<boolean>','register(name, email, pwd) : Observable<boolean>','checkStatus() : Observable<boolean>','logout() : void','getUsers() : void'] },
+
+    areassvc: { x:400, y:60, w:315, name:'AreasService', stereo:'«@Injectable»', ...C.svc,
+      attrs:['areas : Signal<Area[]>','selectedArea : Signal<Area | null>','isSuccess : Signal<boolean>','isError : Signal<boolean>','update_or_create : Signal<0 | 1>'],
+      methods:['getAreas() : void','createArea(nombre, desc, img) : void','updateArea(id, nombre, desc, img?) : void','deleteArea(id) : void','exportToExcel() : void'] },
+
+    proyectossvc: { x:755, y:60, w:315, name:'ProyectosService', stereo:'«@Injectable»', ...C.svc,
+      attrs:['proyectos : Signal<Proyecto[]>','selectedProyecto : Signal<Proyecto | null>','isSuccess : Signal<boolean>','isError : Signal<boolean>','update_or_create : Signal<0 | 1>'],
+      methods:['getProyectos() : void','createProyecto(...args) : void','updateProyecto(id, ...args) : void','deleteProyecto(id) : void','exportToExcel() : void'] },
+
+    asignsvc: { x:30, y:390, w:320, name:'AsignacionesService', stereo:'«@Injectable»', ...C.svc,
+      attrs:['asignaciones : Signal<Asignacione[]>','selectedAsignacion : Signal<Asignacione | null>','isSuccess : Signal<boolean>','update_or_create : Signal<0 | 1>'],
+      methods:['getAsignaciones() : void','crearAsignacion(fecha, idUser, idProy) : void','actualizarAsignacion(id, ...) : void','deleteAsignacion(id) : void','exportToPDF(id) : void'] },
+
+    usuariossvc: { x:390, y:390, w:320, name:'UsuariosService', stereo:'«@Injectable»', ...C.svc,
+      attrs:['usuarios : Signal<Usuario[]>','selectedUser : Signal<Usuario | null>','isSuccess : Signal<boolean>','isError : Signal<boolean>','update_or_create : Signal<0 | 1>'],
+      methods:['getUsers() : void','createUsuario(name, email, pwd, img, sal) : void','updateUsuario(id, ...) : void','deleteUser(id) : void'] },
+
+    httpclient: { x:1110, y:60, w:250, name:'HttpClient', stereo:'«@angular/common/http»', ...C.ext,
+      attrs:[],
+      methods:['get<T>(url) : Observable<T>','post<T>(url, body) : Observable<T>','patch<T>(url, body) : Observable<T>','delete<T>(url) : Observable<T>'] },
+
+    envconfig: { x:1110, y:390, w:240, name:'environment', stereo:'«config module»', ...C.ext,
+      attrs:['baseUrl : string','production : boolean'], methods:[] },
+  };
+
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  // Service-to-service dependency injections
+  conn(gc, B.areassvc,    'right',  B.proyectossvc, 'left',   { mk:'dep-g', color:'#059669', dash:true, label:'injects' });
+  conn(gc, B.proyectossvc,'bottom', B.asignsvc,     'top',    { mk:'dep-g', color:'#059669', dash:true, label:'injects' });
+  conn(gc, B.usuariossvc, 'left',   B.asignsvc,     'right',  { mk:'dep-g', color:'#059669', dash:true, label:'injects' });
+
+  // Services → HttpClient
+  conn(gc, B.authsvc,     'right',  B.httpclient,   'left',   { mk:'dep', color:'#94a3b8', dash:true });
+  conn(gc, B.areassvc,    'right',  B.httpclient,   'left',   { mk:'dep', color:'#94a3b8', dash:true });
+  conn(gc, B.proyectossvc,'right',  B.httpclient,   'left',   { mk:'dep', color:'#94a3b8', dash:true });
+  conn(gc, B.asignsvc,    'right',  B.httpclient,   'bottom', { mk:'dep', color:'#94a3b8', dash:true });
+  conn(gc, B.usuariossvc, 'right',  B.httpclient,   'bottom', { mk:'dep', color:'#94a3b8', dash:true });
+
+  // Services → environment
+  conn(gc, B.authsvc, 'bottom', B.envconfig, 'left', { mk:'dep', color:'#94a3b8', dash:true });
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// PAGE 4 — COMPONENTES DE PÁGINA
+// ════════════════════════════════════════════════════════════════════════════════
+function renderP4() {
+  const svg = document.getElementById('svg-p4');
+  setupDefs(svg); addBg(svg, 1400, 800);
+  const gc = el('g'); svg.appendChild(gc);
+  const gb = el('g'); svg.appendChild(gb);
+
+  grpBox(gb, 20, 30,  680, 210, 'Módulo de Autenticación', '#7c2d12');
+  grpBox(gb, 720, 30, 660, 210, 'Gestión de Recursos (CRUD)', '#7c2d12');
+  grpBox(gb, 20, 295, 1360, 215, 'Vistas Avanzadas / Visualización', '#7c2d12');
+  grpBox(gb, 20, 570, 740, 205, 'Analíticas y Reportes', '#7c2d12');
+  grpBox(gb, 780, 570, 300, 205, 'Perfil de Usuario', '#7c2d12');
+
+  const B = {
+    loginpage: { x:30, y:60, w:240, name:'LoginPage', stereo:'«page component»', ...C.pag,
+      attrs:['form : FormGroup','authService = inject(AuthService)'],
+      methods:['ngOnInit() : void','onSubmit() : void','setError(msg) : void'] },
+
+    registerpage: { x:310, y:60, w:255, name:'RegisterPage', stereo:'«page component»', ...C.pag,
+      attrs:['form : FormGroup','authService = inject(AuthService)'],
+      methods:['onSubmit() : void'] },
+
+    areaspage: { x:730, y:60, w:240, name:'AreasPage', stereo:'«page component»', ...C.pag,
+      attrs:['areasService = inject(AreasService)'],
+      methods:['ngOnInit() : void'] },
+
+    proyectospage: { x:1000, y:60, w:260, name:'ProyectosPage', stereo:'«page component»', ...C.pag,
+      attrs:['proyectosService = inject(ProyectosService)','areasService = inject(AreasService)'],
+      methods:['ngOnInit() : void'] },
+
+    usuariospage: { x:30, y:310, w:240, name:'UsuariosPage', stereo:'«page component»', ...C.pag,
+      attrs:['usuariosService = inject(UsuariosService)'],
+      methods:['ngOnInit() : void'] },
+
+    asignacionespage: { x:300, y:310, w:260, name:'AsignacionesPage', stereo:'«page component»', ...C.pag,
+      attrs:['asignService = inject(AsignacionesService)','proyService = inject(ProyectosService)'],
+      methods:['ngOnInit() : void'] },
+
+    tableropage: { x:585, y:310, w:295, name:'TableroPage', stereo:'«page component»', ...C.pag,
+      attrs:['proyectosService, asignService, areasService','searchQuery : Signal<string>','selectedAreaId : Signal<number | null>','expandedCard : Signal<number | null>'],
+      methods:['itemsPorIniciar() : TableroItem[]','itemsActivos() : TableroItem[]','itemsPorVencer() : TableroItem[]','itemsVencidos() : TableroItem[]','toggleCard(id) : void','hasActiveFilters() : boolean'] },
+
+    calendariopage: { x:905, y:310, w:295, name:'CalendarioPage', stereo:'«page component»', ...C.pag,
+      attrs:['proyectosService, asignService, areasService','selectedProyecto : Signal<Proyecto | null>'],
+      methods:['rows() : TimelineRow[]','months() : MonthSegment[]','todayLeft() : number','stats() : KpiStats','selectProyecto(p) : void'] },
+
+    graficaspage: { x:30, y:585, w:260, name:'GraficasPage', stereo:'«page component»', ...C.pag,
+      attrs:['proyectosService = inject(ProyectosService)','usuariosService = inject(UsuariosService)','areasService = inject(AreasService)'],
+      methods:['kpiData() : KpiData','chartData() : ChartData[]'] },
+
+    reportespage: { x:320, y:585, w:265, name:'ReportesPage', stereo:'«page component»', ...C.pag,
+      attrs:['proyectosService = inject(ProyectosService)','asignService = inject(AsignacionesService)'],
+      methods:['reportData() : ReportData','exportPDF() : void'] },
+
+    miperfilpage: { x:790, y:585, w:265, name:'MiPerfilPage', stereo:'«page component»', ...C.pag,
+      attrs:['authService = inject(AuthService)','selectedTab : Signal<string>'],
+      methods:['user() : ComputedSignal<User>','logout() : void','changeTab(tab) : void'] },
+  };
+
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  conn(gc, B.loginpage,    'right', B.registerpage,     'left',  { mk:'nav-a', color:'#92400e', dash:true, label:'sibling' });
+  conn(gc, B.tableropage,  'right', B.calendariopage,   'left',  { mk:'nav-a', color:'#92400e', dash:true, label:'same svcs' });
+  conn(gc, B.graficaspage, 'right', B.reportespage,     'left',  { mk:'nav-a', color:'#92400e', dash:true, label:'sibling' });
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// PAGE 5 — COMPONENTES COMPARTIDOS
+// ════════════════════════════════════════════════════════════════════════════════
+function renderP5() {
+  const svg = document.getElementById('svg-p5');
+  setupDefs(svg); addBg(svg, 1400, 900);
+  const gc = el('g'); svg.appendChild(gc);
+  const gb = el('g'); svg.appendChild(gb);
+
+  grpBox(gb, 20, 30,   800, 185, 'Módulo de Navegación', '#0c4a6e');
+  grpBox(gb, 840, 30,  540, 185, 'Modales y Utilidades', '#374151');
+  grpBox(gb, 20, 275,  620, 220, 'Tablero Kanban Components', '#0c4a6e');
+  grpBox(gb, 660, 275, 720, 220, 'Calendario Gantt Components', '#0c4a6e');
+  grpBox(gb, 20, 555,  1360, 175, 'Gráficas (Chart Components)', '#0c4a6e');
+  grpBox(gb, 20, 745,  1360, 135, 'Reportes y Perfil', '#0c4a6e');
+
+  const B = {
+    // Navbar
+    navbar: { x:30, y:60, w:235, name:'Navbar', stereo:'«shared component»', ...C.shd,
+      attrs:['authService = inject(AuthService)'],
+      methods:['logout() : void'] },
+
+    navbarOptions: { x:295, y:60, w:255, name:'NavbarOptions', stereo:'«shared component»', ...C.shd,
+      attrs:['authService = inject(AuthService)'],
+      methods:['user() : ComputedSignal<User>','isAdmin() : boolean'] },
+
+    navbarMovil: { x:580, y:60, w:245, name:'NavbarOptionsMovil', stereo:'«shared component»', ...C.shd,
+      attrs:['authService = inject(AuthService)'],
+      methods:['user() : ComputedSignal<User>','logout() : void'] },
+
+    // Modales / Utils
+    modalDelete: { x:850, y:60, w:230, name:'ModalDelete', stereo:'«modal component»', ...C.ext,
+      attrs:['confirm = output<void>()','cancel = output<void>()'], methods:[] },
+
+    alertSucces: { x:1100, y:60, w:220, name:'AlertSucces', stereo:'«utility component»', ...C.ext,
+      attrs:[], methods:[] },
+
+    alertError: { x:1100, y:155, w:220, name:'AlertError', stereo:'«utility component»', ...C.ext,
+      attrs:['message = input<string>()'], methods:[] },
+
+    // Tablero
+    tableroColumna: { x:30, y:295, w:295, name:'TableroColumna', stereo:'«shared component»', ...C.shd,
+      attrs:['titulo = input<string>()','dotClass = input<string>()','badgeClass = input<string>()','items = input<TableroItem[]>()','expandedId = input<number|null>()','pulse = input(false)'],
+      methods:['cardToggle = output<number>()'] },
+
+    tableroCard: { x:355, y:295, w:265, name:'TableroCard', stereo:'«shared component»', ...C.shd,
+      attrs:['item = input.required<TableroItem>()','isExpanded = input(false)'],
+      methods:['toggle = output<number>()','getProgress() : number','getStatusIcon() : string'] },
+
+    // Calendario
+    calGantt: { x:670, y:295, w:290, name:'CalendarioGantt', stereo:'«shared component»', ...C.shd,
+      attrs:['rows = input.required<TimelineRow[]>()','months = input.required<MonthSegment[]>()','todayLeft = input.required<number>()','selectedId = input<number|null>()'],
+      methods:['selectProyecto = output<Proyecto>()','getStatusBg(s) : string','getStatusLabel(s) : string'] },
+
+    calDetalle: { x:990, y:295, w:275, name:'CalendarioDetalle', stereo:'«shared component»', ...C.shd,
+      attrs:['proyecto = input.required<Proyecto>()','asignaciones = input.required<Asignacione[]>()','status = input.required<ProjectStatus>()'],
+      methods:['cerrar = output<void>()'] },
+
+    // Graficas
+    grafKpis: { x:30, y:575, w:205, name:'GraficaKpis', stereo:'«chart component»', ...C.shd,
+      attrs:['data = input.required<KpiData>()'], methods:[] },
+
+    grafEstado: { x:255, y:575, w:205, name:'GraficaEstado', stereo:'«chart component»', ...C.shd,
+      attrs:['proyectos = input.required<Proyecto[]>()'], methods:[] },
+
+    grafAreas: { x:480, y:575, w:210, name:'GraficaAreas', stereo:'«chart component»', ...C.shd,
+      attrs:['areas = input.required<Area[]>()','proyectos = input.required<Proyecto[]>()'], methods:[] },
+
+    grafCarga: { x:710, y:575, w:215, name:'GraficaCarga', stereo:'«chart component»', ...C.shd,
+      attrs:['asignaciones = input.required<Asignacione[]>()'], methods:[] },
+
+    grafRoles: { x:945, y:575, w:210, name:'GraficaRoles', stereo:'«chart component»', ...C.shd,
+      attrs:['usuarios = input.required<Usuario[]>()'], methods:[] },
+
+    grafTendencia: { x:1175, y:575, w:215, name:'GraficaTendencia', stereo:'«chart component»', ...C.shd,
+      attrs:['proyectos = input.required<Proyecto[]>()'], methods:[] },
+
+    // Reportes & Perfil
+    repProyectos: { x:30, y:760, w:240, name:'ReportesProyectos', stereo:'«report component»', ...C.shd,
+      attrs:['proyectos = input.required<Proyecto[]>()'], methods:[] },
+
+    repCarga: { x:290, y:760, w:230, name:'ReportesCarga', stereo:'«report component»', ...C.shd,
+      attrs:['asignaciones = input.required<Asignacione[]>()'], methods:[] },
+
+    repKpis: { x:540, y:760, w:230, name:'ReportesKpis', stereo:'«report component»', ...C.shd,
+      attrs:['data = input.required<KpiData>()'], methods:[] },
+
+    repRecientes: { x:790, y:760, w:250, name:'ReportesRecientes', stereo:'«report component»', ...C.shd,
+      attrs:['proyectos = input.required<Proyecto[]>()','limit = input(5)'], methods:[] },
+
+    perfilHero: { x:1060, y:760, w:155, name:'PerfilHero', stereo:'«profile component»', ...C.shd,
+      attrs:['user = input.required<User>()'], methods:[] },
+
+    perfilTabs: { x:1235, y:760, w:155, name:'PerfilTabs', stereo:'«profile component»', ...C.shd,
+      attrs:['activeTab = input<string>()'],
+      methods:['tabChange = output<string>()'] },
+  };
+
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  conn(gc, B.navbar,        'right', B.navbarOptions, 'left',  { mk:'nav-c', color:'#0369a1', label:'uses' });
+  conn(gc, B.tableroColumna,'right', B.tableroCard,   'left',  { mk:'nav-c', color:'#0369a1', label:'renders' });
+  conn(gc, B.calGantt,      'right', B.calDetalle,    'left',  { mk:'nav-c', color:'#0369a1', label:'selects' });
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// PAGE 6 — SEGURIDAD Y ENRUTAMIENTO
+// ════════════════════════════════════════════════════════════════════════════════
+function renderP6() {
+  const svg = document.getElementById('svg-p6');
+  setupDefs(svg); addBg(svg, 1400, 680);
+  const gc = el('g'); svg.appendChild(gc);
+  const gb = el('g'); svg.appendChild(gb);
+
+  grpBox(gb, 20, 30,   660, 250, 'Guards de Autenticación (CanActivateFn / CanMatchFn)', '#7f1d1d');
+  grpBox(gb, 700, 30,  680, 250, 'Interceptores HTTP (HttpInterceptorFn)', '#4a1942');
+  grpBox(gb, 20, 340, 1360, 315, 'Configuración de la Aplicación (AppConfig + AppRoutes)', '#1e3a8a');
+
+  const B = {
+    isadmin: { x:30, y:60, w:305, name:'IsAdminGuard', stereo:'«CanActivateFn»', ...C.grd,
+      attrs:['inject(AuthService) → authService','inject(Router) → router','inject(PLATFORM_ID) → platformId'],
+      methods:['(): boolean | Observable<boolean>','  if isPlatformServer → return true (SSR)','  if status==="authenticated" → return true','  if status==="not-authenticated" → redirect login','  if status==="checking" → toObservable(authStatus)'] },
+
+    notauth: { x:360, y:60, w:295, name:'NotAuthenticatedGuard', stereo:'«CanMatchFn»', ...C.grd,
+      attrs:['inject(AuthService) → authService','inject(Router) → router'],
+      methods:['(): boolean | Observable<boolean>','  if authenticated → redirect to /areas','  if not-authenticated → return true','  if checking → wait for resolution'] },
+
+    authinterceptor: { x:710, y:60, w:290, name:'authInterceptor', stereo:'«HttpInterceptorFn»', ...C.itp,
+      attrs:['inject(AuthService) → authToken = token()'],
+      methods:['(req, next): Observable<HttpEvent>','  const newReq = req.clone({','    headers: append(Authorization,','      Bearer ${authToken})','  })','  return next(newReq)'] },
+
+    loginterceptor: { x:1020, y:60, w:280, name:'loggingInterceptor', stereo:'«HttpInterceptorFn»', ...C.itp,
+      attrs:[],
+      methods:['(req, next): Observable<HttpEvent>','  console.log(req.url)','  return next(req).pipe(','    tap(event => { … })','  )'] },
+
+    authsvc_ref: { x:30, y:365, w:270, name:'AuthService', stereo:'«referencia (providedIn:root)»', ...C.svc,
+      attrs:['authStatus : ComputedSignal<AuthStatus>','token : ComputedSignal<string | null>'],
+      methods:['checkStatus() : Observable<boolean>','logout() : void'] },
+
+    approutes: { x:330, y:365, w:450, name:'AppRoutes : Route[]', stereo:'«routing configuration»', ...C.rut,
+      attrs:["{ path:'auth', canMatch:[NotAuthGuard],","  children:[ login, register ] }","{ path:'', canActivate:[IsAdminGuard],","  children: [","    areas    → AreasPage     (lazy)","    proyectos → ProyectosPage  (lazy)","    usuarios  → UsuariosPage   (lazy)","    asignaciones → AsignPage   (lazy)","    tablero   → TableroPage    (lazy)","    calendario → CalendarioPage (lazy)","    graficas  → GraficasPage   (lazy)","    reportes  → ReportesPage   (lazy)","    mi-perfil → MiPerfilPage   (lazy) ] }","{ path:'**', redirectTo:'areas' }"],
+      methods:[] },
+
+    appconfig: { x:810, y:365, w:300, name:'AppConfig', stereo:'«ApplicationConfig»', ...C.rut,
+      attrs:['provideRouter(appRoutes)','provideHttpClient(withInterceptors([','  authInterceptor,','  loggingInterceptor',']))','provideClientHydration()'],
+      methods:[] },
+
+    authstatustype: { x:1130, y:365, w:260, name:'AuthStatus', stereo:'«type union»', ...C.enu,
+      attrs:['"checking"  — token en localStorage, verificando','"authenticated"  — usuario autenticado','"not-authenticated"  — sin sesión activa'],
+      methods:[] },
+  };
+
+  for (const b of Object.values(B)) drawBox(gb, b);
+
+  // Guards use AuthService
+  conn(gc, B.isadmin,        'left',   B.authsvc_ref,  'top',    { mk:'dep-r', color:'#991b1b', dash:true, label:'injects' });
+  conn(gc, B.notauth,        'bottom', B.authsvc_ref,  'top',    { mk:'dep-r', color:'#991b1b', dash:true, label:'injects' });
+
+  // Interceptor uses AuthService.token
+  conn(gc, B.authinterceptor,'bottom', B.authsvc_ref,  'right',  { mk:'dep-p', color:'#6d28d9', dash:true, label:'token()' });
+
+  // AppRoutes references Guards
+  conn(gc, B.approutes,      'left',   B.isadmin,      'bottom', { mk:'nav-b', color:'#1d4ed8', label:'canActivate' });
+  conn(gc, B.approutes,      'left',   B.notauth,      'bottom', { mk:'nav-b', color:'#1d4ed8', label:'canMatch' });
+
+  // AppConfig includes interceptors and routes
+  conn(gc, B.appconfig,      'top',    B.authinterceptor,'bottom',{ mk:'nav',  color:'#64748b', dash:true });
+  conn(gc, B.appconfig,      'top',    B.loginterceptor, 'bottom',{ mk:'nav',  color:'#64748b', dash:true });
+
+  // AuthStatus note
+  conn(gc, B.isadmin,        'right',  B.authstatustype,'top',   { mk:'dep',   color:'#64748b', dash:true, label:'uses' });
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// INITIALIZE ALL PAGES
+// ════════════════════════════════════════════════════════════════════════════════
+renderP1();
+renderP2();
+renderP3();
+renderP4();
+renderP5();
+renderP6();
+</script>
+</body>
+</html>

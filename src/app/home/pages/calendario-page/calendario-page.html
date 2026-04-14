@@ -91,9 +91,9 @@
   </div>
 
   <!-- ── Gantt + Detail ── -->
-  <div class="flex gap-4 items-start">
+  <div class="flex flex-col lg:flex-row gap-4 items-start">
     <app-calendario-gantt
-      class="flex-1 min-w-0"
+      class="flex-1 min-w-0 w-full"
       [rows]="rows()"
       [months]="months()"
       [todayLeft]="todayLeft()"
@@ -102,7 +102,7 @@
     />
     @if (selectedProyecto(); as proyecto) {
       <app-calendario-detalle
-        class="w-72 flex-shrink-0"
+        class="w-full lg:w-72 lg:flex-shrink-0"
         [proyecto]="proyecto"
         [asignaciones]="selectedAsignaciones()"
         [status]="selectedStatus()!"
