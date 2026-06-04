@@ -1,0 +1,13 @@
+@if (loadingAreas()) {
+  <div>
+    <p>Cargando áreas...</p>
+  </div>
+} @else {
+  <div>
+    <ul>
+      @for (area of areas(); track area.id) {
+        <li>{{ area.nombre }}</li>
+      }
+    </ul>
+  </div>
+}

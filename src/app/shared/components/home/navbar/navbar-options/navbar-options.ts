@@ -69,5 +69,11 @@ export class NavbarOptions {
       route: '/mi-perfil',
       icon: 'profile',
     },
+    {
+      label: 'PAGE TEST',
+      sublabel: 'Gestiona tu cuenta',
+      route: '/test',
+      icon: 'profile',
+    },
   ];
 }

@@ -111,6 +111,7 @@ export const routes: Routes = [
       { path: 'calendario',  loadComponent: () => import('./home/pages/calendario-page/calendario-page') },
       { path: 'tablero',     loadComponent: () => import('./home/pages/tablero-page/tablero-page') },
       { path: 'graficas',    loadComponent: () => import('./home/pages/graficas-page/graficas-page') },
+      { path: 'test',    loadComponent: () => import('./home/pages/pagetest/pagetest') },
       { path: '', redirectTo: 'areas', pathMatch: 'full' } // Solo redirige si entras a localhost:4200/ exactamente
     ]
   },
