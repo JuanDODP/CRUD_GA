@@ -6,7 +6,7 @@
   <div>
     <ul>
       @for (area of areas(); track area.id) {
-        <li>{{ area.nombre }}</li>
+        <li>{{ area.nombre || area.fechaAsignacion | date }}</li>
       }
     </ul>
   </div>

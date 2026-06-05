@@ -1,6 +1,19 @@
-<app-test-component-btn-area (getAreas)="testService.getAreas()"/>
-<app-test-component-area
-  [loadingAreas]="testService.loadingAreas()"
-  [areas]="testService.areas()"
-/>
+<div>
 
+  <div>
+
+    <app-test-component-btn-area titleBtn="Traer áreas" (getAreas)="onClick()" />
+    <app-test-component-area [loadingAreas]="testService.loadingAreas()" [areas]="testService.areas()" />
+  </div>
+  <div>
+
+    <app-test-component-btn-area titleBtn="Traer asignaciones" (getAreas)="onClickAsignaciones()" />
+    <app-test-component-area [loadingAreas]="testService.loadingAsignaciones()" [areas]="testService.asignaciones()" />
+  </div>
+  <div>
+
+    <app-test-component-btn-area titleBtn="Traer Proyectos" (getAreas)="testService.getAreas()" />
+    <app-test-component-area [loadingAreas]="testService.loadingAreas()" [areas]="testService.areas()" />
+  </div>
+
+</div>

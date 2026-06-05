@@ -34,4 +34,40 @@ export class TestService {
         }
       });
   }
+  getAsignaciones(){
+    this.loadingAsignaciones.set(true);
+    this.http.get<any[]>(`${environment.baseUrl}/asignaciones`).pipe(
+      finalize(() => {
+        this.loadingAsignaciones.set(false);
+      })).subscribe({
+        next: (resp: any) => {
+          console.log("QUE TRAE EL GET DE ASIGNACIONES", resp);
+          this.asignaciones.set(resp.asignaciones);
+        },
+        error: (err: any) => {
+          console.log("ESTE ES EL ERROR DE ASIGNACIONES", err.response);
+        },
+        complete: () => {
+          console.log("GET DE ASIGNACIONES COMPLETADO");
+        }
+      });
+  }
+  getProyectos(){
+    this.loadingProyectos.set(true);
+    this.http.get<any[]>(`${environment.baseUrl}/proyectos`).pipe(
+      finalize(() => {
+        this.loadingProyectos.set(false);
+      })).subscribe({
+        next: (resp: any) => {
+          console.log("QUE TRAE EL GET DE PROYECTOS", resp);
+          this.proyectos.set(resp.proyectos);
+        },
+        error: (err: any) => {
+          console.log("ESTE ES EL ERROR DE PROYECTOS", err.response);
+        },
+        complete: () => {
+          console.log("GET DE PROYECTOS COMPLETADO");
+        }
+      });
+  }
 }

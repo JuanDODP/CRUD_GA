@@ -16,4 +16,7 @@ export default class Pagetest {
   onClick(){
     this.testService.getAreas();
   }
+  onClickAsignaciones(){
+    this.testService.getAsignaciones();
+  }
   }
